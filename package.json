@@ -1,0 +1,42 @@
+{
+  "name": "huayang-maintenance-quasar",
+  "version": "0.1.0",
+  "description": "检修项目信息管理系统",
+  "productName": "HuaYang Maintenance",
+  "cordovaId": "org.cordova.quasar.app",
+  "author": "huyg0180110559@outlook.com",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@kazupon/vue-i18n-loader": "^0.3.0",
+    "@types/vue": "^2.0.0",
+    "axios": "WhuRS-FGis/axios",
+    "moment": "^2.23.0",
+    "vue-i18n": "^8.7.0",
+    "vue-property-decorator": "^7.3.0",
+    "vue-router": "^3.0.2",
+    "vuex": "WhuRS-FGis/vuex",
+    "yaml-loader": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "@types/systemjs": "^0.20.6",
+    "@types/vue-router": "^2.0.0",
+    "quasar-cli": "^0.17.0",
+    "strip-ansi": "=3.0.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.2.2"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
+}
