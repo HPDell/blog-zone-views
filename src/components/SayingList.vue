@@ -16,8 +16,6 @@ import { Component } from "vue-property-decorator";
 import SayingComponent from './Saying.vue';
 import Axios from 'axios';
 
-import { Saying } from "../../../entity/Saying";
-
 @Component({
   components: {
     "my-saying": SayingComponent
