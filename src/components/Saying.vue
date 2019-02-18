@@ -11,21 +11,18 @@
         <span>2019年2月3日</span>
       </q-item-tile>
       <q-item-tile>
-        想把你写成一首歌，想养一只猫。想要回到每个场景，拨慢每只表。
-        我们在小孩和大人的转角盖一座城堡。
-        我们好好，好到疯掉，想找回失散多年双胞。
-        生命再长不过烟火落下了眼角，世界再大不过你我凝视的微笑。
+        {{ saying.content }}
       </q-item-tile>
-      <q-item-tile>
+      <q-item-tile v-if="saying.comments">
         <my-saying-comment></my-saying-comment>
       </q-item-tile>
     </q-item-main>
     <q-item-side right>
       <div class="row">
-        <q-btn flat icon="thumb_up" size="lg"></q-btn>
+        <q-btn flat round icon="thumb_up" size="md"></q-btn>
       </div>
       <div class="row">      
-        <q-btn flat icon="comment" size="lg"></q-btn>
+        <q-btn flat round icon="comment" size="md"></q-btn>
       </div>
     </q-item-side>
   </q-item>
@@ -33,8 +30,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import SayingCommentComponent from './SayingComment.vue';
+
+import Axios from 'axios';
+
+class Saying {
+  content: string;
+}
 
 @Component({
   components: {
@@ -42,7 +45,24 @@ import SayingCommentComponent from './SayingComment.vue';
   }
 })
 export default class SayingComponent extends Vue {
+  @Prop(String) id: string;
 
+  saying: Saying = new Saying();
+
+  async getSaying () {
+    try {
+      let response = await Axios.get<Saying>(`/api/saying/${this.id}/`);
+      if (response.data) {
+        this.saying = response.data;
+      }
+    } catch (error) {
+      console.log("getSaying error:", error);
+    }
+  }
+
+  async mounted () {
+    await this.getSaying();
+  }
 }
 </script>
 
