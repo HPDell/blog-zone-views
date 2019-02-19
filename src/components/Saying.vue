@@ -8,23 +8,20 @@
     <q-item-main>
       <q-item-tile sublabel class="q-mb-sm non-selectable">
         <span class="q-mr-md">HPDell</span>
-        <span>2019年2月3日</span>
+        <span>{{ dateString(saying.sayingDate) }}</span>
       </q-item-tile>
       <q-item-tile>
         {{ saying.content }}
       </q-item-tile>
-      <q-item-tile v-if="saying.comments">
+      <q-item-tile class="q-my-sm">
+        <q-btn flat dense icon="thumb_up" size="small" color="primary" label="0" class="on-left"></q-btn>
+        <q-btn flat dense icon="comment" size="small" color="secondary" label="0" class="on-left"></q-btn>
+        <q-btn flat dense icon="delete" size="small" color="negative" class="float-right" @click="deleteSaying"></q-btn>
+      </q-item-tile>
+      <q-item-tile v-if="saying.comments && saying.comments.length">
         <my-saying-comment></my-saying-comment>
       </q-item-tile>
     </q-item-main>
-    <q-item-side right>
-      <div class="row">
-        <q-btn flat round icon="thumb_up" size="md"></q-btn>
-      </div>
-      <div class="row">      
-        <q-btn flat round icon="comment" size="md"></q-btn>
-      </div>
-    </q-item-side>
   </q-item>
 </template>
 
@@ -34,10 +31,8 @@ import { Component, Prop } from "vue-property-decorator";
 import SayingCommentComponent from './SayingComment.vue';
 
 import Axios from 'axios';
-
-class Saying {
-  content: string;
-}
+import { Saying } from "../model/Saying";
+import * as moment from "moment";
 
 @Component({
   components: {
@@ -49,6 +44,12 @@ export default class SayingComponent extends Vue {
 
   saying: Saying = new Saying();
 
+  get dateString () {
+    return function (date: Date) {
+      return moment(date).format("YYYY年MM月DD日 HH:mm")
+    }
+  }
+
   async getSaying () {
     try {
       let response = await Axios.get<Saying>(`/api/saying/${this.id}/`);
@@ -57,6 +58,15 @@ export default class SayingComponent extends Vue {
       }
     } catch (error) {
       console.log("getSaying error:", error);
+    }
+  }
+
+  async deleteSaying () {
+    try {
+      let response = await Axios.delete(`/api/saying/${this.id}/`);
+      this.$emit("saying-deleted");
+    } catch (error) {
+      
     }
   }
 
