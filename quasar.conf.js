@@ -9,7 +9,8 @@ module.exports = function (ctx) {
     ],
     css: [
       'app.styl',
-      'flex.css'
+      'flex.css',
+      'code.css'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,

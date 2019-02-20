@@ -31,22 +31,25 @@
   </q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { openURL } from 'quasar'
 import NavComponent from "../components/Nav.vue"
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
-export default {
-  name: 'MyLayout',
-  data () {
-    return {
-      leftDrawerOpen: false
-    }
-  },
+@Component({
   methods: {
     openURL
   },
   components: {
     "my-nav": NavComponent
+  },
+})
+export default class MainLayout extends Vue {
+  leftDrawerOpen = false;
+
+  mounted () {
+    document.title = "HPDell 的空间"
   }
 }
 </script>

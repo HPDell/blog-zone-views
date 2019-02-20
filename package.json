@@ -1,8 +1,8 @@
 {
-  "name": "huayang-maintenance-quasar",
+  "name": "blog-zone-views",
   "version": "0.1.0",
-  "description": "检修项目信息管理系统",
-  "productName": "HuaYang Maintenance",
+  "description": "博客空间",
+  "productName": "博客空间",
   "cordovaId": "org.cordova.quasar.app",
   "author": "huyg0180110559@outlook.com",
   "private": true,

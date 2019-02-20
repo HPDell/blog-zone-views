@@ -92,4 +92,6 @@ declare module "quasar" {
     }
 
     export var Platform: PlatformInterface;
+
+    export var openURL: () => any;
 }
