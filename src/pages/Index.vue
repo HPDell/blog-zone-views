@@ -1,14 +1,14 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-lg-8 col-xs-12">
-      <div class="row">
+    <div class="col-lg-8 col-xs-12 flex-col">
+      <div class="row gt-md">
         <my-user></my-user>
       </div>
-      <div class="row gutter-sm">
+      <div class="row gutter-sm flex-item-fill">
         <div class="col-sm-3 gt-xs">
           <my-nav></my-nav>
         </div>
-        <div class="col-sm-9 col-xs-12">
+        <div class="col-sm-9 col-xs-12 flex-col">
           <router-view></router-view>
         </div>
       </div>

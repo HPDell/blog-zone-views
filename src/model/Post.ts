@@ -2,7 +2,7 @@ import { Tag } from "./Tag";
 import { Category } from "./Category";
 
 export class Post {
-    id: number;
+    id: string;
     title: string;
     content: string;
     tags: Tag[];

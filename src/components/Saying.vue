@@ -43,7 +43,6 @@ marked.setOptions({
   smartypants: false,
   highlight: function (code: string, lang: string) {
     if (lang && hljs.getLanguage(lang)) {
-      console.log(lang)
       return hljs.highlight(lang, code, true).value;
     } else {
       return hljs.highlightAuto(code).value;
