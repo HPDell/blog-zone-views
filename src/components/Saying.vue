@@ -105,7 +105,7 @@ export default class SayingComponent extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 h1 {
   font-size: 1.6em;
 }
@@ -130,7 +130,7 @@ h6 {
   font-size: 1.0em;
 }
 
-h1, h2, h3, h4, h5, h6, blockquote, p, img, ul, ol, dl {
+h1, h2, h3, h4, h5, h6, blockquote, p, ul, ol, dl {
   margin: 0.5em 0em;
   outline: none;
   border: 0;

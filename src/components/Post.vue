@@ -1,5 +1,8 @@
 <template>
   <q-card square flat>
+    <q-toolbar inverted>
+      <q-btn icon="arrow_left" flat label="返回列表" :to="{'name': 'posts'}"></q-btn>
+    </q-toolbar>
     <q-card-media class="non-selectable">
       <img src="https://hpdell.github.io/assets/cover/nigeru-wa-haji-daga-yaku-ni-tatsu.png" alt="">
     </q-card-media>
@@ -12,7 +15,7 @@
       </div>
     </q-card-title>
     <q-card-main>
-      
+      阅读全文
     </q-card-main>
     <q-card-separator></q-card-separator>
     <q-list no-border multiline link class="non-selectable">

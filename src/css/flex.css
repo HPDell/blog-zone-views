@@ -70,3 +70,7 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.flex-item-end {
+  align-self: flex-end !important;
+}

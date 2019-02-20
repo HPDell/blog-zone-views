@@ -3821,6 +3821,11 @@ moment@^2.23.0:
   version "2.24.0"
   resolved "http://registry.npm.taobao.org/moment/download/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
 
+monaco-editor@^0.15.6:
+  version "0.15.6"
+  resolved "http://registry.npm.taobao.org/monaco-editor/download/monaco-editor-0.15.6.tgz#d63b3b06f86f803464f003b252627c3eb4a09483"
+  integrity sha1-1js7BvhvgDRk8AOyUmJ8PrSglIM=
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
