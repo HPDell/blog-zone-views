@@ -15,7 +15,7 @@
             </div>
             <div class="row" slot="right">
               <q-btn icon="edit" flat round dense class="float-right" color="primary"></q-btn>
-              <q-btn icon="delete" flat round dense class="float-right" color="negative"></q-btn>
+              <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
             </div>
           </q-card-title>
           <q-card-main v-html="markedContent"></q-card-main>
@@ -92,6 +92,17 @@ export default class PostComponent extends Vue {
       }
     } catch (error) {
       console.log("getSaying error:", error);
+    }
+  }
+
+  async deletePost () {
+    try {
+      let response = await Axios.delete(`/api/post/${this.$route.params.id}/`);
+      this.$router.push({
+        name: "posts"
+      });
+    } catch (error) {
+      
     }
   }
 
