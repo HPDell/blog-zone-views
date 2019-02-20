@@ -15,7 +15,7 @@
     <q-item :to="{'name': 'posts'}">
       <q-item-side icon="comment"></q-item-side>
       <q-item-main>
-        <q-item-tile label>长文</q-item-tile>
+        <q-item-tile label>博文</q-item-tile>
       </q-item-main>
     </q-item>
     <q-item>

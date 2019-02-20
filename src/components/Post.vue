@@ -1,44 +1,40 @@
 <template>
   <div class="row flex-item-fill gutter-sm">
     <div class="col-lg-9 col-sm-12 flex-col">
-      <q-scroll-area class="flex-item-fill">
-        <q-card square flat>
-          <q-card-media class="non-selectable" v-if="post.cover">
-            <img :src="post.cover" alt="">
-          </q-card-media>
-          <q-card-title>
-            {{ post.title }}
-            <div class="row" slot="subtitle">
-              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="person"></q-icon>HPDell</span>
-              <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
-              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
-            </div>
-            <div class="row" slot="right">
-              <q-btn icon="edit" flat round dense class="float-right" color="primary"></q-btn>
-              <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
-            </div>
-          </q-card-title>
-          <q-card-main v-html="markedContent"></q-card-main>
-          <q-card-separator v-if="post.comments"></q-card-separator>
-          <q-list no-border multiline link class="non-selectable" v-if="post.comments">
-            <q-list-header>评论</q-list-header>
-            <q-item>
-              <q-item-side>
-                <q-item-tile>HPDell</q-item-tile>
-              </q-item-side>
-              <q-item-main>
-                在所有流失风景与人群中，你对我最好。
-              </q-item-main>
-            </q-item>
-          </q-list>
-        </q-card>
-      </q-scroll-area>
+      <q-card square flat>
+        <q-card-media class="non-selectable" v-if="post.cover">
+          <img :src="post.cover" alt="">
+        </q-card-media>
+        <q-card-title>
+          {{ post.title }}
+          <div class="row" slot="subtitle">
+            <span class="q-mr-lg"><q-icon class="q-mr-sm" name="person"></q-icon>HPDell</span>
+            <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
+            <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
+          </div>
+          <div class="row" slot="right">
+            <q-btn icon="edit" flat round dense class="float-right" color="primary"></q-btn>
+            <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
+          </div>
+        </q-card-title>
+        <q-card-main v-html="markedContent"></q-card-main>
+        <q-card-separator v-if="post.comments"></q-card-separator>
+        <q-list no-border multiline link class="non-selectable" v-if="post.comments">
+          <q-list-header>评论</q-list-header>
+          <q-item>
+            <q-item-side>
+              <q-item-tile>HPDell</q-item-tile>
+            </q-item-side>
+            <q-item-main>
+              在所有流失风景与人群中，你对我最好。
+            </q-item-main>
+          </q-item>
+        </q-list>
+        <my-post-sidebar class="lt-md"></my-post-sidebar>
+      </q-card>
     </div>
-    <div class="col-lg-3 col-xs-12">
-      <q-list no-border class="stick-top">
-        <q-list-header>分类</q-list-header>
-        <q-list-header>标签</q-list-header>
-      </q-list>
+    <div class="col-lg-3 gt-md">
+      <my-post-sidebar class="stick-top"></my-post-sidebar>
     </div>
   </div>
 </template>
@@ -52,6 +48,7 @@ import Axios from 'axios';
 import * as hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import * as marked from "marked";
+import PostSideBarComponent from './PostSideBar.vue';
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -70,7 +67,11 @@ marked.setOptions({
   }
 });
 
-@Component
+@Component({
+  components: {
+    'my-post-sidebar': PostSideBarComponent
+  }
+})
 export default class PostComponent extends Vue {
   post: Post = new Post();
 
