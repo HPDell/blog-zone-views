@@ -7,7 +7,7 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile sublabel>新的微文</q-item-tile>
-      <q-input type="textarea" v-model="saying.content"></q-input>
+      <q-input type="textarea" v-model="saying.content" autofocus></q-input>
     </q-item-main>
     <q-item-side right>
       <div class="row"><q-btn flat round dense icon="check" @click="submitSaying"></q-btn></div>
