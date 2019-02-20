@@ -10,9 +10,7 @@
         <span class="q-mr-md">HPDell</span>
         <span>{{ dateString(saying.sayingDate) }}</span>
       </q-item-tile>
-      <q-item-tile>
-        {{ saying.content }}
-      </q-item-tile>
+      <q-item-tile v-html="markedSaying"></q-item-tile>
       <q-item-tile class="q-my-sm">
         <q-btn flat dense icon="thumb_up" size="small" color="primary" label="0" class="on-left"></q-btn>
         <q-btn flat dense icon="comment" size="small" color="secondary" label="0" class="on-left"></q-btn>
@@ -29,10 +27,31 @@
 import Vue from 'vue'
 import { Component, Prop } from "vue-property-decorator";
 import SayingCommentComponent from './SayingComment.vue';
-
 import Axios from 'axios';
-import { Saying } from "../model/Saying";
 import * as moment from "moment";
+import * as hljs from "highlight.js";
+import "highlight.js/styles/github.css";
+import * as marked from "marked";
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code: string, lang: string) {
+    if (lang && hljs.getLanguage(lang)) {
+      console.log(lang)
+      return hljs.highlight(lang, code, true).value;
+    } else {
+      return hljs.highlightAuto(code).value;
+    }
+  }
+});
+
+import { Saying } from "../model/Saying";
 
 @Component({
   components: {
@@ -47,6 +66,16 @@ export default class SayingComponent extends Vue {
   get dateString () {
     return function (date: Date) {
       return moment(date).format("YYYY年MM月DD日 HH:mm")
+    }
+  }
+
+  get markedSaying () {
+    if (this.saying.content) {
+      return marked(this.saying.content, {
+        sanitize: true
+      });
+    } else {
+      return "";
     }
   }
 
@@ -76,6 +105,46 @@ export default class SayingComponent extends Vue {
 }
 </script>
 
-
 <style>
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.4em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1.1em;
+}
+
+h5 {
+  font-size: 1.0em;
+}
+
+h6 {
+  font-size: 1.0em;
+}
+
+h1, h2, h3, h4, h5, h6, blockquote, p, img, ul, ol, dl {
+  margin: 0.5em 0em;
+  outline: none;
+  border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.35;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+code {
+  font-family: 'Consolas', 'Helvetica Neue', Helvetica, 'Courier New', Courier, monospace
+}
 </style>
