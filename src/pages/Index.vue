@@ -1,12 +1,12 @@
 <template>
   <q-page class="row justify-center">
-    <div class="col-lg-8 col-xs-12 flex-col">
+    <div class="col-xl-8 col-xs-12 flex-col">
       <div class="row gt-md">
         <my-user></my-user>
       </div>
       <div class="row gutter-sm flex-item-fill">
         <div class="col-sm-3 gt-xs">
-          <my-nav></my-nav>
+          <my-nav class="stick-top"></my-nav>
         </div>
         <div class="col-sm-9 col-xs-12 flex-col">
           <router-view></router-view>
@@ -17,6 +17,10 @@
 </template>
 
 <style>
+.stick-top {
+  position: sticky;
+  top: 60px;
+}
 </style>
 
 <script lang="ts">

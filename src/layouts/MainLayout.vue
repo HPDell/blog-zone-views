@@ -10,7 +10,7 @@
             <q-icon name="menu" />
           </q-btn>
         </div>
-        <q-toolbar-title class="col-lg-8 col-12">
+        <q-toolbar-title class="col-xl-8 col-12">
           HPDell 的空间
           <!-- <div slot="subtitle">Running on Quasar v{{ $q.version }}</div> -->
         </q-toolbar-title>

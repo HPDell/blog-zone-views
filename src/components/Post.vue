@@ -1,6 +1,6 @@
 <template>
   <div class="row flex-item-fill gutter-sm">
-    <div class="col-9 flex-col">
+    <div class="col-lg-9 col-sm-12 flex-col">
       <q-scroll-area class="flex-item-fill">
         <q-card square flat>
           <q-card-media class="non-selectable" v-if="post.cover">
@@ -34,8 +34,8 @@
         </q-card>
       </q-scroll-area>
     </div>
-    <div class="col-3">
-      <q-list no-border>
+    <div class="col-lg-3 col-xs-12">
+      <q-list no-border class="stick-top">
         <q-list-header>分类</q-list-header>
         <q-list-header>标签</q-list-header>
       </q-list>
@@ -155,4 +155,8 @@ h1, h2, h3, h4, h5
 p 
   line-height 1.5;
   margin 1em 0em;
+
+.stick-top 
+  position sticky;
+  top 60px;
 </style>
