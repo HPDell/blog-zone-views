@@ -8106,6 +8106,11 @@ vue-i18n@^8.7.0:
   version "8.8.0"
   resolved "http://registry.npm.taobao.org/vue-i18n/download/vue-i18n-8.8.0.tgz#9454bd44cc5a75912478a641cb87c1feeed2e944"
 
+vue-infinite-loading@^2.4.3:
+  version "2.4.3"
+  resolved "http://registry.npm.taobao.org/vue-infinite-loading/download/vue-infinite-loading-2.4.3.tgz#fa34131a5c70c933b420d302e2a6dccf65095e17"
+  integrity sha1-+jQTGlxwyTO0INMC4qbcz2UJXhc=
+
 vue-loader@15.4.2:
   version "15.4.2"
   resolved "http://registry.npm.taobao.org/vue-loader/download/vue-loader-15.4.2.tgz#812bb26e447dd3b84c485eb634190d914ce125e2"

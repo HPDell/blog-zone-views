@@ -6,7 +6,8 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'axios',
-      'photo-preview'
+      'photo-preview',
+      'infinite-loading'
     ],
     css: [
       'app.styl',
