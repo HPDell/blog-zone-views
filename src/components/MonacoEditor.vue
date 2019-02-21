@@ -26,6 +26,11 @@ export default class MonacoEditorComponent extends Vue {
       });
       this.editor.onDidChangeModelContent(e => {
         this.$emit("input", this.editor.getValue());
+      });
+      this.editor.onKeyDown(e => {
+        if (e.ctrlKey && e.altKey && e.keyCode === monaco.KeyCode.KEY_V) {
+          
+        }
       })
     }
   }

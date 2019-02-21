@@ -11,6 +11,13 @@
         <span>{{ dateString(saying.sayingDate) }}</span>
       </q-item-tile>
       <q-item-tile v-html="markedSaying"></q-item-tile>
+      <q-item-tile>
+        <div class="row">
+          <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
+            <img :src="`/api/picture/${pic.id}`" style="width: 100%;">
+          </div>
+        </div>
+      </q-item-tile>
       <q-item-tile class="q-my-sm">
         <q-btn flat dense icon="thumb_up" size="small" color="primary" label="0" class="on-left"></q-btn>
         <q-btn flat dense icon="comment" size="small" color="secondary" label="0" class="on-left"></q-btn>
