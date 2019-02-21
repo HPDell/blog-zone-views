@@ -19,6 +19,7 @@ import { Component } from "vue-property-decorator";
 import SayingComponent from './Saying.vue';
 import Axios from 'axios';
 import SayingNew from './SayingNew.vue';
+import * as moment from "moment";
 
 @Component({
   components: {
@@ -33,7 +34,11 @@ export default class SayingListComponent extends Vue {
 
   async getSayingList () {
     try {
-      let response = await Axios.get<string[]>(`/api/saying/`);
+      let response = await Axios.get<string[]>(`/api/saying/`, {
+        params: {
+          t: moment().format("x")
+        }
+      });
       if (response.data) {
         this.sayingList = response.data;
       }

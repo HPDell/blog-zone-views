@@ -50,9 +50,10 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from "vue-property-decorator";
+import Axios from 'axios';
+import * as moment from "moment";
 
 import { Post } from "../model/Post";
-import Axios from 'axios';
 
 @Component
 export default class PostListComponent extends Vue {
@@ -60,7 +61,11 @@ export default class PostListComponent extends Vue {
 
   async getPostList () {
     try {
-      let response = await Axios.get<Post[]>(`/api/post/`);
+      let response = await Axios.get<Post[]>(`/api/post/`, {
+        params: {
+          t: moment().format("x")
+        }
+      });
       if (response.data) {
         this.postList = response.data;
       }

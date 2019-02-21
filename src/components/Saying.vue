@@ -12,7 +12,7 @@
       </q-item-tile>
       <q-item-tile v-html="markedSaying"></q-item-tile>
       <q-item-tile>
-        <div class="row">
+        <div class="row gutter-sm">
           <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
             <img :src="`/api/picture/${pic.id}`" style="width: 100%;">
           </div>

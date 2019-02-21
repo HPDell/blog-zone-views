@@ -8,6 +8,11 @@
     <q-item-main>
       <q-item-tile sublabel>新的微文</q-item-tile>
       <q-input type="textarea" v-model="saying.content" autofocus></q-input>
+      <q-item-tile class="row q-my-sm gutter-sm" v-if="preViewPictures.length">
+        <div class="col-4" v-for="(pic, index) in preViewPictures" :key="`saying-picture-preview-${index}`">
+          <img :src="pic" style="width: 100%;">
+        </div>
+      </q-item-tile>
       <input v-for="(pic, index) in pictures" :key="`saying-picture-${index}`" 
              type="file" :id="`image-input-${index}`" name="photo"
              v-show="false"/>
@@ -31,6 +36,8 @@ import Axios from "axios";
 export default class SayingNew extends Vue {
   saying: Saying = new Saying();
   pictures: Picture[] = [];
+  preViewPictures: string[] = [];
+  reader = new FileReader();
 
   async submitSaying () {
     try {
@@ -70,7 +77,9 @@ export default class SayingNew extends Vue {
           let uploadElement = this as any;
           let fileList = uploadElement.files as FileList;
           if (fileList.length) {
-            self.pictures[index].file = fileList[0];
+            let pic = self.pictures[index];
+            pic.file = fileList[0];
+            self.reader.readAsDataURL(pic.file);
           }
         }
         imageInput.click();
@@ -104,6 +113,14 @@ export default class SayingNew extends Vue {
 
   cancelNewSaying () {
     this.$emit("cancel-new-saying");
+  }
+
+  mounted () {
+    let self = this;
+    this.reader.onload = function () {
+      let dataUrl = this.result as string;
+      self.preViewPictures.push(dataUrl);
+    }
   }
 }
 </script>
