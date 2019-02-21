@@ -14,7 +14,7 @@
       <q-item-tile>
         <div class="row gutter-sm">
           <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
-            <img :src="`/api/picture/${pic.id}`" style="width: 100%;">
+            <img :src="`/api/picture/${pic.id}`" :preview="saying.id" style="width: 100%;">
           </div>
         </div>
       </q-item-tile>
@@ -90,6 +90,7 @@ export default class SayingComponent extends Vue {
       let response = await Axios.get<Saying>(`/api/saying/${this.id}/`);
       if (response.data) {
         this.saying = response.data;
+        this.$previewRefresh()
       }
     } catch (error) {
       console.log("getSaying error:", error);

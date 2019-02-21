@@ -10,7 +10,7 @@
       <q-input type="textarea" v-model="saying.content" autofocus></q-input>
       <q-item-tile class="row q-my-sm gutter-sm" v-if="preViewPictures.length">
         <div class="col-4" v-for="(pic, index) in preViewPictures" :key="`saying-picture-preview-${index}`">
-          <img :src="pic" style="width: 100%;">
+          <img :src="pic" style="width: 100%;" preview="saying-new-photo">
         </div>
       </q-item-tile>
       <input v-for="(pic, index) in pictures" :key="`saying-picture-${index}`" 
@@ -59,11 +59,15 @@ export default class SayingNew extends Vue {
 
   addPicture () {
     if (this.pictures.length) {
-      let lastIndex = this.pictures.length - 1;
-      if (this.pictures[lastIndex].file) {
-        this.pictures.push(new Picture());
+      if (this.pictures.length >= 9) {
+        return;
       } else {
-        this.pictures.splice(lastIndex, 1, new Picture());
+        let lastIndex = this.pictures.length - 1;
+        if (this.pictures[lastIndex].file) {
+          this.pictures.push(new Picture());
+        } else {
+          this.pictures.splice(lastIndex, 1, new Picture());
+        }
       }
     } else {
       this.pictures.push(new Picture());
