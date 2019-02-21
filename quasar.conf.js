@@ -44,7 +44,7 @@ module.exports = function (ctx) {
           ]
         });
       },
-      distDir: path.join(__dirname, "../public/")
+      distDir: path.join(__dirname, "./dist/")
     },
     devServer: {
       // https: true,
