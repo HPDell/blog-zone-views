@@ -10,7 +10,7 @@
       <q-input type="textarea" v-model="saying.content" autofocus></q-input>
       <input v-for="(pic, index) in pictures" :key="`saying-picture-${index}`" 
              type="file" :id="`image-input-${index}`" name="photo"
-             v-show="true"/>
+             v-show="false"/>
     </q-item-main>
     <q-item-side right>
       <div class="row"><q-btn flat round dense icon="check" @click="submitSaying"></q-btn></div>
