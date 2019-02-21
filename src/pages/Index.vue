@@ -1,15 +1,24 @@
 <template>
-  <q-page class="row justify-center">
-    <div class="col-xl-8 col-xs-12 flex-col">
-      <div class="row gt-md">
-        <my-user></my-user>
-      </div>
-      <div class="row gutter-sm flex-item-fill">
-        <div class="col-sm-3 gt-xs">
-          <my-nav class="stick-top"></my-nav>
+  <q-page class="fit flex-col">
+    <div class="row justify-center bg-primary q-mb-sm user-bar">
+      <div class="col-lg-8 col-xs-12">
+        <div class="flex-row vertical-center">
+          <q-btn flat round @click="toggleDrawer" aria-label="Menu" class="text-white vertical-middle lt-lg">
+            <q-icon name="menu"/>
+          </q-btn>
+          <my-user></my-user>
         </div>
-        <div class="col-sm-9 col-xs-12 flex-col">
-          <router-view></router-view>
+      </div>
+    </div>
+    <div class="row flex-item-fill justify-center q-mb-sm">
+      <div class="col-lg-8 col-xs-12 flex-col">
+        <div class="row gutter-sm flex-item-fill">
+          <div class="col-sm-3 gt-xs">
+            <my-nav class="stick-top"></my-nav>
+          </div>
+          <div class="col-sm-9 col-xs-12 flex-col">
+            <router-view></router-view>
+          </div>
         </div>
       </div>
     </div>
@@ -20,6 +29,12 @@
 .stick-top {
   position: sticky;
   top: 60px;
+}
+
+.user-bar {
+  position: sticky;
+  top: 0px;
+  z-index: 5000;
 }
 </style>
 
@@ -41,7 +56,9 @@ import UserComponent from '../components/User.vue';
   }
 })
 export default class IndexPage extends Vue {
-
+  toggleDrawer () {
+    this.$emit("toggle-drawer");
+  }
 }
 </script>
 

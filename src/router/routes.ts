@@ -5,28 +5,24 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [{
-      path: '',
-      component: () => import('pages/Index.vue'),
+      path: 'sayings/',
+      name: "sayings",
+      component: () => import('components/SayingList.vue')
+    }, {
+      path: 'posts/',
+      component: () => import('components/PostIndex.vue'),
       children: [{
-        path: 'sayings/',
-        name: "sayings",
-        component: () => import('components/SayingList.vue')
-      },{
-        path: 'posts/',
-        component: () => import('components/PostIndex.vue'),
-        children: [{
-          path: "",
-          name: "posts",
-          component: () => import('components/PostList.vue'),
-        },{
-          path: 'new/',
-          name: "post-new",
-          component: () => import('components/PostNew.vue')
-        },{
-          path: ':id/',
-          name: "post-detail",
-          component: () => import('components/Post.vue')
-        }]
+        path: "",
+        name: "posts",
+        component: () => import('components/PostList.vue'),
+      }, {
+        path: 'new/',
+        name: "post-new",
+        component: () => import('components/PostNew.vue')
+      }, {
+        path: ':id/',
+        name: "post-detail",
+        component: () => import('components/Post.vue')
       }]
     }]
   }

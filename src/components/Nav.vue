@@ -1,5 +1,5 @@
 <template>
-  <q-list link>
+  <q-list link :no-border="noBorder ? false: true">
     <q-item>
       <q-item-side icon="comment"></q-item-side>
       <q-item-main>
@@ -31,7 +31,12 @@
 export default {
   // name: 'ComponentName',
   data () {
-    return {}
+    return {
+      noBorder: !this.prop.border
+    }
+  },
+  prop: {
+    border: Boolean
   }
 }
 </script>

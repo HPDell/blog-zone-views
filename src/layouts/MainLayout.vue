@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-layout-header>
+    <!-- <q-layout-header>
       <q-toolbar
         color="primary"
         class="row flex-center"
@@ -12,21 +12,20 @@
         </div>
         <q-toolbar-title class="col-xl-8 col-12">
           HPDell 的空间
-          <!-- <div slot="subtitle">Running on Quasar v{{ $q.version }}</div> -->
         </q-toolbar-title>
       </q-toolbar>
-    </q-layout-header>
+    </q-layout-header> -->
 
     <q-layout-drawer
       v-model="leftDrawerOpen"
       :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
-      class="lg-sm"
+      class="lg-sm custom-drawer"
     >
-      <my-nav></my-nav>
+      <my-nav style="margin-top: 95px;" :border="false"></my-nav>
     </q-layout-drawer>
 
     <q-page-container>
-      <router-view />
+      <my-index class="fit" @toggle-drawer="leftDrawerOpen = !leftDrawerOpen"></my-index>
     </q-page-container>
   </q-layout>
 </template>
@@ -36,13 +35,15 @@ import { openURL } from 'quasar'
 import NavComponent from "../components/Nav.vue"
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import IndexPage from '../pages/Index.vue';
 
 @Component({
   methods: {
     openURL
   },
   components: {
-    "my-nav": NavComponent
+    "my-nav": NavComponent,
+    "my-index": IndexPage
   },
 })
 export default class MainLayout extends Vue {
@@ -54,5 +55,7 @@ export default class MainLayout extends Vue {
 }
 </script>
 
-<style>
+<style lang="stylus">
+.pswp
+  z-index 10000;
 </style>
