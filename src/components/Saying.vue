@@ -111,42 +111,42 @@ export default class SayingComponent extends Vue {
 }
 </script>
 
-<style scoped>
-h1 {
-  font-size: 1.6em;
-}
+<style lang="stylus">
+h1
+  font-size: 1.6em
 
-h2 {
-  font-size: 1.4em;
-}
+h2 
+  font-size 1.4em
 
-h3 {
-  font-size: 1.2em;
-}
+h3 
+  font-size 1.2em
 
-h4 {
-  font-size: 1.1em;
-}
+h4 
+  font-size 1.1em
 
-h5 {
-  font-size: 1.0em;
-}
+h5 
+  font-size 1.0em
 
-h6 {
-  font-size: 1.0em;
-}
+h6 
+  font-size 1.0em
 
-h1, h2, h3, h4, h5, h6, blockquote, p, ul, ol, dl {
-  margin: 0.5em 0em;
-  outline: none;
-  border: 0;
-}
+h1, h2, h3, h4, h5, h6, ul, ol, dl 
+  margin 0.5em 0em;
+  outline none;
+  border 0;
 
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.35;
-}
+blockquote 
+  border-left 3px #027be3 solid;
+  margin 0.5em 0em;
+  font-size 1em;
 
-h1, h2, h3, h4, h5 {
-  font-weight: bold;
+h1, h2, h3, h4, h5, h6 
+  line-height 1.35;
+
+h1, h2, h3, h4, h5 
+  font-weight bold;
+
+ul:last-child, ol:last-child {
+  margin-bottom 1.2em;
 }
 </style>
