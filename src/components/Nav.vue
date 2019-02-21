@@ -1,5 +1,5 @@
 <template>
-  <q-list link :no-border="noBorder ? false: true">
+  <q-list link :no-border="!border">
     <q-item>
       <q-item-side icon="comment"></q-item-side>
       <q-item-main>
@@ -27,19 +27,16 @@
   </q-list>
 </template>
 
-<script>
-export default {
-  // name: 'ComponentName',
-  data () {
-    return {
-      noBorder: !this.prop.border
-    }
-  },
-  prop: {
-    border: Boolean
-  }
+<script lang="ts">
+import Vue from 'vue'
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class NavComponent extends Vue {
+  @Prop(Boolean) border!: boolean;
 }
 </script>
+
 
 <style>
 </style>

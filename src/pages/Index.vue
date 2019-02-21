@@ -14,7 +14,7 @@
       <div class="col-lg-8 col-xs-12 flex-col">
         <div class="row gutter-sm flex-item-fill">
           <div class="col-sm-3 gt-xs">
-            <my-nav class="stick-top"></my-nav>
+            <my-nav class="stick-top" :border="true"></my-nav>
           </div>
           <div class="col-sm-9 col-xs-12 flex-col">
             <router-view></router-view>
@@ -28,7 +28,7 @@
 <style>
 .stick-top {
   position: sticky;
-  top: 60px;
+  top: 100px;
 }
 
 .user-bar {

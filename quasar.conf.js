@@ -82,6 +82,7 @@ module.exports = function (ctx) {
         'QDatetimePicker',
         'QField',
         'QIcon',
+        'QInfiniteScroll',
         'QInput',
         'QItem',
         'QItemMain',
