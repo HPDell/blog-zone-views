@@ -3,7 +3,7 @@
     <q-list separator>
       <q-toolbar inverted color="primary">
         <q-toolbar-title>HPDell的 {{ sayingList.length }} 篇微文</q-toolbar-title>
-        <q-btn flat round icon="add" @click="newSaying = true"></q-btn>
+        <q-btn flat round icon="add" @click="newSaying = true" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-toolbar>
       <my-saying-new v-if="newSaying" @post-new-saying="onPostNewSaying()" @cancel-new-saying="onCancelNewSaying()"></my-saying-new>
       <template v-if="sayingList.length > 0">

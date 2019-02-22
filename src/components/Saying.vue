@@ -21,7 +21,7 @@
       <q-item-tile class="q-my-sm">
         <q-btn flat dense icon="thumb_up" size="small" color="primary" label="0" class="on-left"></q-btn>
         <q-btn flat dense icon="comment" size="small" color="secondary" label="0" class="on-left"></q-btn>
-        <q-btn flat dense icon="delete" size="small" color="negative" class="float-right" @click="deleteSaying"></q-btn>
+        <q-btn flat dense icon="delete" size="small" color="negative" class="float-right" @click="deleteSaying" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-item-tile>
       <q-item-tile v-if="saying.comments && saying.comments.length">
         <my-saying-comment></my-saying-comment>
