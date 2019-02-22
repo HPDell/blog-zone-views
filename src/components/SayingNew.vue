@@ -7,7 +7,7 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile sublabel>新的微文</q-item-tile>
-      <q-input type="textarea" v-model="saying.content" autofocus></q-input>
+      <q-input type="textarea" v-model="saying.content" autofocus @paste="onPaste"></q-input>
       <q-item-tile class="row q-my-sm gutter-sm" v-if="preViewPictures.length">
         <div class="col-4" v-for="(pic, index) in preViewPictures" :key="`saying-picture-preview-${index}`">
           <img :src="pic" style="width: 100%;" preview="saying-new-photo">
@@ -117,6 +117,46 @@ export default class SayingNew extends Vue {
 
   cancelNewSaying () {
     this.$emit("cancel-new-saying");
+  }
+
+  onPaste (e: ClipboardEvent) {
+    if (!(e.clipboardData && e.clipboardData.items)) {
+      return;
+    }
+    let dataList = e.clipboardData.items;
+    if (dataList.length) {
+      let pasteData = dataList[0];
+      if (pasteData.kind === "file" && pasteData.type.startsWith("image")) {
+        let pasteFile = pasteData.getAsFile();
+        if (pasteFile) {
+          let pic = new Picture();
+          pic.file = pasteFile;
+          this.pictures.push(pic);
+          this.reader.readAsDataURL(pasteFile);
+        }
+      }
+    }
+  }
+
+  onDrop (e: DragEvent) {
+    e.preventDefault();
+    if (!(e.dataTransfer && e.dataTransfer.files)) {
+      return
+    }
+    let dataList = e.dataTransfer.files
+    for (let i = 0; i < dataList.length; i++) {
+      const element = dataList[i];
+      if (element.type.startsWith("image")) {
+        let pic = new Picture();
+        pic.file = element;
+        this.pictures.push(pic);
+        this.reader.readAsDataURL(element);
+      }
+    }
+  }
+
+  allowDrop (ev: DragEvent) {
+    ev.preventDefault();
   }
 
   mounted () {
