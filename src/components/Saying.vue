@@ -2,7 +2,7 @@
   <q-item multiline>
     <q-item-side>
       <q-item-tile avatar>
-        <img src="statics/quasar-logo.png" alt="">
+        <img src="/login/avatar/avatar.jpg" alt="">
       </q-item-tile>
     </q-item-side>
     <q-item-main>

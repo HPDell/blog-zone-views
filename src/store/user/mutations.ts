@@ -5,6 +5,7 @@ export function updateUser (state: UserState, userInfo: UserInfo) {
     state.user = userInfo.name;
     state.token = userInfo.token;
     state.canEdit = true;
+    state.avatar = userInfo.avatar;
 }
 
 export function logout (state: UserState) {

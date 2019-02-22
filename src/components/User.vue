@@ -2,7 +2,7 @@
   <q-item class="non-selectable q-my-xs q-px-none">
     <q-item-side>
       <q-item-tile avatar>
-        <img src="statics/quasar-logo.png" alt="">
+        <img :src="avatar" alt="">
       </q-item-tile>
     </q-item-side>
     <q-item-main>
@@ -69,6 +69,17 @@ export default class UserComponent extends Vue {
   closeLoginDialog () {
     this.loginModelOpened = false;
   }
+
+  avatar: string = "/login/avatar/avatar.jpg";
+
+  // get avatar () {
+  //   console.log(this.$store.state.userModule.avatar)
+  //   if (this.$store.state.userModule.avatar) {
+  //     return `/login/avatar/${this.$store.state.userModule.avatar}`
+  //   } else {
+  //     return "statics/quasar-logo.png";
+  //   }
+  // }
 
   async login () {
     try {

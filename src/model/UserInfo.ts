@@ -3,4 +3,5 @@ export class UserInfo {
     name: string;
     description: string;
     token: string;
+    avatar: string;
 }
