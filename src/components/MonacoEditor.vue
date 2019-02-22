@@ -1,5 +1,5 @@
 <template>
-  <div id="monaco-editor" ref="monaco" @paste="onPaste"></div>
+  <div id="monaco-editor" ref="monaco" @paste="onPaste" @drop="onDrop" @dragover="allowDrop"></div>
 </template>
 
 <script lang="ts">
@@ -79,7 +79,6 @@ export default class MonacoEditorComponent extends Vue {
     if (dataList.length) {
       let pasteData = dataList[0];
       if (pasteData.kind === "file" && pasteData.type.startsWith("image")) {
-        console.log("paste Image");
         let pasteFile = pasteData.getAsFile();
         if (pasteFile) {
           let pictureID = await this.uploadPicture(pasteFile);
@@ -89,6 +88,30 @@ export default class MonacoEditorComponent extends Vue {
         }
       }
     }
+  }
+
+  async onDrop (e: DragEvent) {
+    e.preventDefault();
+    console.log("monaco onDrop")
+    if (!(e.dataTransfer && e.dataTransfer.files)) {
+      return
+    }
+    console.log("monaco drop transfer", e.dataTransfer.files, e.dataTransfer.items)
+    let dataList = e.dataTransfer.files
+    for (let i = 0; i < dataList.length; i++) {
+      const element = dataList[i];
+      console.log("monaco drop" + element.type)
+      if (element.type.startsWith("image")) {
+        let pictureID = await this.uploadPicture(element);
+        if (pictureID) {
+          this.insertImage(pictureID);
+        }
+      }
+    }
+  }
+
+  allowDrop (ev: DragEvent) {
+    ev.preventDefault();
   }
 }
 </script>
