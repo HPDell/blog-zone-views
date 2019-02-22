@@ -108,7 +108,11 @@ export default class SayingNew extends Vue {
             successNum = successNum + 1;
           }
         } catch (error) {
-          console.log(`图片${this.pictures.indexOf(pic)}提交失败`, error);
+          this.$q.notify({
+            message: `图片${this.pictures.indexOf(pic)}提交失败`,
+            type: "negative",
+            position: "top"
+          });
         }
       }
     }

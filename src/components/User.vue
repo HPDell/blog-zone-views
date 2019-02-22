@@ -77,6 +77,11 @@ export default class UserComponent extends Vue {
         password: this.password
       });
       if (response.data) {
+        this.$q.notify({
+          message: `登录成功`,
+          type: "negative",
+          position: "top"
+        });
         this.$store.commit("updateUser", response.data);
         if (this.remember) {
           localStorage.setItem("remember", `${this.remember}`);
@@ -85,7 +90,11 @@ export default class UserComponent extends Vue {
         this.closeLoginDialog();
       }
     } catch (error) {
-      console.log("登陆失败");
+      this.$q.notify({
+        message: `登录失败`,
+        type: "negative",
+        position: "top"
+      });
       this.closeLoginDialog();
     }
   }
@@ -100,7 +109,11 @@ export default class UserComponent extends Vue {
           this.$store.commit("updateUser", response.data);
         }
       } catch (error) {
-        console.log("登陆失败");
+        this.$q.notify({
+          message: `自动登录失败`,
+          type: "negative",
+          position: "top"
+        });
       }
     }
   }

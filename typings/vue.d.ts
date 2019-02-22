@@ -8,6 +8,7 @@ import { DialogConfig, PlatformInterface } from "quasar";
 interface VueQuasar {
     dialog: (configObj: DialogConfig) => Promise<void>;
     platform: PlatformInterface;
+    notify: (config: any) => Function;
 }
 
 declare module 'vue/types/vue' {

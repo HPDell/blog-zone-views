@@ -70,7 +70,11 @@ export default class PostListComponent extends Vue {
         this.postList = response.data;
       }
     } catch (error) {
-      console.log("getSaying error:", error);
+      this.$q.notify({
+        message: "获取博文列表失败",
+        type: "negative",
+        position: "top"
+      })
     }
   }
 

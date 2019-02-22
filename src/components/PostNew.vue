@@ -108,7 +108,11 @@ export default class PostNewComponent extends Vue {
         })
       }
     } catch (error) {
-      
+      this.$q.notify({
+        message: "发表博文失败",
+        type: "negative",
+        position: "top"
+      })
     }
   }
 

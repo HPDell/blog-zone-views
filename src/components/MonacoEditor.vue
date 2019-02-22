@@ -47,7 +47,11 @@ export default class MonacoEditorComponent extends Vue {
         return response.data.id as string;
       }
     } catch (error) {
-      console.log(`图片上传失败`, error);
+      this.$q.notify({
+        message: "图片上传失败",
+        type: "negative",
+        position: "top"
+      })
     }
   }
 

@@ -43,7 +43,11 @@ export default class SayingListComponent extends Vue {
         this.sayingList = response.data;
       }
     } catch (error) {
-      console.log("getSaying error:", error);
+      this.$q.notify({
+        message: `获取微文列表失败`,
+        type: "negative",
+        position: "top"
+      });
     }
   }
 

@@ -93,7 +93,11 @@ export default class SayingComponent extends Vue {
         this.$previewRefresh()
       }
     } catch (error) {
-      console.log("getSaying error:", error);
+      this.$q.notify({
+        message: `获取微文 ${this.id} 失败`,
+        type: "negative",
+        position: "top"
+      });
     }
   }
 
