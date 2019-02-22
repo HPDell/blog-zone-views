@@ -37,7 +37,7 @@
     </q-item>
     <q-toolbar inverted>
       <q-btn flat icon="check" label="提交" @click="submitNewPost"></q-btn>
-      <q-btn flat icon="check" label="预览" @click="previewMode = !previewMode"></q-btn>
+      <q-btn flat icon="check" :label="previewMode ? '代码' : '预览'" @click="previewMode = !previewMode"></q-btn>
     </q-toolbar>
   </q-list>
 </template>

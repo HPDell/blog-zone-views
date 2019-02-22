@@ -1,17 +1,20 @@
 <template>
-  <div id="monaco-editor" ref="monaco"></div>
+  <div id="monaco-editor" ref="monaco" @paste="onPaste"></div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 import * as monaco from 'monaco-editor';
+import { Picture } from '../model/Picture';
+import Axios from 'axios';
 
 @Component
 export default class MonacoEditorComponent extends Vue {
   @Prop(String) value: string;
 
   editor!: monaco.editor.IStandaloneCodeEditor;
+  pictureList: Picture[] = [];
 
   initMonacoEditor () {
     let editorContainer = this.$refs.monaco
@@ -27,16 +30,65 @@ export default class MonacoEditorComponent extends Vue {
       this.editor.onDidChangeModelContent(e => {
         this.$emit("input", this.editor.getValue());
       });
-      this.editor.onKeyDown(e => {
-        if (e.ctrlKey && e.altKey && e.keyCode === monaco.KeyCode.KEY_V) {
-          
-        }
-      })
+      
     }
   }
 
   mounted () {
     this.initMonacoEditor();
+  }
+
+  async uploadPicture (pic: File) {
+    try {
+      let formData = new FormData();
+      formData.append("photos", pic);
+      let response = await Axios.post<Picture>(`/api/picture/`, formData);
+      if (response.data) {
+        return response.data.id as string;
+      }
+    } catch (error) {
+      console.log(`图片上传失败`, error);
+    }
+  }
+
+  insertImage (pictureID: string) {
+    let model = this.editor.getModel();
+    if (model) {
+      let position = this.editor.getPosition();
+      if (position) {
+        // model.pushEditOperations([], [{
+        //   range: new monaco.Range(selection.endLineNumber, selection.endColumn, selection.endLineNumber, selection.endColumn),
+        //   text: `/api/picture/${pictureID}`
+        // }], (inverseEditOperations: monaco.editor.IIdentifiedSingleEditOperation[]) => {
+        //   inverseEditOperations[0]
+        // })
+        let pictureString = `![](/api/picture/${pictureID}/)`;
+        this.editor.executeEdits("", [{
+          range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column),
+          text: pictureString
+        }]);
+      }
+    }
+  }
+
+  async onPaste (e: ClipboardEvent) {
+    if (!(e.clipboardData && e.clipboardData.items)) {
+      return;
+    }
+    let dataList = e.clipboardData.items;
+    if (dataList.length) {
+      let pasteData = dataList[0];
+      if (pasteData.kind === "file" && pasteData.type.startsWith("image")) {
+        console.log("paste Image");
+        let pasteFile = pasteData.getAsFile();
+        if (pasteFile) {
+          let pictureID = await this.uploadPicture(pasteFile);
+          if (pictureID) {
+            this.insertImage(pictureID);
+          }
+        }
+      }
+    }
   }
 }
 </script>
