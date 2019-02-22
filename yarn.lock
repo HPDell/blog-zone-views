@@ -679,6 +679,11 @@
   resolved "http://registry.npm.taobao.org/@types/marked/download/@types/marked-0.6.1.tgz#4281d0fbdb7bbefb69905cf44558297bc3c446aa"
   integrity sha1-QoHQ+9t7vvtpkFz0RVgpe8PERqo=
 
+"@types/mathjax@^0.0.35":
+  version "0.0.35"
+  resolved "http://registry.npm.taobao.org/@types/mathjax/download/@types/mathjax-0.0.35.tgz#9b7e69dc49f4d105ad7b992775b3fba412889543"
+  integrity sha1-m35p3En00QWte5kndbP7pBKIlUM=
+
 "@types/node@^10.12.18":
   version "10.12.21"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.21.tgz#7e8a0c34cf29f4e17a36e9bd0ea72d45ba03908e"

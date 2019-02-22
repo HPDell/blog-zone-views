@@ -37,7 +37,7 @@
     </q-item>
     <q-toolbar inverted>
       <q-btn flat icon="check" label="提交" @click="submitNewPost"></q-btn>
-      <q-btn flat icon="check" :label="previewMode ? '代码' : '预览'" @click="previewMode = !previewMode"></q-btn>
+      <q-btn flat icon="check" :label="previewMode ? '代码' : '预览'" @click="togglePreview"></q-btn>
     </q-toolbar>
   </q-list>
 </template>
@@ -85,13 +85,16 @@ export default class PostNewComponent extends Vue {
 
   previewMode: boolean = false;
 
-  get markedContent () {
+  markedContent: string = "";
+
+  renderContent () {
     if (this.post.content) {
-      return marked(this.post.content, {
+      this.markedContent = marked(this.post.content, {
         sanitize: true
       });
-    } else {
-      return "";
+      setTimeout(() => {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }, 100);
     }
   }
 
@@ -120,6 +123,13 @@ export default class PostNewComponent extends Vue {
     this.$router.push({
       name: "posts"
     });
+  }
+
+  togglePreview () {
+    this.previewMode = !this.previewMode;
+    if (this.previewMode) {
+      this.renderContent();
+    }
   }
 
   beforeRouteEnter (to: Route, from: Route, next: Function) {
