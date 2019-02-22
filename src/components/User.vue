@@ -7,15 +7,17 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile label class="text-white">
-        HPDell
+        HPDell 的博客空间
       </q-item-tile>
-      <q-item-tile sublabel class="text-white text-no-wrap">
+      <q-item-tile sublabel lines="1" class="text-white text-truncate text-no-wrap">
         我们在小孩和大人的转角盖一座城堡
       </q-item-tile>
     </q-item-main>
     <q-item-side right>
-      <q-btn flat label="注销" color="white" @click="logout" v-if="$store.state.userModule.token"></q-btn>
-      <q-btn flat label="登陆" color="white" @click="openLoginDialog" v-else></q-btn>
+      <q-btn-group flat>
+        <q-btn flat label="注销" color="white" @click="logout" v-if="$store.state.userModule.token"></q-btn>
+        <q-btn flat label="登陆" color="white" @click="openLoginDialog" v-else></q-btn>
+      </q-btn-group>
     </q-item-side>
     <q-modal v-model="loginModelOpened" position="top">
       <q-card>

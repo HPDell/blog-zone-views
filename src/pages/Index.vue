@@ -3,9 +3,11 @@
     <div class="row justify-center bg-primary user-bar">
       <div class="col-xl-8 col-xs-12">
         <div class="flex-row vertical-center">
-          <q-btn flat round @click="toggleDrawer" aria-label="Menu" class="text-white vertical-middle lt-lg">
-            <q-icon name="menu"/>
-          </q-btn>
+          <q-btn-group flat>
+            <q-btn flat round @click="toggleDrawer" aria-label="Menu" class="text-white vertical-middle lt-lg">
+              <q-icon name="menu"/>
+            </q-btn>
+          </q-btn-group>
           <my-user class="flex-item-fill"></my-user>
         </div>
       </div>
