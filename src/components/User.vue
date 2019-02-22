@@ -79,7 +79,7 @@ export default class UserComponent extends Vue {
       if (response.data) {
         this.$q.notify({
           message: `登录成功`,
-          type: "negative",
+          type: "positive",
           position: "top"
         });
         this.$store.commit("updateUser", response.data);

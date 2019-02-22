@@ -75,13 +75,16 @@ export default class SayingComponent extends Vue {
     }
   }
 
-  get markedSaying () {
+  markedSaying: string = "";
+
+  renderContent () {
     if (this.saying.content) {
-      return marked(this.saying.content, {
+      this.markedSaying = marked(this.saying.content, {
         sanitize: true
       });
-    } else {
-      return "";
+      setTimeout(() => {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }, 100);
     }
   }
 
@@ -90,6 +93,7 @@ export default class SayingComponent extends Vue {
       let response = await Axios.get<Saying>(`/api/saying/${this.id}/`);
       if (response.data) {
         this.saying = response.data;
+        this.renderContent();
         this.$previewRefresh()
       }
     } catch (error) {

@@ -75,13 +75,16 @@ marked.setOptions({
 export default class PostComponent extends Vue {
   post: Post = new Post();
 
-  get markedContent () {
+  markedContent: string = "";
+
+  renderContent () {
     if (this.post.content) {
-      return marked(this.post.content, {
+      this.markedContent = marked(this.post.content, {
         sanitize: true
       });
-    } else {
-      return "";
+      setTimeout(() => {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }, 100);
     }
   }
 
@@ -90,6 +93,7 @@ export default class PostComponent extends Vue {
       let response = await Axios.get<Post>(`/api/post/${this.$route.params.id}/`);
       if (response.data) {
         this.post = response.data;
+        this.renderContent();
       }
     } catch (error) {
       console.log("getSaying error:", error);
