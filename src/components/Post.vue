@@ -12,7 +12,7 @@
             <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
             <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
           </div>
-          <div class="row" slot="right">
+          <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
             <q-btn icon="edit" flat round dense class="float-right" color="primary"></q-btn>
             <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
           </div>

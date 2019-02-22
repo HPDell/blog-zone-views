@@ -59,7 +59,14 @@ module.exports = function (ctx) {
           pathRewrite: {
             '^/api': '/api'
           }
-        }
+        },
+        '/login': {
+          target: "http://localhost:3000/",
+          changeOrigin: true,
+          pathRewrite: {
+            '^/login': '/login'
+          }
+        },
       }
     },
     // framework: 'all' --- includes everything; for dev only!

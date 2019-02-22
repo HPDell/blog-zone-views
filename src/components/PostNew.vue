@@ -52,6 +52,7 @@ import * as hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import * as marked from "marked";
 import Axios from 'axios';
+import { Route } from 'vue-router';
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
@@ -69,6 +70,8 @@ marked.setOptions({
     }
   }
 });
+
+Component.registerHooks(["beforeRouteEnter"]);
 
 @Component({
   components: {
@@ -113,6 +116,15 @@ export default class PostNewComponent extends Vue {
     this.$router.push({
       name: "posts"
     });
+  }
+
+  beforeRouteEnter (to: Route, from: Route, next: Function) {
+    next((vm: Vue) => {
+      console.log("beforeRouteEnter", vm.$store.state.userModule.canEdit)
+      if (!vm.$store.state.userModule.canEdit) {
+        vm.$router.back();
+      }
+    })
   }
 }
 </script>

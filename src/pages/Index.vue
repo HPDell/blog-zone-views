@@ -1,17 +1,17 @@
 <template>
   <q-page class="fit flex-col">
     <div class="row justify-center bg-primary q-mb-sm user-bar">
-      <div class="col-lg-8 col-xs-12">
+      <div class="col-xl-8 col-xs-12">
         <div class="flex-row vertical-center">
           <q-btn flat round @click="toggleDrawer" aria-label="Menu" class="text-white vertical-middle lt-lg">
             <q-icon name="menu"/>
           </q-btn>
-          <my-user></my-user>
+          <my-user class="flex-item-fill"></my-user>
         </div>
       </div>
     </div>
     <div class="row flex-item-fill justify-center q-mb-sm">
-      <div class="col-lg-8 col-xs-12 flex-col">
+      <div class="col-xl-8 col-xs-12 flex-col">
         <div class="row gutter-sm flex-item-fill">
           <div class="col-sm-3 gt-xs">
             <my-nav class="stick-top" :border="true"></my-nav>
@@ -28,7 +28,7 @@
 <style>
 .stick-top {
   position: sticky;
-  top: 100px;
+  top: 50px;
 }
 
 .user-bar {
