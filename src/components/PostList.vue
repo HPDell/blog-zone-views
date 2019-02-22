@@ -21,7 +21,7 @@
           <q-card-actions align="between">
             <q-btn flat icon="link" label="阅读全文" color="primary" :to="{'name': 'post-detail', 'params': {'id': post.id}}"></q-btn>
             <q-btn-group flat rounded>
-              <q-btn flat dense icon="thumb_up" size="sm" label="15" class="no-pointer-events"></q-btn>
+              <q-btn flat dense icon="thumb_up" size="sm" label="0" class="no-pointer-events"></q-btn>
               <q-btn flat dense icon="comment" size="sm" label="0" class="no-pointer-events"></q-btn>
             </q-btn-group>
           </q-card-actions>
