@@ -136,6 +136,16 @@ export default class SayingNew extends Vue {
         }
       }
     }
+    let fileList = e.clipboardData.files;
+    if (fileList.length) {
+      let pasteFile = fileList[0];
+      if (pasteFile.type.startsWith("image")) {
+        let pic = new Picture();
+        pic.file = pasteFile;
+        this.pictures.push(pic);
+        this.reader.readAsDataURL(pasteFile);
+      }
+    }
   }
 
   onDrop (e: DragEvent) {
