@@ -20,4 +20,5 @@ yarn-error.log*
 *.sln
 
 # Middle JavaScript Files
-/src/**/*.js
+src/**/*.js*
+!src/plugins/*.js

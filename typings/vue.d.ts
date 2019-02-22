@@ -8,14 +8,16 @@ import { DialogConfig, PlatformInterface } from "quasar";
 interface VueQuasar {
     dialog: (configObj: DialogConfig) => Promise<void>;
     platform: PlatformInterface;
+    notify: (config: any) => Function;
 }
 
 declare module 'vue/types/vue' {
     interface Vue {
         //@ts-ignore
         $store: Store<State>;
-        $router: VueRouter,
-        $route: Route,
-        $q: VueQuasar
+        $router: VueRouter;
+        $route: Route;
+        $q: VueQuasar;
+        $previewRefresh: () => void;
     }
 }

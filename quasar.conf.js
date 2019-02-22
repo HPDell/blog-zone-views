@@ -5,11 +5,15 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
-      'axios'
+      'axios',
+      'photo-preview',
+      'infinite-loading'
     ],
     css: [
       'app.styl',
-      'flex.css'
+      'flex.css',
+      'code.css',
+      'mathjax.css'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
@@ -23,7 +27,7 @@ module.exports = function (ctx) {
       scopeHoisting: true,
       // vueRouterMode: 'history',
       // vueCompiler: true,
-      // gzip: true,
+      gzip: true,
       // analyze: true,
       // extractCSS: false,
       extendWebpack (cfg) {
@@ -43,7 +47,7 @@ module.exports = function (ctx) {
           ]
         });
       },
-      distDir: path.join(__dirname, "../public/")
+      distDir: path.join(__dirname, "./dist/")
     },
     devServer: {
       // https: true,
@@ -54,9 +58,16 @@ module.exports = function (ctx) {
           target: "http://localhost:3000/",
           changeOrigin: true,
           pathRewrite: {
-            '^/api': ''
+            '^/api': '/api'
           }
-        }
+        },
+        '/login': {
+          target: "http://localhost:3000/",
+          changeOrigin: true,
+          pathRewrite: {
+            '^/login': '/login'
+          }
+        },
       }
     },
     // framework: 'all' --- includes everything; for dev only!
@@ -80,6 +91,7 @@ module.exports = function (ctx) {
         'QDatetimePicker',
         'QField',
         'QIcon',
+        'QInfiniteScroll',
         'QInput',
         'QItem',
         'QItemMain',
