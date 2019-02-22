@@ -13,7 +13,7 @@
     <div class="row flex-item-fill justify-center q-mb-sm">
       <div class="col-xl-8 col-xs-12 flex-col">
         <div class="row gutter-sm flex-item-fill">
-          <div class="col-sm-3 gt-xs">
+          <div class="col-sm-3 gt-xs q-mt-sm">
             <my-nav class="stick-top" :border="true"></my-nav>
           </div>
           <div class="col-sm-9 col-xs-12 flex-col">
