@@ -1,5 +1,5 @@
 <template>
-  <q-item class="non-selectable q-my-xs q-px-none">
+  <q-item class="non-selectable q-my-xs q-px-none" style="width: 80%;">
     <q-item-side>
       <q-item-tile avatar>
         <img :src="avatar" alt="">
