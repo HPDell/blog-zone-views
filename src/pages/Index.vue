@@ -1,6 +1,6 @@
 <template>
   <q-page class="fit flex-col">
-    <div class="row justify-center bg-primary q-mb-sm user-bar">
+    <div class="row justify-center bg-primary user-bar">
       <div class="col-xl-8 col-xs-12">
         <div class="flex-row vertical-center">
           <q-btn flat round @click="toggleDrawer" aria-label="Menu" class="text-white vertical-middle lt-lg">

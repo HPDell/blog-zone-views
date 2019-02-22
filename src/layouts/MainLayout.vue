@@ -21,7 +21,7 @@
       :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
       class="lg-sm custom-drawer"
     >
-      <my-nav style="margin-top: 95px;" :border="false"></my-nav>
+      <my-nav style="margin-top: 60px;" :border="false"></my-nav>
     </q-layout-drawer>
 
     <q-page-container>

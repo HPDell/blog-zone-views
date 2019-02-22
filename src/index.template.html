@@ -14,13 +14,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="statics/icons/favicon-16x16.png">
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
+        showProcessingMessages: false,
+        messageStyle: "none",
         tex2jax: {
           inlineMath: [['$','$'], ['\\(','\\)']],
           displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
           skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
         },
         "HTML-CSS": {
-          availableFonts: ["STIX","TeX"]
+          availableFonts: ["STIX","TeX"],
+          showMathMenu: false //关闭右击菜单显示
         }
       });
     </script>
