@@ -16,12 +16,12 @@
     <q-item-side right>
       <q-btn-group flat>
         <q-btn flat label="注销" color="white" @click="logout" v-if="$store.state.userModule.token"></q-btn>
-        <q-btn flat label="登陆" color="white" @click="openLoginDialog" v-else></q-btn>
+        <q-btn flat label="登录" color="white" @click="openLoginDialog" v-else></q-btn>
       </q-btn-group>
     </q-item-side>
     <q-modal v-model="loginModelOpened" position="top">
       <q-card>
-        <q-card-title>登陆</q-card-title>
+        <q-card-title>登录</q-card-title>
         <q-list link>
           <q-item tag="label">
             <q-item-side>用户名</q-item-side>
