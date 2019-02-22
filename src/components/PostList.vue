@@ -40,7 +40,7 @@
             </div>
           </q-item-tile>
           <q-item-tile sublabel>
-            <q-btn flat dense icon="thumb_up" size="sm" label="15" class="no-pointer-events q-mr-sm"></q-btn>
+            <q-btn flat dense icon="thumb_up" size="sm" label="0" class="no-pointer-events q-mr-sm"></q-btn>
             <q-btn flat dense icon="comment" size="sm" label="0" class="no-pointer-events"></q-btn>
           </q-item-tile>
         </q-item-main>
