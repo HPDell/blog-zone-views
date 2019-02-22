@@ -160,4 +160,7 @@ p
 .stick-top 
   position sticky;
   top 60px;
+
+img 
+  width 100%
 </style>
