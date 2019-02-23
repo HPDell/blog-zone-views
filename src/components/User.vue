@@ -108,6 +108,7 @@ export default class UserComponent extends Vue {
         type: "negative",
         position: "top"
       });
+      this.logout();
       this.closeLoginDialog();
     }
   }
@@ -132,8 +133,8 @@ export default class UserComponent extends Vue {
   }
 
   logout () {
-    localStorage.removeItem("remember");
-    localStorage.removeItem("token");
+    localStorage.setItem("remember", "false");
+    localStorage.setItem("token", "");
     this.$store.commit("logout");
   }
 

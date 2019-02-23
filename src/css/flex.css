@@ -73,4 +73,5 @@
 
 .flex-item-end {
   align-self: flex-end !important;
+  -webkit-align-self: flex-end !important;
 }
