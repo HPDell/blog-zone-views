@@ -25,7 +25,8 @@ export default class MonacoEditorComponent extends Vue {
         minimap: {
           enabled: false
         },
-        lineNumbers: "off"
+        lineNumbers: "off",
+        wordWrap: "on"
       });
       this.editor.onDidChangeModelContent(e => {
         this.$emit("input", this.editor.getValue());
