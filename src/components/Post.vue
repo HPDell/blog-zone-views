@@ -69,6 +69,7 @@ export default class PostComponent extends Vue {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
         this.$previewRefresh();
+        this.$prism.highlightAll();
         $("div.abc-container").each((index, element) => {
           //@ts-ignore
           let abcMidi = window.abcMidi;

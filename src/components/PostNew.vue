@@ -81,6 +81,7 @@ export default class PostNewComponent extends Vue {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
         this.$previewRefresh();
+        this.$prism.highlightAll();
         $("div.abc-container").each((index, element) => {
           //@ts-ignore
           let abcMidi = window.abcMidi;
@@ -90,7 +91,7 @@ export default class PostNewComponent extends Vue {
               responsive: "resize"
             });
           }
-        })
+        });
       }, 100);
     }
   }

@@ -27,7 +27,7 @@ render.code = function (code, language) {
     `
   } else {
     return `
-<pre class="language-${Prism.languages[language]} line-numbers">
+<pre class="prism-language language-${language} line-numbers">
 <code>${Prism.highlight(code, Prism.languages[language])}</code>
 </pre>
     `
