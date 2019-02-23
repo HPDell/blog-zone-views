@@ -7,9 +7,9 @@ var render = new marked.Renderer()
  * @param {string} title
  * @param {string} text
  */
-render.image = function (href, title) {
+render.image = function (href) {
   return `
-    <img data-src="${href}" alt="${title}"></img>
+    <img data-src="${href}"></img>
   `
 }
 
