@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 import * as monaco from 'monaco-editor';
 import { Picture } from '../model/Picture';
 import Axios from 'axios';
@@ -33,6 +33,10 @@ export default class MonacoEditorComponent extends Vue {
       });
       
     }
+  }
+
+  public setValue (val: string) {
+    this.editor.setValue(val);
   }
 
   mounted () {

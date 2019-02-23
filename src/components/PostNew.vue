@@ -28,7 +28,7 @@
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
     <q-item class="flex-item-fill flex-col" v-if="!previewMode">
-      <monaco-editor class="flex-item-fill" style="min-height: 40vh;" v-model="post.content"></monaco-editor>
+      <monaco-editor ref="editor" class="flex-item-fill" style="min-height: 40vh;" v-model="post.content"></monaco-editor>
     </q-item>
     <q-item class="flex-item-fill flex-col" v-else>
       <q-scroll-area class="fit">
@@ -36,9 +36,9 @@
       </q-scroll-area>
     </q-item>
     <q-toolbar inverted>
-      <q-btn flat icon="check" label="提交" @click="submitNewPost"></q-btn>
+      <q-btn flat icon="check" label="提交" @click="submit"></q-btn>
       <q-btn flat :icon="previewMode ? 'code' : 'web'" :label="previewMode ? '代码' : '预览'" @click="togglePreview"></q-btn>
-      <q-btn flat icon="cancel" label="取消" @click="cancelNewPost"></q-btn>
+      <q-btn flat icon="cancel" label="取消" @click="cancel"></q-btn>
     </q-toolbar>
   </q-list>
 </template>
@@ -83,11 +83,48 @@ export default class PostNewComponent extends Vue {
     }
   }
 
+  async submit () {
+    switch (this.$route.name) {
+      case "post-new":
+        await this.submitNewPost();
+        break;
+      case "post-edit":
+        await this.submitEditPost();
+        break;
+      default:
+        this.$q.notify({
+          message: "无效的操作",
+          type: "negative",
+          position: "top"
+        });
+        break;
+    }
+  }
+
+  async submitEditPost () {
+    try {
+      let response = await Axios.put<Post>(`/api/post/${this.post.id}`, this.post);
+      if (response.data) {
+        this.$router.push({
+          name: "post-detail",
+          params: {
+            id: response.data.id
+          }
+        })
+      }
+    } catch (error) {
+      this.$q.notify({
+        message: "修改博文失败",
+        type: "negative",
+        position: "top"
+      })
+    }
+  }
+
   async submitNewPost () {
     try {
       let response = await Axios.post<Post>("/api/post/", this.post);
       if (response.data) {
-        //@ts-ignore
         this.$router.push({
           name: "post-detail",
           params: {
@@ -104,6 +141,33 @@ export default class PostNewComponent extends Vue {
     }
   }
 
+  cancel () {
+    switch (this.$route.name) {
+      case "post-new":
+        this.cancelNewPost();
+        break;
+      case "post-edit":
+        this.cancelEditPost();
+        break;
+      default:
+        this.$q.notify({
+          message: "无效的操作",
+          type: "negative",
+          position: "top"
+        });
+        break;
+    }
+  }
+
+  cancelEditPost () {
+    this.$router.push({
+      name: "post-detail",
+      params: {
+        id: this.post.id
+      }
+    });
+  }
+
   cancelNewPost () {
     this.$router.push({
       name: "posts"
@@ -114,6 +178,27 @@ export default class PostNewComponent extends Vue {
     this.previewMode = !this.previewMode;
     if (this.previewMode) {
       this.renderContent();
+    }
+  }
+
+  async getPost () {
+    try {
+      let response = await Axios.get<Post>(`/api/post/${this.$route.params.id}/`);
+      if (response.data) {
+        this.post = response.data;
+      }
+    } catch (error) {
+      console.log("getSaying error:", error);
+    }
+  }
+
+  async mounted () {
+    if (this.$route.name === "post-edit") {
+      await this.getPost();
+      let editor = this.$refs.editor as MonacoEditorComponent;
+      if (editor) {
+        editor.setValue(this.post.content);
+      }
     }
   }
 

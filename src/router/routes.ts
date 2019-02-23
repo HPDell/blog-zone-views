@@ -20,6 +20,10 @@ const routes: RouteConfig[] = [
         name: "post-new",
         component: () => import('components/PostNew.vue')
       }, {
+        path: 'edit/:id/',
+        name: "post-edit",
+        component: () => import('components/PostNew.vue')
+      }, {
         path: ':id/',
         name: "post-detail",
         component: () => import('components/Post.vue')
