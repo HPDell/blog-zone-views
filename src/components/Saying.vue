@@ -73,7 +73,10 @@ export default class SayingComponent extends Vue {
       if (response.data) {
         this.saying = response.data;
         this.renderContent();
-        this.$previewRefresh()
+        if (this.saying.pictures && this.saying.pictures.length) {
+          this.$lazyload();
+          this.$previewRefresh()
+        }
       }
     } catch (error) {
       this.$q.notify({
