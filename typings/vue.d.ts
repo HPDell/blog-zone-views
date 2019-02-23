@@ -19,5 +19,12 @@ declare module 'vue/types/vue' {
         $route: Route;
         $q: VueQuasar;
         $previewRefresh: () => void;
+        $prism: {
+            highlight: (text: string, grammar: Prism.LanguageDefinition, language?: Prism.LanguageDefinition) => string;
+            languages: Prism.LanguageMap;
+            highlightAll: () => any;
+            highlightElement: (element: Element, async?: boolean, callback?: (element: Element) => void) => void;
+        };
+        $marked: (src: string, options: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void) => string;
     }
 }

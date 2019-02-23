@@ -7,13 +7,16 @@ module.exports = function (ctx) {
     plugins: [
       'axios',
       'photo-preview',
-      'infinite-loading'
+      'infinite-loading',
+      'vue-prism',
+      'marked'
     ],
     css: [
       'app.styl',
       'flex.css',
       'code.css',
-      'mathjax.css'
+      'mathjax.css',
+      'prism.css'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
