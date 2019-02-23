@@ -51,6 +51,10 @@ import MonacoEditorComponent from './MonacoEditor.vue';
 import * as $ from "jquery";
 import Axios from 'axios';
 import { Route } from 'vue-router';
+//@ts-ignore
+import * as ABCjs from "abcjs";
+import 'abcjs/abcjs-midi.css';
+
 
 Component.registerHooks(["beforeRouteEnter"]);
 
@@ -77,8 +81,16 @@ export default class PostNewComponent extends Vue {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
         this.$previewRefresh();
-        $("pre").addClass("line-numbers");
-        this.$prism.highlightAll();
+        $("div.abc-container").each((index, element) => {
+          //@ts-ignore
+          let abcMidi = window.abcMidi;
+          if (abcMidi) {
+            let source = abcMidi[element.dataset.src];
+            ABCjs.renderAbc(element, source, {
+              responsive: "resize"
+            });
+          }
+        })
       }, 100);
     }
   }
@@ -129,5 +141,5 @@ export default class PostNewComponent extends Vue {
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 </style>

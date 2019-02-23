@@ -29,3 +29,7 @@ declare module 'vue/types/vue' {
         $lazyload: () => void;
     }
 }
+
+interface Window {
+    abcMidi: any;
+}
