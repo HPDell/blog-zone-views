@@ -24,6 +24,7 @@ render.code = function (code, language) {
     window.abcMidi[midiID] = code;
     return `
       <div class="abc-container" data-src="${midiID}"></div>
+      <div class="midi-container" data-src="${midiID}"></div>
     `
   } else {
     return `
