@@ -9,7 +9,7 @@ var render = new marked.Renderer()
  */
 render.image = function (href) {
   return `
-    <img data-src="${href}"></img>
+    <img data-src="${href}" preview="${href.replace("/", "-")}"></img>
   `
 }
 
