@@ -138,8 +138,8 @@ export default class UserComponent extends Vue {
     this.$store.commit("logout");
   }
 
-  mounted () {
-    this.autoLogin();
+  async mounted () {
+    await this.autoLogin();
   }
 }
 </script>
