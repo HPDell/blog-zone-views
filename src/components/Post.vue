@@ -166,5 +166,9 @@ p
   top 60px;
 
 img 
-  width 100%
+  width 100%;
+
+pre
+  max-width: 90vw;
+  overflow scroll;
 </style>

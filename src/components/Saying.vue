@@ -158,4 +158,8 @@ h1, h2, h3, h4, h5
 ul:last-child, ol:last-child {
   margin-bottom 1.2em;
 }
+
+pre
+  max-width: 90vw;
+  overflow scroll;
 </style>

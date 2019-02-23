@@ -191,4 +191,8 @@ p
 
 img 
   width 100%
+  
+pre
+  max-width: 90vw;
+  overflow scroll;
 </style>
