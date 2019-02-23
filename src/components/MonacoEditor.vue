@@ -79,19 +79,6 @@ export default class MonacoEditorComponent extends Vue {
     if (!(e.clipboardData && e.clipboardData.items)) {
       return;
     }
-    let dataList = e.clipboardData.items;
-    if (dataList.length) {
-      let pasteData = dataList[0];
-      if (pasteData.kind === "file" && pasteData.type.startsWith("image")) {
-        let pasteFile = pasteData.getAsFile();
-        if (pasteFile) {
-          let pictureID = await this.uploadPicture(pasteFile);
-          if (pictureID) {
-            this.insertImage(pictureID);
-          }
-        }
-      }
-    }
     let fileList = e.clipboardData.files;
     if (fileList.length) {
       let pasteFile = fileList[0];

@@ -1,13 +1,33 @@
 <template>
   <div id="q-app">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+  methods: {
+    setLazyLoad() {
+      window.onload = window.onscroll = function() {
+        let imgs = document.querySelectorAll("img");
+        for (let i = 0; i < imgs.length; i++) {
+          const element = imgs[i];
+          let bound = element.getBoundingClientRect();
+          let clientHeight = window.innerHeight;
+          if (bound.top <= (clientHeight + 100)) {
+            if (element.dataset.src) {
+              element.src = element.dataset.src;
+            }
+          }
+        }
+      };
+    }
+  },
+  mounted() {
+    this.setLazyLoad();
+  }
+};
 </script>
 
 <style>

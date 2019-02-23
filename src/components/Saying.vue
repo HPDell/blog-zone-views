@@ -10,18 +10,16 @@
         <span class="q-mr-md">HPDell</span>
         <span>{{ dateString(saying.sayingDate) }}</span>
       </q-item-tile>
-      <q-item-tile v-html="markedSaying"></q-item-tile>
-      <q-item-tile>
-        <div class="row gutter-sm">
-          <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
-            <img :src="`/api/picture/${pic.id}`" :preview="saying.id" style="width: 100%;">
-          </div>
+      <div v-html="markedSaying" class="q-pb-md"></div>
+      <q-item-tile class="row gutter-sm">
+        <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
+          <img :data-src="`/api/picture/${pic.id}`" :preview="saying.id" style="width: 100%;">
         </div>
       </q-item-tile>
-      <q-item-tile class="q-my-sm">
-        <q-btn flat dense icon="thumb_up" size="small" color="primary" label="0" class="on-left"></q-btn>
-        <q-btn flat dense icon="comment" size="small" color="secondary" label="0" class="on-left"></q-btn>
-        <q-btn flat dense icon="delete" size="small" color="negative" class="float-right" @click="deleteSaying" v-if="$store.state.userModule.canEdit"></q-btn>
+      <q-item-tile sublabel class="q-px-none">
+        <q-btn flat dense icon="thumb_up" size="md" color="primary" label="0" class="on-left"></q-btn>
+        <q-btn flat dense icon="comment" size="md" color="secondary" label="0" class="on-left"></q-btn>
+        <q-btn flat dense icon="delete" size="md" color="negative" class="float-right" @click="deleteSaying" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-item-tile>
       <q-item-tile v-if="saying.comments && saying.comments.length">
         <my-saying-comment></my-saying-comment>
@@ -36,26 +34,6 @@ import { Component, Prop } from "vue-property-decorator";
 import SayingCommentComponent from './SayingComment.vue';
 import Axios from 'axios';
 import * as moment from "moment";
-import * as hljs from "highlight.js";
-import "highlight.js/styles/github.css";
-import * as marked from "marked";
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  highlight: function (code: string, lang: string) {
-    if (lang && hljs.getLanguage(lang)) {
-      return hljs.highlight(lang, code, true).value;
-    } else {
-      return hljs.highlightAuto(code).value;
-    }
-  }
-});
 
 import { Saying } from "../model/Saying";
 
@@ -79,11 +57,12 @@ export default class SayingComponent extends Vue {
 
   renderContent () {
     if (this.saying.content) {
-      this.markedSaying = marked(this.saying.content, {
+      this.markedSaying = this.$marked(this.saying.content, {
         sanitize: true
       });
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        this.$prism.highlightAll();
       }, 100);
     }
   }
@@ -121,41 +100,4 @@ export default class SayingComponent extends Vue {
 </script>
 
 <style lang="stylus">
-h1
-  font-size: 1.6em
-
-h2 
-  font-size 1.4em
-
-h3 
-  font-size 1.2em
-
-h4 
-  font-size 1.1em
-
-h5 
-  font-size 1.0em
-
-h6 
-  font-size 1.0em
-
-h1, h2, h3, h4, h5, h6, ul, ol, dl 
-  margin 0.5em 0em;
-  outline none;
-  border 0;
-
-blockquote 
-  border-left 3px #027be3 solid;
-  margin 0.5em 0em;
-  font-size 1em;
-
-h1, h2, h3, h4, h5, h6 
-  line-height 1.35;
-
-h1, h2, h3, h4, h5 
-  font-weight bold;
-
-ul:last-child, ol:last-child {
-  margin-bottom 1.2em;
-}
 </style>

@@ -48,29 +48,9 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
 import { Post } from '../model/Post';
 import MonacoEditorComponent from './MonacoEditor.vue';
-
-import * as hljs from "highlight.js";
-import "highlight.js/styles/github.css";
-import * as marked from "marked";
+import * as $ from "jquery";
 import Axios from 'axios';
 import { Route } from 'vue-router';
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  highlight: function (code: string, lang: string) {
-    if (lang && hljs.getLanguage(lang)) {
-      return hljs.highlight(lang, code, true).value;
-    } else {
-      return hljs.highlightAuto(code).value;
-    }
-  }
-});
 
 Component.registerHooks(["beforeRouteEnter"]);
 
@@ -90,11 +70,15 @@ export default class PostNewComponent extends Vue {
 
   renderContent () {
     if (this.post.content) {
-      this.markedContent = marked(this.post.content, {
+      this.markedContent = this.$marked(this.post.content, {
         sanitize: true
       });
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        $("img").attr("preview", this.post.id)
+        this.$previewRefresh();
+        $("pre").addClass("line-numbers");
+        this.$prism.highlightAll();
       }, 100);
     }
   }
@@ -145,50 +129,5 @@ export default class PostNewComponent extends Vue {
 </script>
 
 
-<style lang="stylus">
-h1
-  font-size: 1.6em
-
-h2 
-  font-size 1.4em
-
-h3 
-  font-size 1.2em
-
-h4 
-  font-size 1.1em
-
-h5 
-  font-size 1.0em
-
-h6 
-  font-size 1.0em
-
-h1, h2, h3, h4, h5, h6, ul, ol, dl 
-  margin 0.5em 0em;
-  outline none;
-  border 0;
-
-blockquote 
-  border-left 3px #027be3 solid;
-  margin 0.5em 0em;
-  font-size 1em;
-
-blockquote > p 
-  margin 0px;
-  line-height 1.5;
-  font-size 1em;
-
-h1, h2, h3, h4, h5, h6 
-  line-height 1.35;
-
-h1, h2, h3, h4, h5 
-  font-weight bold;
-
-p 
-  line-height 1.5;
-  margin 1em 0em;
-
-img 
-  width 100%
+<style lang="stylus" scoped>
 </style>

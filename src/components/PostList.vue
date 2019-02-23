@@ -8,7 +8,7 @@
     </q-list>
     <div class="row gt-xs">
       <div class="col-xl-4 col-sm-6 col-xs-12 q-pa-xs" v-for="post in postList" :key="`post-card-${post.id}`">
-        <q-card class="non-selectable fit" inline>
+        <q-card class="non-selectable fit flex-col">
           <q-card-media v-if="post.cover">
             <img :src="post.cover" alt="">
           </q-card-media>
@@ -18,6 +18,7 @@
               <span class="q-mr-lg"><q-icon size="16px" class="icon-xs q-mr-xs" name="tag"></q-icon>{{ post.tags.map(i => i.name).join(",") }}</span> -->
             </div>
           </q-card-title>
+          <q-card-main class="flex-item-fill"></q-card-main>
           <q-card-actions align="between">
             <q-btn flat icon="link" label="阅读全文" color="primary" :to="{'name': 'post-detail', 'params': {'id': post.id}}"></q-btn>
             <q-btn-group flat rounded>
