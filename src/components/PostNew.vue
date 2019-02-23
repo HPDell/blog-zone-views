@@ -48,9 +48,9 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
 import { Post } from '../model/Post';
 import MonacoEditorComponent from './MonacoEditor.vue';
-import * as $ from "jquery";
 import Axios from 'axios';
 import { Route } from 'vue-router';
+
 
 Component.registerHooks(["beforeRouteEnter"]);
 
@@ -77,8 +77,8 @@ export default class PostNewComponent extends Vue {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
         this.$previewRefresh();
-        $("pre").addClass("line-numbers");
         this.$prism.highlightAll();
+        this.$renderABC()
       }, 100);
     }
   }
@@ -129,5 +129,5 @@ export default class PostNewComponent extends Vue {
 </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 </style>

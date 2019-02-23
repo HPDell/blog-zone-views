@@ -34,6 +34,7 @@ import { Component, Prop } from "vue-property-decorator";
 import SayingCommentComponent from './SayingComment.vue';
 import Axios from 'axios';
 import * as moment from "moment";
+import * as $ from "jquery";
 
 import { Saying } from "../model/Saying";
 
@@ -62,10 +63,11 @@ export default class SayingComponent extends Vue {
       });
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        this.$prism.highlightAll();
         if (this.saying.pictures && this.saying.pictures.length) {
           this.$lazyload();
-          this.$previewRefresh()
+          this.$previewRefresh();
+          this.$renderABC()
+          $("pre.prism-language").removeClass("line-numbers");
         }
       }, 100);
     }

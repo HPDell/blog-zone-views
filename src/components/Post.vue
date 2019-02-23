@@ -45,8 +45,6 @@ import { Component } from "vue-property-decorator";
 import { Post } from '../model/Post';
 import Axios from 'axios';
 import PostSideBarComponent from './PostSideBar.vue';
-import * as $ from "jquery";
-
 
 @Component({
   components: {
@@ -67,8 +65,8 @@ export default class PostComponent extends Vue {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
         this.$previewRefresh();
-        $("pre").addClass("line-numbers");
         this.$prism.highlightAll();
+        this.$renderABC()
       }, 100);
     }
   }

@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'infinite-loading',
       'vue-prism',
       'marked',
-      'lazyload'
+      'lazyload',
+      'abc'
     ],
     css: [
       'app.styl',
