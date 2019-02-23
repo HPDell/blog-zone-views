@@ -63,6 +63,10 @@ export default class SayingComponent extends Vue {
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$prism.highlightAll();
+        if (this.saying.pictures && this.saying.pictures.length) {
+          this.$lazyload();
+          this.$previewRefresh()
+        }
       }, 100);
     }
   }
@@ -73,10 +77,6 @@ export default class SayingComponent extends Vue {
       if (response.data) {
         this.saying = response.data;
         this.renderContent();
-        if (this.saying.pictures && this.saying.pictures.length) {
-          this.$lazyload();
-          this.$previewRefresh()
-        }
       }
     } catch (error) {
       this.$q.notify({
