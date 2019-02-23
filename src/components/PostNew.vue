@@ -48,12 +48,8 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator';
 import { Post } from '../model/Post';
 import MonacoEditorComponent from './MonacoEditor.vue';
-import * as $ from "jquery";
 import Axios from 'axios';
 import { Route } from 'vue-router';
-//@ts-ignore
-import * as ABCjs from "abcjs";
-import 'abcjs/abcjs-midi.css';
 
 
 Component.registerHooks(["beforeRouteEnter"]);
@@ -82,16 +78,7 @@ export default class PostNewComponent extends Vue {
         this.$lazyload();
         this.$previewRefresh();
         this.$prism.highlightAll();
-        $("div.abc-container").each((index, element) => {
-          //@ts-ignore
-          let abcMidi = window.abcMidi;
-          if (abcMidi) {
-            let source = abcMidi[element.dataset.src];
-            ABCjs.renderAbc(element, source, {
-              responsive: "resize"
-            });
-          }
-        });
+        this.$renderABC()
       }, 100);
     }
   }

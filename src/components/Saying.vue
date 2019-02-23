@@ -35,8 +35,6 @@ import SayingCommentComponent from './SayingComment.vue';
 import Axios from 'axios';
 import * as moment from "moment";
 import * as $ from "jquery";
-//@ts-ignore
-import * as ABCjs from "abcjs";
 
 import { Saying } from "../model/Saying";
 
@@ -68,16 +66,7 @@ export default class SayingComponent extends Vue {
         if (this.saying.pictures && this.saying.pictures.length) {
           this.$lazyload();
           this.$previewRefresh();
-          $("div.abc-container").each((index, element) => {
-            //@ts-ignore
-            let abcMidi = window.abcMidi;
-            if (abcMidi) {
-              let source = abcMidi[element.dataset.src];
-              ABCjs.renderAbc(element, source, {
-                responsive: "resize"
-              });
-            }
-          })
+          this.$renderABC()
           $("pre.prism-language").removeClass("line-numbers");
         }
       }, 100);
