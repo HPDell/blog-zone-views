@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'photo-preview',
       'infinite-loading',
       'vue-prism',
-      'marked'
+      'marked',
+      'lazyload'
     ],
     css: [
       'app.styl',
