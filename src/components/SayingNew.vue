@@ -2,7 +2,7 @@
   <q-item multiline>
     <q-item-side>
       <q-item-tile avatar>
-        <img src="statics/quasar-logo.png" alt>
+        <img src="/login/avatar/avatar.jpg" alt>
       </q-item-tile>
     </q-item-side>
     <q-item-main>
@@ -127,27 +127,19 @@ export default class SayingNew extends Vue {
     if (!(e.clipboardData && e.clipboardData.items)) {
       return;
     }
-    let dataList = e.clipboardData.items;
-    if (dataList.length) {
-      let pasteData = dataList[0];
-      if (pasteData.kind === "file" && pasteData.type.startsWith("image")) {
-        let pasteFile = pasteData.getAsFile();
-        if (pasteFile) {
-          let pic = new Picture();
-          pic.file = pasteFile;
-          this.pictures.push(pic);
-          this.reader.readAsDataURL(pasteFile);
-        }
-      }
-    }
     let fileList = e.clipboardData.files;
     if (fileList.length) {
       let pasteFile = fileList[0];
+      console.log(pasteFile.name);
       if (pasteFile.type.startsWith("image")) {
-        let pic = new Picture();
-        pic.file = pasteFile;
-        this.pictures.push(pic);
-        this.reader.readAsDataURL(pasteFile);
+        try {
+          this.reader.readAsDataURL(pasteFile);
+          let pic = new Picture();
+          pic.file = pasteFile;
+          this.pictures.push(pic);
+        } catch (error) {
+          console.log(error)
+        }
       }
     }
   }

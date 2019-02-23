@@ -8,7 +8,9 @@
               <q-icon name="menu"/>
             </q-btn>
           </q-btn-group>
-          <my-user class="flex-item-fill"></my-user>
+          <my-user class="flex-item-fill q-mx-sm lg"></my-user>
+          <my-user class="flex-item-fill lt-lg"></my-user>
+          <my-user class="flex-item-fill gt-lg"></my-user>
         </div>
       </div>
     </div>
@@ -30,7 +32,7 @@
 <style>
 .stick-top {
   position: sticky;
-  top: 50px;
+  top: 75px;
 }
 
 .user-bar {

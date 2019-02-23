@@ -12,3 +12,27 @@
 code {
     font-family: 'Inconsolata', 'Courier New', Courier, monospace;
 }
+
+pre::-webkit-scrollbar-track, pre::-webkit-scrollbar-track-piece, pre::-webkit-scrollbar-button
+{
+    display: none;
+}
+
+pre::-webkit-scrollbar
+{
+    width: 0.6em;
+    height: 0.6em;
+    background-color: #272822;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+pre::-webkit-scrollbar-thumb
+{
+    border-radius: 0.5em;
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+pre::-webkit-scrollbar-corner, pre::-webkit-resizer {
+    border-radius: .5em;
+}
