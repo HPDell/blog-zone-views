@@ -75,7 +75,7 @@ export default class PostNewComponent extends Vue {
       });
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-        $("img").attr("preview", this.post.id)
+        this.$lazyload();
         this.$previewRefresh();
         $("pre").addClass("line-numbers");
         this.$prism.highlightAll();
