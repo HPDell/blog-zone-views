@@ -108,7 +108,6 @@ export default class UserComponent extends Vue {
         type: "negative",
         position: "top"
       });
-      this.logout();
       this.closeLoginDialog();
     }
   }
@@ -128,6 +127,7 @@ export default class UserComponent extends Vue {
           type: "negative",
           position: "top"
         });
+        this.logout();
       }
     }
   }

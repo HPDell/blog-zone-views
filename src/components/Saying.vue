@@ -13,7 +13,7 @@
       <div v-html="markedSaying" class="q-pb-md"></div>
       <q-item-tile class="row gutter-sm">
         <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
-          <img :src="`/api/picture/${pic.id}`" :preview="saying.id" style="width: 100%;">
+          <img :data-src="`/api/picture/${pic.id}`" :preview="saying.id" style="width: 100%;">
         </div>
       </q-item-tile>
       <q-item-tile sublabel class="q-px-none">

@@ -1,7 +1,20 @@
 import * as marked from "marked";
 
+var render = new marked.Renderer()
+
+/**
+ * @param {string} href
+ * @param {string} title
+ * @param {string} text
+ */
+render.image = function (href, title) {
+  return `
+    <img data-src="${href}" alt="${title}"></img>
+  `
+}
+
 marked.setOptions({
-    renderer: new marked.Renderer(),
+    renderer: render,
     gfm: true,
     tables: true,
     breaks: false,
