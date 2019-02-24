@@ -118,10 +118,14 @@ export default class SimpleMDEComponent extends Vue {
 
 
 <style lang="stylus">
+#simple-mde
+  max-height 0px;
+
 .editor-toolbar.fullscreen, .CodeMirror-fullscreen
   z-index 6000
 
 .CodeMirror
-  flex auto
-  -ms-flex auto
+  height calc(100vh - 240px)
+  // flex auto
+  // -ms-flex auto
 </style>

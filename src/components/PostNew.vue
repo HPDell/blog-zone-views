@@ -1,5 +1,5 @@
 <template>
-  <q-list separator class="flex-item-fill flex-col" style="margin-bottom: 10px;">
+  <q-list separator class="flex-item-fill flex-col" style="margin-bottom: -8px;">
     <q-list-header>新增博文</q-list-header>
     <q-item>
       <q-item-side>标题</q-item-side>
