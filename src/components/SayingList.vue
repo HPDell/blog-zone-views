@@ -1,16 +1,14 @@
 <template>
-  <q-scroll-area class="flex-item-fill">
-    <q-list separator no-border>
-      <q-toolbar inverted color="primary">
-        <q-toolbar-title>{{ $package.meta.owner }} 的 {{ sayingList.length }} 篇微文</q-toolbar-title>
-        <q-btn flat round icon="add" @click="newSaying = true" v-if="$store.state.userModule.canEdit"></q-btn>
-      </q-toolbar>
-      <my-saying-new v-if="newSaying" @post-new-saying="onPostNewSaying()" @cancel-new-saying="onCancelNewSaying()"></my-saying-new>
-      <template v-if="sayingList.length > 0">
-        <my-saying v-for="sayingID in sayingList" :key="sayingID" :id="sayingID" @saying-deleted="onSayingDeleted"></my-saying>
-      </template>
-    </q-list>
-  </q-scroll-area>
+  <q-list separator no-border>
+    <q-toolbar inverted color="primary">
+      <q-toolbar-title>{{ $package.meta.owner }} 的 {{ sayingList.length }} 篇微文</q-toolbar-title>
+      <q-btn flat round icon="add" @click="newSaying = true" v-if="$store.state.userModule.canEdit"></q-btn>
+    </q-toolbar>
+    <my-saying-new v-if="newSaying" @post-new-saying="onPostNewSaying()" @cancel-new-saying="onCancelNewSaying()"></my-saying-new>
+    <template v-if="sayingList.length > 0">
+      <my-saying v-for="sayingID in sayingList" :key="sayingID" :id="sayingID" @saying-deleted="onSayingDeleted"></my-saying>
+    </template>
+  </q-list>
 </template>
 
 <script lang="ts">
