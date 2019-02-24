@@ -10,7 +10,7 @@
 前端主要用到的依赖库有：
 
 - Quasar 、 Webpack 和 Vue 系全家桶
-- SimpleMDE ：Markdown 编辑器
+- SimpleMDE ：Markdown 编辑器（由于需要做必要的改造，因此将源代码复制下来放到了本地）
 - marked ：渲染 Markdown
 - Prism.js ：代码高亮
 - abcjs ：渲染乐谱

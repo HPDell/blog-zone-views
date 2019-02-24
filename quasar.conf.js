@@ -53,7 +53,8 @@ module.exports = function (ctx) {
       'flex.css',
       'code.css',
       'mathjax.css',
-      'prism.css'
+      'prism.css',
+      'simplemde.css'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,

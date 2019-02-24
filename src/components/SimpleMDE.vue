@@ -10,7 +10,6 @@ import { Component, Prop, Watch } from 'vue-property-decorator';
 import { Picture } from '../model/Picture';
 import Axios from 'axios';
 import * as CodeMirror from "codemirror";
-import "simplemde/dist/simplemde.min.css"
 
 @Component
 export default class SimpleMDEComponent extends Vue {
@@ -147,4 +146,7 @@ export default class SimpleMDEComponent extends Vue {
 
 .CodeMirror 
   flex auto
+
+.CodeMirror, .CodeMirror-scroll
+  min-height 200px
 </style>
