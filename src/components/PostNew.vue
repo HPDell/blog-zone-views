@@ -198,6 +198,7 @@ export default class PostNewComponent extends Vue {
       await this.getPost();
       let editor = this.$refs.editor as MonacoEditorComponent;
       if (editor) {
+        //@ts-ignore
         editor.setValue(this.post.content);
       }
     }
