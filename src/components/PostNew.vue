@@ -50,14 +50,14 @@ import { Post } from '../model/Post';
 import MonacoEditorComponent from './MonacoEditor.vue';
 import Axios from 'axios';
 import { Route } from 'vue-router';
-import SimpleMDEComponent from './SimpleMDE.vue';
+import MavonEditorComponent from './MavonEditor.vue';
 
 
 Component.registerHooks(["beforeRouteEnter"]);
 
 @Component({
   components: {
-    'post-editor': SimpleMDEComponent
+    'post-editor': MavonEditorComponent
   }
 })
 export default class PostNewComponent extends Vue {
