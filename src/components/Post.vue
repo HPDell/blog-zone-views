@@ -13,7 +13,7 @@
             <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
           </div>
           <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
-            <q-btn icon="edit" flat round dense class="float-right" color="primary"></q-btn>
+            <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
             <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
           </div>
         </q-card-title>
@@ -90,8 +90,21 @@ export default class PostComponent extends Vue {
         name: "posts"
       });
     } catch (error) {
-      
+      this.$q.notify({
+        message: "删除博文失败",
+        type: "negative",
+        position: "top"
+      })
     }
+  }
+
+  editPost () {
+    this.$router.push({
+      name: "post-edit",
+      params: {
+        id: this.$route.params.id
+      }
+    })
   }
 
   setMarked () {

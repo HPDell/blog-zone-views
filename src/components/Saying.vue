@@ -62,13 +62,13 @@ export default class SayingComponent extends Vue {
         sanitize: true
       });
       setTimeout(() => {
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         if (this.saying.pictures && this.saying.pictures.length) {
           this.$lazyload();
           this.$previewRefresh();
-          this.$renderABC()
-          $("pre.prism-language").removeClass("line-numbers");
         }
+        $("pre.prism-language").removeClass("line-numbers");
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        this.$renderABC();
       }, 100);
     }
   }
