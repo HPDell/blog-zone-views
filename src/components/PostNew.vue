@@ -27,10 +27,10 @@
     </q-item> -->
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
-    <q-item class="flex-item-fill flex-col" v-if="!previewMode">
-      <monaco-editor ref="editor" class="flex-item-fill" style="min-height: 40vh;" v-model="post.content"></monaco-editor>
+    <q-item class="flex-item-fill flex-col" v-show="!previewMode">
+      <post-editor ref="editor" class="flex-item-fill" style="min-height: 40vh;" v-model="post.content"></post-editor>
     </q-item>
-    <q-item class="flex-item-fill flex-col" v-else>
+    <q-item class="flex-item-fill flex-col" v-show="previewMode">
       <q-scroll-area class="fit">
         <q-item-main v-html="markedContent"></q-item-main>
       </q-scroll-area>
@@ -50,13 +50,14 @@ import { Post } from '../model/Post';
 import MonacoEditorComponent from './MonacoEditor.vue';
 import Axios from 'axios';
 import { Route } from 'vue-router';
+import SimpleMDEComponent from './SimpleMDE.vue';
 
 
 Component.registerHooks(["beforeRouteEnter"]);
 
 @Component({
   components: {
-    'monaco-editor': MonacoEditorComponent
+    'post-editor': SimpleMDEComponent
   }
 })
 export default class PostNewComponent extends Vue {

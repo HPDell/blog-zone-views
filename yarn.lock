@@ -669,6 +669,18 @@
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/@positron/stack-trace/download/@positron/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
 
+"@types/codemirror@^0.0.72":
+  version "0.0.72"
+  resolved "http://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.72.tgz#75e95e3b488717605d2591cd80c4d2ed88ff276e"
+  integrity sha1-deleO0iHF2BdJZHNgMTS7Yj/J24=
+  dependencies:
+    "@types/tern" "*"
+
+"@types/estree@*":
+  version "0.0.39"
+  resolved "http://registry.npm.taobao.org/@types/estree/download/@types/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
+  integrity sha1-4Xfmme4bjCLSMXTKqnQiZEOJUJ8=
+
 "@types/highlight.js@^9.12.3":
   version "9.12.3"
   resolved "http://registry.npm.taobao.org/@types/highlight.js/download/@types/highlight.js-9.12.3.tgz#b672cfaac25cbbc634a0fd92c515f66faa18dbca"
@@ -704,6 +716,11 @@
   version "1.5.1"
   resolved "http://registry.npm.taobao.org/@types/q/download/@types/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
 
+"@types/simplemde@^1.11.7":
+  version "1.11.7"
+  resolved "http://registry.npm.taobao.org/@types/simplemde/download/@types/simplemde-1.11.7.tgz#c8bd9f54ff46db7f311a989004eb5815acedf429"
+  integrity sha1-yL2fVP9G238xGpiQBOtYFazt9Ck=
+
 "@types/sizzle@*":
   version "2.3.2"
   resolved "http://registry.npm.taobao.org/@types/sizzle/download/@types/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
@@ -712,6 +729,13 @@
 "@types/systemjs@^0.20.6":
   version "0.20.6"
   resolved "http://registry.npm.taobao.org/@types/systemjs/download/@types/systemjs-0.20.6.tgz#79838d2b4bce9c014330efa0b4c7b9345e830a72"
+
+"@types/tern@*":
+  version "0.22.2"
+  resolved "http://registry.npm.taobao.org/@types/tern/download/@types/tern-0.22.2.tgz#324c0cc9b24fcdc62bad821cb57ad191bdb0ccef"
+  integrity sha1-MkwMybJPzcYrrYIctXrRkb2wzO8=
+  dependencies:
+    "@types/estree" "*"
 
 "@types/vue-router@^2.0.0":
   version "2.0.0"
@@ -2253,6 +2277,18 @@ coa@~2.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codemirror-spell-checker@*:
+  version "1.1.2"
+  resolved "http://registry.npm.taobao.org/codemirror-spell-checker/download/codemirror-spell-checker-1.1.2.tgz#1c660f9089483ccb5113b9ba9ca19c3f4993371e"
+  integrity sha1-HGYPkIlIPMtRE7m6nKGcP0mTNx4=
+  dependencies:
+    typo-js "*"
+
+codemirror@*:
+  version "5.44.0"
+  resolved "http://registry.npm.taobao.org/codemirror/download/codemirror-5.44.0.tgz#80dc2a231eeb7aab25ec2405cdca37e693ccf9cc"
+  integrity sha1-gNwqIx7reqsl7CQFzco35pPM+cw=
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -5070,7 +5106,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^0.6.1:
+marked@*, marked@^0.6.1:
   version "0.6.1"
   resolved "http://registry.npm.taobao.org/marked/download/marked-0.6.1.tgz#a63addde477bca9613028de4b2bc3629e53a0562"
   integrity sha1-pjrd3kd7ypYTAo3ksrw2KeU6BWI=
@@ -7337,6 +7373,15 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+simplemde@^1.11.2:
+  version "1.11.2"
+  resolved "http://registry.npm.taobao.org/simplemde/download/simplemde-1.11.2.tgz#a23a35d978d2c40ef07dec008c92f070d8e080e3"
+  integrity sha1-ojo12XjSxA7wfewAjJLwcNjggOM=
+  dependencies:
+    codemirror "*"
+    codemirror-spell-checker "*"
+    marked "*"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/slash/download/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
@@ -7926,6 +7971,11 @@ typedarray@^0.0.6:
 typescript@^3.2.2:
   version "3.3.1"
   resolved "http://registry.npm.taobao.org/typescript/download/typescript-3.3.1.tgz#6de14e1db4b8a006ac535e482c8ba018c55f750b"
+
+typo-js@*:
+  version "1.0.3"
+  resolved "http://registry.npm.taobao.org/typo-js/download/typo-js-1.0.3.tgz#54d8ebc7949f1a7810908b6002c6841526c99d5a"
+  integrity sha1-VNjrx5SfGngQkItgAsaEFSbJnVo=
 
 uglify-es@^3.3.4:
   version "3.3.9"
