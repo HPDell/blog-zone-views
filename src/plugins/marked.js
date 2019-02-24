@@ -36,15 +36,17 @@ render.code = function (code, language) {
 }
 
 marked.setOptions({
-    renderer: render,
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: false,
-    smartLists: true,
-    smartypants: false
-  });
+  renderer: render,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+});
+
+export var customRender = render;
 
 export default ({ Vue }) => {
   Vue.prototype.$marked = marked;

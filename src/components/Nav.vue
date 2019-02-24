@@ -1,11 +1,11 @@
 <template>
   <q-list link :no-border="!border">
-    <!-- <q-item>
-      <q-item-side icon="comment"></q-item-side>
+    <q-item :to="{'name': 'welcome'}">
+      <q-item-side icon="home"></q-item-side>
       <q-item-main>
-        <q-item-tile label>动态</q-item-tile>
+        <q-item-tile label>首页</q-item-tile>
       </q-item-main>
-    </q-item> -->
+    </q-item>
     <q-item :to="{'name': 'sayings'}">
       <q-item-side icon="chat_bubble_outline"></q-item-side>
       <q-item-main>
