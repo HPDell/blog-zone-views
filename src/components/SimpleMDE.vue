@@ -1,13 +1,12 @@
 <template>
-  <div id="editor-container" class="flex-col">
-    <textarea id="simple-mde" @paste="onPaste" @drop="onDrop" @dragover="allowDrop"></textarea>
+  <div id="editor-container" class="flex-col flex-item-fill">
+    <div id="simple-mde" class="flex-item-fill flex-col" @paste="onPaste" @drop="onDrop" @dragover="allowDrop" contenteditable="true"></div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop, Watch } from 'vue-property-decorator';
-import * as SimpleMDE from 'simplemde';
 import { Picture } from '../model/Picture';
 import Axios from 'axios';
 import * as CodeMirror from "codemirror";
@@ -28,7 +27,8 @@ export default class SimpleMDEComponent extends Vue {
     let editorContainer = document.getElementById("simple-mde")
     if (editorContainer) {
       console.log(this.toolbar);
-      this.editor = new SimpleMDE({
+      //@ts-ignore
+      this.editor = new this.$simpleMDE({
         element: editorContainer,
         autofocus: true,
         status: false,
@@ -142,12 +142,9 @@ export default class SimpleMDEComponent extends Vue {
 
 
 <style lang="stylus">
-#simple-mde
-  max-height 0px;
-
 .editor-toolbar.fullscreen, .CodeMirror-fullscreen
   z-index 6000
 
-.CodeMirror, .CodeMirror-scroll
-	min-height: 200px;
+.CodeMirror 
+  flex auto
 </style>

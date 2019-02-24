@@ -28,6 +28,7 @@ declare module 'vue/types/vue' {
         $marked: (src: string, options: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void) => string;
         $lazyload: () => void;
         $renderABC: () => void;
+        $simpleMDE: (config: any) => SimpleMDE;
     }
 }
 

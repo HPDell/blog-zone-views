@@ -45,7 +45,8 @@ module.exports = function (ctx) {
       'vue-prism',
       'marked',
       'lazyload',
-      'abc'
+      'abc',
+      'simplemde'
     ],
     css: [
       'app.styl',
