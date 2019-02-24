@@ -1,6 +1,6 @@
 <template>
     <q-scroll-area class="fit">
-        <div class="welcome q-px-md" v-html="welcome"></div>
+        <div class="welcome q-px-md q-pb-lg" v-html="welcome"></div>
     </q-scroll-area>
 </template>
 
