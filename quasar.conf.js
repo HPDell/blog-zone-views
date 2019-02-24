@@ -1,5 +1,39 @@
 // Configuration for your app
 const path = require("path");
+const marked = require("marked");
+const md5 = require("md5");
+var markedRender = new marked.Renderer()
+
+/**
+ * @param {string} href
+ * @param {string} title
+ * @param {string} text
+ */
+markedRender.image = function (href) {
+  return `
+    <img data-src="${href}" preview="${href.replace("/", "-")}"></img>
+  `
+}
+
+markedRender.code = function (code, language) {
+  if (language === "abc") {
+    let midiID = md5(code);
+    if (!window.abcMidi) {
+      window.abcMidi = {};
+    }
+    window.abcMidi[midiID] = code;
+    return `
+      <div class="abc-container" data-src="${midiID}"></div>
+      <div class="midi-container" data-src="${midiID}"></div>
+    `
+  } else {
+    return `
+<pre class="prism-language language-${language} line-numbers">
+<code>${code}</code>
+</pre>
+    `
+  }
+}
 
 module.exports = function (ctx) {
   return {
@@ -10,14 +44,18 @@ module.exports = function (ctx) {
       'infinite-loading',
       'vue-prism',
       'marked',
-      'lazyload'
+      'lazyload',
+      'abc',
+      'simplemde',
+      'package'
     ],
     css: [
       'app.styl',
       'flex.css',
       'code.css',
       'mathjax.css',
-      'prism.css'
+      'prism.css',
+      'simplemde.css'
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
@@ -42,6 +80,24 @@ module.exports = function (ctx) {
           options: {
             appendTsSuffixTo: [/\.vue$/]
           }
+        });
+        cfg.module.rules.push({
+          test: /\.md$/,
+          use: [{
+            loader: "html-loader"
+          }, {
+            loader: "markdown-loader",
+            options: {
+              renderer: markedRender,
+              gfm: true,
+              tables: true,
+              breaks: false,
+              pedantic: false,
+              sanitize: false,
+              smartLists: true,
+              smartypants: false
+            }
+          }]
         });
         cfg.module.rules.push({
           resourceQuery: /blockType=i18n/,

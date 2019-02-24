@@ -2,7 +2,7 @@
   <q-scroll-area class="flex-item-fill">
     <q-list separator no-border>
       <q-toolbar inverted color="primary">
-        <q-toolbar-title>HPDell的 {{ sayingList.length }} 篇微文</q-toolbar-title>
+        <q-toolbar-title>{{ $package.meta.owner }} 的 {{ sayingList.length }} 篇微文</q-toolbar-title>
         <q-btn flat round icon="add" @click="newSaying = true" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-toolbar>
       <my-saying-new v-if="newSaying" @post-new-saying="onPostNewSaying()" @cancel-new-saying="onCancelNewSaying()"></my-saying-new>

@@ -2,7 +2,7 @@
   <q-scroll-area id="container" class="flex-item-fill">
     <q-list no-border>
       <q-toolbar inverted color="primary">
-        <q-toolbar-title>HPDell的 {{ postList.length }} 篇博文</q-toolbar-title>
+        <q-toolbar-title>{{$package.meta.owner}} 的 {{ postList.length }} 篇博文</q-toolbar-title>
         <q-btn flat round icon="add" :to="{'name': 'post-new'}" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-toolbar>
     </q-list>

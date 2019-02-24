@@ -1,3 +1,4 @@
+@import '~variables'
 // app global css
 h1
   font-size: 1.6em
@@ -34,6 +35,7 @@ blockquote
   border-left 3px #027be3 solid
   margin 1em 0em
   font-size 1em
+  background-color: mix($primary, transparent, 18)
 
 blockquote > p {
   margin 0em
@@ -41,11 +43,10 @@ blockquote > p {
 
 h1, h2, h3, h4, h5, h6 
   line-height 1.35
+  color $primary
 
 h1, h2, h3, h4, h5 
   font-weight bold
-
-
 
 img 
   width 100%
@@ -57,3 +58,10 @@ pre
 
 span.mjx-chtml
   outline none
+
+div.midi-container
+  margin-bottom 0.5em
+
+a
+  text-decoration: none
+  color: $primary
