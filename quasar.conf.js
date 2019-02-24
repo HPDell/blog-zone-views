@@ -46,7 +46,7 @@ module.exports = function (ctx) {
       'marked',
       'lazyload',
       'abc',
-      'simplemde',
+      'mavon-editor',
       'package'
     ],
     css: [

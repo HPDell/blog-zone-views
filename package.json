@@ -1,6 +1,6 @@
 {
   "name": "blog-zone-views",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "博客空间",
   "productName": "博客空间",
   "cordovaId": "org.cordova.quasar.app",
@@ -20,6 +20,7 @@
     "jquery": "^3.3.1",
     "markdown-loader": "^5.0.0",
     "marked": "^0.6.1",
+    "mavon-editor": "WhuRS-FGis/mavonEditor",
     "md5": "^2.2.1",
     "moment": "^2.23.0",
     "vue-i18n": "^8.7.0",

@@ -1,6 +1,6 @@
 # 欢迎来到 HPDell 的博客空间
 
-这是我自己做的基于 `TypeScript` `Quasar` `Express` 的动态博客。博客代码放在 GitHub 上，目前是私有库状态。
+这是我自己做的基于 `Quasar` `Express` 的动态博客，使用 `TypeScript` 编写。博客代码放在 GitHub 上，目前是私有库状态。
 
 - 后端仓库： [GitHub](https://github.com/HPDell/blog-zone)
 - 前端仓库： [GitHub](https://github.com/HPDell/blog-zone-views)
@@ -10,11 +10,11 @@
 前端主要用到的依赖库有：
 
 - Quasar 、 Webpack 和 Vue 系全家桶
-- SimpleMDE ：Markdown 编辑器（由于需要做必要的改造，因此将源代码复制下来放到了本地）
+- MavonEditor ：Markdown 编辑器（由于需要做必要的改造，因此将源仓库克隆，使用克隆后的仓库）
 - marked ：渲染 Markdown
 - Prism.js ：代码高亮
-- abcjs ：渲染乐谱
 - MathJax ：渲染数学公式
+- abcjs ：渲染乐谱
 - 除此之外还有 jquery 、 md5 、 moment 、 markdown-loader 、 html-loader 等
 
 后端主要用到的依赖库有：
