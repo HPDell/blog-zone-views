@@ -1,5 +1,5 @@
 <template>
-  <div id="editor-container" class="flex-item-fill flex-col">
+  <div id="editor-container" class="flex-col">
     <textarea id="simple-mde" @paste="onPaste" @drop="onDrop" @dragover="allowDrop"></textarea>
   </div>
 </template>
@@ -17,22 +17,24 @@ import "simplemde/dist/simplemde.min.css"
 export default class SimpleMDEComponent extends Vue {
   @Prop(String) value: string;
 
+  // @Prop(Boolean) toolbar: boolean;
+
+  toolbar: string[] = [];
+
   editor!: SimpleMDE;
   pictureList: Picture[] = [];
 
   initSimpleMDE () {
     let editorContainer = document.getElementById("simple-mde")
     if (editorContainer) {
+      console.log(this.toolbar);
       this.editor = new SimpleMDE({
         element: editorContainer,
         autofocus: true,
         status: false,
         spellChecker: false,
-        toolbar: ["bold", "italic", "strikethrough", 
-          "heading", "heading-1", "heading-2", "heading-3", 
-          "code", "quote", "unordered-list", "ordered-list", "clean-block", "link", "image",
-          "table", "horizontal-rule", "fullscreen"]
-      })
+        toolbar: this.toolbar
+      });
       let codemirror = this.editor.codemirror as CodeMirror.Editor;
       codemirror.on("change", () => {
         this.$emit("input", this.editor.value());
@@ -48,6 +50,21 @@ export default class SimpleMDEComponent extends Vue {
   }
 
   mounted () {
+    switch (this.$route.name) {
+      case "sayings":
+        this.toolbar = ["preview"];
+        break;
+      case "post-new":
+      case "post-edit":
+      case "post-detail":
+        this.toolbar = ["bold", "italic", "strikethrough", 
+          "heading-1", "heading-2", "heading-3", 
+          "code", "quote", "unordered-list", "ordered-list", "clean-block", "link", "image",
+          "table", "horizontal-rule", "fullscreen"];
+        break;
+      default:
+        break;
+    }
     this.initSimpleMDE();
   }
 
@@ -74,7 +91,10 @@ export default class SimpleMDEComponent extends Vue {
   }
 
   async onPaste (editor: CodeMirror.Editor, e: ClipboardEvent) {
-    console.log("onpaste")
+    if (this.$route.name && this.$route.name === "sayings") {
+      this.$emit("paste", e);
+      return;
+    }
     if (!(e.clipboardData && e.clipboardData.items)) {
       return;
     }
@@ -91,6 +111,10 @@ export default class SimpleMDEComponent extends Vue {
   }
 
   async onDrop (editor: CodeMirror.Editor, e: DragEvent) {
+    if (this.$route.name && this.$route.name === "sayings") {
+      this.$emit("drop", e);
+      return;
+    }
     e.preventDefault();
     console.log("monaco onDrop")
     if (!(e.dataTransfer && e.dataTransfer.files)) {
@@ -124,8 +148,6 @@ export default class SimpleMDEComponent extends Vue {
 .editor-toolbar.fullscreen, .CodeMirror-fullscreen
   z-index 6000
 
-.CodeMirror
-  height calc(100vh - 240px)
-  // flex auto
-  // -ms-flex auto
+.CodeMirror, .CodeMirror-scroll
+	min-height: 200px;
 </style>

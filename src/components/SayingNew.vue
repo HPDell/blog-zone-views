@@ -7,7 +7,7 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile sublabel>新的微文</q-item-tile>
-      <q-input type="textarea" v-model="saying.content" autofocus @paste="onPaste"></q-input>
+      <simple-mde class="saying-editor" v-model="saying.content" @paste="onPaste" :toolbar="false"></simple-mde>
       <q-item-tile class="row q-my-sm gutter-sm" v-if="preViewPictures.length">
         <div class="col-4" v-for="(pic, index) in preViewPictures" :key="`saying-picture-preview-${index}`">
           <img :src="pic" style="width: 100%;" preview="saying-new-photo">
@@ -31,8 +31,13 @@ import { Component } from "vue-property-decorator";
 import { Saying } from "../model/Saying";
 import { Picture } from "../model/Picture";
 import Axios from "axios";
+import SimpleMDEComponent from "./SimpleMDE.vue";
 
-@Component
+@Component({
+  components: {
+    "simple-mde": SimpleMDEComponent
+  }
+})
 export default class SayingNew extends Vue {
   saying: Saying = new Saying();
   pictures: Picture[] = [];
@@ -174,3 +179,6 @@ export default class SayingNew extends Vue {
   }
 }
 </script>
+
+<style lang="stylus">
+</style>

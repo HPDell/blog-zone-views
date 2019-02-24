@@ -28,7 +28,7 @@
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
     <q-item class="flex-item-fill flex-col" v-show="!previewMode">
-      <post-editor ref="editor" class="flex-item-fill" style="min-height: 40vh;" v-model="post.content"></post-editor>
+      <post-editor ref="editor" class="post-editor" v-model="post.content"></post-editor>
     </q-item>
     <q-item class="flex-item-fill flex-col" v-show="previewMode">
       <q-scroll-area class="fit">
@@ -216,4 +216,6 @@ export default class PostNewComponent extends Vue {
 
 
 <style lang="stylus">
+.post-editor
+  height calc(100vh - 140px)
 </style>
