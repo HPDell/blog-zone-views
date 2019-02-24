@@ -81,12 +81,14 @@ export default class MavonEditorComponent extends Vue {
     }
   }
 
-  insertImage (pictureID: string, pos: any) {
+  insertImage (pictureID: string) {
     let pictureString = `/api/picture/${pictureID}/`;
     let editor = this.$refs.editor as any;
     if (editor) {
       editor.insertText(editor.getTextareaDom(), {
-        str: pictureString
+        prefix: "![](",
+        str: pictureString,
+        subfix: ")"
       })
     }
   }
@@ -96,7 +98,8 @@ export default class MavonEditorComponent extends Vue {
       this.$emit("paste", e);
       return;
     }
-    if (!(e.clipboardData && e.clipboardData.items)) {
+    if (!(e.clipboardData && e.clipboardData.files)) {
+      console.log(e.clipboardData.items, e.clipboardData.files)
       return;
     }
     let fileList = e.clipboardData.files;
@@ -105,7 +108,7 @@ export default class MavonEditorComponent extends Vue {
       if (pasteFile.type.startsWith("image")) {
         let pictureID = await this.uploadPicture(pasteFile);
         if (pictureID) {
-          // this.insertImage(pictureID);
+          this.insertImage(pictureID);
         }
       }
     }

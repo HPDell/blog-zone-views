@@ -27,13 +27,11 @@
     </q-item> -->
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
-    <q-item class="flex-item-fill flex-col" v-show="!previewMode">
+    <q-item class="flex-item-fill flex-col" v-if="!previewMode">
       <post-editor ref="editor" class="post-editor" v-model="post.content"></post-editor>
     </q-item>
-    <q-item class="flex-item-fill flex-col" v-show="previewMode">
-      <q-scroll-area class="fit">
-        <q-item-main v-html="markedContent"></q-item-main>
-      </q-scroll-area>
+    <q-item class="flex-item-fill flex-col" v-else>
+      <q-item-main v-html="markedContent"></q-item-main>
     </q-item>
     <q-toolbar inverted>
       <q-btn flat icon="check" label="提交" @click="submit"></q-btn>
@@ -74,6 +72,7 @@ export default class PostNewComponent extends Vue {
       this.markedContent = this.$marked(this.post.content, {
         sanitize: true
       });
+      console.log(this.markedContent);
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
@@ -82,6 +81,11 @@ export default class PostNewComponent extends Vue {
         this.$renderABC()
       }, 100);
     }
+  }
+
+  onPreviewScroll () {
+    console.log("preview scroll")
+    this.$lazyload();
   }
 
   async submit () {

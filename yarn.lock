@@ -5163,10 +5163,9 @@ math-random@^1.0.1:
   resolved "http://registry.npm.taobao.org/math-random/download/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
   integrity sha1-XdaUPJOFSCZwFtTjTwV1gwgMUUw=
 
-mavon-editor@^2.6.17:
+mavon-editor@WhuRS-FGis/mavonEditor:
   version "2.6.17"
-  resolved "http://registry.npm.taobao.org/mavon-editor/download/mavon-editor-2.6.17.tgz#86fb4f5a88553c16d0d9f173ed69ebcfa0f1ae7e"
-  integrity sha1-hvtPWohVPBbQ2fFz7Wnrz6Dxrn4=
+  resolved "https://codeload.github.com/WhuRS-FGis/mavonEditor/tar.gz/362e3d6a97fbd43e45b1eba9fc7ae256aefa546e"
   dependencies:
     highlight.js "^9.11.0"
     highlight.js-async-webpack "^1.0.4"
