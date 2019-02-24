@@ -73,6 +73,19 @@ server {
 }
 ```
 
+## 主要配置选项
+
+后端的数据库是可选的，参考 [Typorm 的配置](http://typeorm.io/#/connection-options) 。
+默认采用的是 SQLite 数据库，数据库文件是根目录的 `database.db` 文件。
+
+前端主要有以下几个配置：
+
+- `package.json` 文件
+  - `meta` 属性
+    - `owner` : 博客显示的名称（即显示 `${owenr} 的博客` ，`${owner} 的博文` 等）
+    - `description` : 博客显示的简介
+- `/src/components/welcome.md` 文件：这个文件记录了主页显示的内容。将来可能移动到专门的地方，或者放在服务器中。
+
 ## 支持的内容
 
 博客支持以下内容

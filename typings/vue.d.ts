@@ -29,6 +29,7 @@ declare module 'vue/types/vue' {
         $lazyload: () => void;
         $renderABC: () => void;
         $simpleMDE: (config: any) => SimpleMDE;
+        $package: any;
     }
 }
 

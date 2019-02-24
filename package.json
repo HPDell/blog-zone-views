@@ -56,5 +56,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 10"
-  ]
+  ],
+  "meta": {
+    "owner": "HPDell",
+    "description": "我们在小孩和大人的转角 盖一座城堡"
+  }
 }

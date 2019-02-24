@@ -46,7 +46,8 @@ module.exports = function (ctx) {
       'marked',
       'lazyload',
       'abc',
-      'simplemde'
+      'simplemde',
+      'package'
     ],
     css: [
       'app.styl',

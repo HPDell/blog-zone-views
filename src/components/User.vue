@@ -7,10 +7,10 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile label class="text-white">
-        HPDell 的博客空间
+        {{ owner }} 的博客空间
       </q-item-tile>
       <q-item-tile sublabel lines="1" class="text-white text-truncate text-no-wrap">
-        我们在小孩和大人的转角盖一座城堡
+        {{ description }}
       </q-item-tile>
     </q-item-main>
     <q-item-side right>
@@ -64,6 +64,9 @@ export default class UserComponent extends Vue {
   username: string = "";
   password: string = "";
   remember: boolean = false;
+
+  owner = this.$package.meta.owner;
+  description = this.$package.meta.description;
 
   openLoginDialog () {
     this.loginModelOpened = true;
