@@ -5164,8 +5164,8 @@ math-random@^1.0.1:
   integrity sha1-XdaUPJOFSCZwFtTjTwV1gwgMUUw=
 
 mavon-editor@WhuRS-FGis/mavonEditor:
-  version "2.6.17"
-  resolved "https://codeload.github.com/WhuRS-FGis/mavonEditor/tar.gz/d129b1d8e2157a50a3dc05c7fffc29ebfbcf8604"
+  version "2.6.18"
+  resolved "https://codeload.github.com/WhuRS-FGis/mavonEditor/tar.gz/809ad4c6523cf035176a2fe414aad3bbaa633c43"
   dependencies:
     highlight.js "^9.11.0"
     highlight.js-async-webpack "^1.0.4"
