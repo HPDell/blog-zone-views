@@ -10,7 +10,7 @@
         <span class="q-mr-md">HPDell</span>
         <span>{{ dateString(saying.sayingDate) }}</span>
       </q-item-tile>
-      <div v-html="markedSaying" class="q-pb-md"></div>
+      <div v-html="markedSaying" class="q-mb-lg" style="overflow: auto"></div>
       <q-item-tile class="row gutter-sm">
         <div class="col-4" v-for="pic in saying.pictures" :key="pic.id">
           <div class="saying-img-container">
