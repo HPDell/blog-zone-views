@@ -7,7 +7,7 @@
     </q-item-side>
     <q-item-main>
       <q-item-tile sublabel>新的微文</q-item-tile>
-      <saying-editor class="saying-editor q-my-sm" v-model="saying.content" @paste="onPaste" :toolbar="false"></saying-editor>
+      <saying-editor class="saying-editor q-my-sm" v-model="saying.content" @paste="onPaste" :toolbar="false" :autofocus="true"></saying-editor>
       <q-item-tile class="row q-my-sm gutter-sm" v-if="preViewPictures.length">
         <div class="col-4" v-for="(pic, index) in preViewPictures" :key="`saying-picture-preview-${index}`">
           <div class="saying-img-container">
