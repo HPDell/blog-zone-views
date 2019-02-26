@@ -22,7 +22,7 @@
             </div>
           </q-card-title>
         </div>
-        <q-card-main v-html="markedContent"></q-card-main>
+        <q-card-main v-html="markedContent" style="overflow: auto;"></q-card-main>
         <q-card-separator v-if="post.comments"></q-card-separator>
         <q-list no-border multiline link class="non-selectable" v-if="post.comments">
           <q-list-header>评论</q-list-header>
