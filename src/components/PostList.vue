@@ -1,8 +1,8 @@
 <template>
-  <q-scroll-area id="container" class="flex-item-fill">
+  <div id="container" class="flex-item-fill">
     <q-list no-border>
       <q-toolbar inverted color="primary">
-        <q-toolbar-title>{{$package.meta.owner}} 的 {{ postList.length }} 篇博文</q-toolbar-title>
+        <q-toolbar-title class="q-pl-none">{{$package.meta.owner}} 的 {{ postList.length }} 篇博文</q-toolbar-title>
         <q-btn flat round icon="add" :to="{'name': 'post-new'}" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-toolbar>
     </q-list>
@@ -31,7 +31,7 @@
     </div>
     <q-list class="lt-sm" link no-border separator>
       <q-item multiline v-for="post in postList" :key="`post-list-${post.id}`" :to="{'name': 'post-detail', 'params': {'id': post.id}}">
-        <q-item-side :image="post.cover"></q-item-side>
+        <q-item-side v-if="post.cover && post.cover !== ''" :image="post.cover"></q-item-side>
         <q-item-main>
           <q-item-tile label>{{ post.title }}</q-item-tile>
           <q-item-tile sublabel>
@@ -47,7 +47,7 @@
         </q-item-main>
       </q-item>
     </q-list>
-  </q-scroll-area>
+  </div>
 </template>
 
 <script lang="ts">

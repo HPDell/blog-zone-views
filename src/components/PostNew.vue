@@ -1,6 +1,12 @@
 <template>
   <q-list separator class="flex-item-fill flex-col" style="margin-bottom: -8px;">
-    <q-list-header>新增博文</q-list-header>
+    <q-toolbar inverted>
+      <q-toolbar-title class="q-pl-none">
+        {{title}}博文
+      </q-toolbar-title>
+      <q-btn :icon="previewMode ? 'code' : 'web'" flat color="primary" @click="togglePreview"></q-btn>
+      <q-btn icon="close" flat color="primary" @click="cancel" style="height: 100%;"></q-btn>
+    </q-toolbar>
     <q-item>
       <q-item-side>标题</q-item-side>
       <q-item-main>
@@ -28,7 +34,7 @@
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
     <q-item class="flex-item-fill flex-col" v-if="!previewMode">
-      <post-editor ref="editor" class="post-editor" v-model="post.content"></post-editor>
+      <post-editor ref="editor" class="post-editor" v-model="post.content" :autofocus="false"></post-editor>
     </q-item>
     <q-item class="flex-item-fill flex-col" v-else>
       <q-item-main v-html="markedContent"></q-item-main>
@@ -62,10 +68,19 @@ export default class PostNewComponent extends Vue {
   post: Post = new Post();
   category: string = "";
   tags: string[] = [];
-
   previewMode: boolean = false;
-
   markedContent: string = "";
+
+  get title () {
+    switch (this.$route.name) {
+      case "post-new":
+        return "新增"
+      case "post-edit":
+        return "修改"
+      default:
+        return "";
+    }
+  }
 
   renderContent () {
     if (this.post.content) {
