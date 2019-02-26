@@ -15,6 +15,23 @@ render.image = function (href) {
   `
 }
 
+/**
+ * @param {string} header
+ * @param {string} body
+ */
+render.table = function (header, body) {
+  console.log("header", header);
+  console.log("body", body);
+  return `
+    <div class="table-container">
+      <table>
+        ${header}
+        ${body}
+      </table>
+    </div>
+  `;
+}
+
 render.code = function (code, language) {
   if (language === "abc") {
     let midiID = md5(code);
