@@ -36,7 +36,7 @@
     <q-item class="flex-item-fill flex-col" v-if="!previewMode">
       <post-editor ref="editor" class="post-editor" v-model="post.content" :autofocus="false"></post-editor>
     </q-item>
-    <q-item class="flex-item-fill flex-col" v-else>
+    <q-item class="flex-item-fill flex-col" v-else style="overflow: auto;">
       <q-item-main v-html="markedContent"></q-item-main>
     </q-item>
     <q-toolbar inverted>
