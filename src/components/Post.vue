@@ -5,18 +5,23 @@
         <q-card-media class="non-selectable" v-if="post.cover">
           <img :src="post.cover" alt="">
         </q-card-media>
-        <q-card-title>
-          {{ post.title }}
-          <div class="row" slot="subtitle">
-            <span class="q-mr-lg"><q-icon class="q-mr-sm" name="person"></q-icon>HPDell</span>
-            <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
-            <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
+        <div class="flex-row">
+          <div class="flex-col justify-center">
+            <q-btn icon="arrow_back" flat color="primary" @click="backToPostList" style="height: 100%;"></q-btn>
           </div>
-          <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
-            <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
-            <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
-          </div>
-        </q-card-title>
+          <q-card-title class="flex-item-fill q-pl-none">
+            {{ post.title }}
+            <div class="row" slot="subtitle">
+              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="person"></q-icon>HPDell</span>
+              <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
+              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
+            </div>
+            <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
+              <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
+              <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
+            </div>
+          </q-card-title>
+        </div>
         <q-card-main v-html="markedContent"></q-card-main>
         <q-card-separator v-if="post.comments"></q-card-separator>
         <q-list no-border multiline link class="non-selectable" v-if="post.comments">
@@ -69,6 +74,15 @@ export default class PostComponent extends Vue {
         this.$renderABC()
       }, 100);
     }
+  }
+
+  backToPostList () {
+    this.$router.push({
+      name: "posts",
+      params: {
+        id: this.$route.params.id
+      }
+    })
   }
 
   async getPost () {

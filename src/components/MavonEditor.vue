@@ -3,6 +3,7 @@
     <mavon-editor id="mavon-editor" :value="value" class="flex-item-fill" ref="editor" :toolbars="toolbars" :subfield="false" 
                   :boxShadow="false" @change="onChange"
                   @paste="onPaste" @drop="onDrop" @dragover="allowDrop"
+                  :autofocus="isAutofocus"
                   ></mavon-editor>
   </div>
 </template>
@@ -23,7 +24,7 @@ interface ToolbarConfing {
 export default class MavonEditorComponent extends Vue {
   @Prop(String) value: string;
 
-  // @Prop(Boolean) toolbar: boolean;
+  @Prop(Boolean) autofocus: boolean;
 
   content: string = "";
   toolbars: ToolbarConfing  = {
@@ -33,7 +34,11 @@ export default class MavonEditorComponent extends Vue {
       strikethrough: true, // 中划线
       quote: true, // 引用
   }
-
+  
+  public get isAutofocus() : boolean {
+    return this.autofocus ? true : false;
+  }
+  
   public setValue (val: string) {
     // this.editor.value(val);
   }
