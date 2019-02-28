@@ -11,6 +11,12 @@ interface VueQuasar {
     notify: (config: any) => Function;
 }
 
+interface PostMenuItem {
+    id: string;
+    text: string;
+    children: Array<PostMenuItem>;
+}
+
 declare module 'vue/types/vue' {
     interface Vue {
         //@ts-ignore
@@ -26,10 +32,12 @@ declare module 'vue/types/vue' {
             highlightElement: (element: Element, async?: boolean, callback?: (element: Element) => void) => void;
         };
         $marked: (src: string, options: marked.MarkedOptions, callback?: (error: any | undefined, parseResult: string) => void) => string;
+        $markedRenderer: marked.Renderer;
         $lazyload: () => void;
         $renderABC: () => void;
         $simpleMDE: (config: any) => SimpleMDE;
         $package: any;
+        $postMenu: PostMenuItem;
     }
 }
 
