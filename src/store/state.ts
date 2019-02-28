@@ -1,5 +1,6 @@
 import { UserState } from "./user/state";
 import { Category } from "../model/Category";
+import { Tag } from "../model/Tag";
 
 /*
 * If not building with SSR mode, you can
@@ -8,10 +9,12 @@ import { Category } from "../model/Category";
 
 export interface StoreState {
     categories: Category[];
+    tags: Tag[];
 }
 
 let state: StoreState = {
-    categories: []
+    categories: [],
+    tags: []
 }
 
 export default state;

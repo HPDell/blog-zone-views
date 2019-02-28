@@ -1,20 +1,20 @@
 <template>
   <q-list no-border :separator="separator">
     <div class="row">
-      <q-list-header class="col">分类</q-list-header>
+      <q-list-header class="col">标签</q-list-header>
       <div class="flex-row vertical-center">
         <q-btn flat round dense :icon="editMode ? 'close' : 'edit'" color="primary" size="sm" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
       </div>
     </div>
-    <q-item class="category-item" v-for="category in categories" :key="`post-category-${category.id}`" :link="linkable && !editMode" :to="categoryTo(category)">
+    <q-item class="tag-item" v-for="tag in tags" :key="`post-tag-${tag.id}`" :link="linkable && !editMode" :to="tagTo(tag)">
       <q-item-main>
         <q-item-tile class="flex-row vertical-center">
           <div class="flex-item-fill">
-            <span :class="{'category-highlight': category.id === highlightID}">{{category.name}}{{ category.postNums ? `（${category.postNums}）` : "" }}</span>
+            <span :class="{'tag-highlight': isTagHighlight(tag)}">{{tag.name}}{{ tag.postNums ? `（${tag.postNums}）` : "" }}</span>
           </div>
           <div>
-            <q-btn v-show="editMode" flat round dense icon="edit" color="primary" size="sm" @click="editCategory(category.id, category.name)"></q-btn>
-            <q-btn v-show="editMode" flat round dense icon="delete" color="negative" size="sm" @click="deleteCategory(category.id)"></q-btn>
+            <q-btn v-show="editMode" flat round dense icon="edit" color="primary" size="sm" @click="editTag(tag.id, tag.name)"></q-btn>
+            <q-btn v-show="editMode" flat round dense icon="delete" color="negative" size="sm" @click="deleteTag(tag.id)"></q-btn>
           </div>
         </q-item-tile>
       </q-item-main>
@@ -25,11 +25,11 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
-import { Category } from '../model/Category';
+import { Tag } from '../model/Tag';
 
 @Component
-export default class PostCategoryComponent extends Vue {
-  @Prop(String) readonly postCategoryID: string;
+export default class PostTagComponent extends Vue {
+  @Prop(Array) readonly postTagIDs: string[];
   @Prop(Boolean) readonly link: boolean;
   @Prop(Boolean) readonly edit: boolean;
   @Prop(Boolean) readonly showSeparator: boolean;
@@ -48,26 +48,32 @@ export default class PostCategoryComponent extends Vue {
 
   editMode: boolean = this.editable;
   
-  public get highlightID() : string {
-    return `${this.postCategoryID}`;
+  public get highlightID() : string[] {
+    return [...this.postTagIDs];
   }
   
-  get categoryTo () {
-    return (category: Category) => {
+  get tagTo () {
+    return (tag: Tag) => {
       console.log("this.linkable, this.editMode", this.linkable, this.editMode);
       if (this.linkable && !this.editMode) {
-        return {'name': 'posts', 'query': {'category': category.id}}
+        return {'name': 'posts', 'query': {'tag': tag.id}}
       } else {
         return undefined;
       }
     }
   }
 
-  get categories (): Category[] {
-    return this.$store.state.categories;
+  get tags (): Tag[] {
+    return this.$store.state.tags;
   }
 
-  async editCategory (id: string, oldName: string) {
+  get isTagHighlight () {
+    return (tag: Tag) => {
+      return this.highlightID.findIndex(i => tag.id === i) > -1;
+    }
+  }
+
+  async editTag (id: string, oldName: string) {
     let name = await this.$q.dialog({
       title: "添加分类",
       message: "请输入分类名称",
@@ -76,15 +82,15 @@ export default class PostCategoryComponent extends Vue {
         type: "text"
       }
     });
-    this.$store.dispatch("editCategory", {id, name});
+    this.$store.dispatch("editTag", {id, name});
   }
 
-  deleteCategory (id: string) {
-    this.$store.dispatch("deleteCategory", id)
+  deleteTag (id: string) {
+    this.$store.dispatch("deleteTag", id)
   }
 
   mounted () {
-    this.$store.dispatch("getCategories");
+    this.$store.dispatch("getTags");
   }
 
 }
@@ -92,13 +98,13 @@ export default class PostCategoryComponent extends Vue {
 
 <style lang="stylus">
 @import '~variables'
-.category-item
+.tag-item
   font-size 0.9rem
   padding-bottom 0.2rem
   padding-top 0.2rem
   padding-right 0rem
   min-height 36px
 
-.category-highlight
+.tag-highlight
   color $primary
 </style>
