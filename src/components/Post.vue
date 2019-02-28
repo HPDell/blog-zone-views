@@ -35,11 +35,11 @@
             </q-item-main>
           </q-item>
         </q-list>
-        <my-post-sidebar class="lt-md" :postTOC="postTOC"></my-post-sidebar>
+        <my-post-sidebar class="lt-md" :postTOC="postTOC" :postCategory="post.category"></my-post-sidebar>
       </q-card>
     </div>
     <div class="col-lg-3 gt-md">
-      <my-post-sidebar class="stick-top" :postTOC="postTOC"></my-post-sidebar>
+      <my-post-sidebar class="stick-top" :postTOC="postTOC" :postCategory="post.category"></my-post-sidebar>
     </div>
   </div>
 </template>

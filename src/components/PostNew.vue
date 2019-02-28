@@ -13,13 +13,14 @@
         <q-input hide-underline v-model="post.title"></q-input>
       </q-item-main>
     </q-item>
-    <!-- <q-item>
+    <q-item>
       <q-item-side>分类</q-item-side>
-      <q-item-main>
-        <q-input hide-underline v-model="category"></q-input>
+      <q-item-main class="row">
+        <q-select class="flex-item-fill" hide-underline v-model="post.category" :options="categoryOptions"></q-select>
+        <q-btn flat round dense size="sm" icon="add" color="primary" @click="newCategory"></q-btn>
       </q-item-main>
     </q-item>
-    <q-item>
+    <!-- <q-item>
       <q-item-side>标签</q-item-side>
       <q-item-main>
         <q-input hide-underline v-model="tags"></q-input>
@@ -55,6 +56,7 @@ import MonacoEditorComponent from './MonacoEditor.vue';
 import Axios from 'axios';
 import { Route } from 'vue-router';
 import MavonEditorComponent from './MavonEditor.vue';
+import { Category } from '../model/Category';
 
 
 Component.registerHooks(["beforeRouteEnter"]);
@@ -82,6 +84,31 @@ export default class PostNewComponent extends Vue {
     }
   }
 
+  get categoryOptions (): {label: string, value: Category}[] {
+    console.log(this.$store.state.categories)
+    return this.$store.state.categories.map((item: Category) => {
+      return {
+        label: item.name,
+        value: {
+          id: item.id,
+          name: item.name
+        }
+      }
+    });
+  }
+
+  async newCategory () {
+    let name = await this.$q.dialog({
+      title: "添加分类",
+      message: "请输入分类名称",
+      prompt: {
+        model: '',
+        type: "text"
+      }
+    });
+    this.$store.dispatch("postCategory", name);
+  }
+
   renderContent () {
     if (this.post.content) {
       this.markedContent = this.$marked(this.post.content, {
@@ -99,7 +126,6 @@ export default class PostNewComponent extends Vue {
   }
 
   onPreviewScroll () {
-    console.log("preview scroll")
     this.$lazyload();
   }
 
