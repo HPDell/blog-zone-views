@@ -1,12 +1,12 @@
 <template>
-  <q-list no-border>
+  <q-list no-border :separator="separator">
     <div class="row">
       <q-list-header class="col">分类</q-list-header>
       <div class="flex-row vertical-center">
-        <q-btn flat round dense :icon="editMode ? 'close' : 'edit'" color="primary" size="sm" @click="editMode = !editMode"></q-btn>
+        <q-btn flat round dense :icon="editMode ? 'close' : 'edit'" color="primary" size="sm" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
       </div>
     </div>
-    <q-item class="category-item" v-for="category in categories" :key="`post-category-${category.id}`" :link="!editMode">
+    <q-item class="category-item" v-for="category in categories" :key="`post-category-${category.id}`" :link="linkable && !editMode" :to="categoryTo(category)">
       <q-item-main>
         <q-item-tile class="flex-row vertical-center">
           <div class="flex-item-fill">
@@ -29,14 +29,39 @@ import { Category } from '../model/Category';
 
 @Component
 export default class PostCategoryComponent extends Vue {
-  @Prop(String) readonly postCategoryID: string = "";
-  editMode: boolean = false;
+  @Prop(String) readonly postCategoryID: string;
+  @Prop(Boolean) readonly link: boolean;
+  @Prop(Boolean) readonly edit: boolean;
+  @Prop(Boolean) readonly showSeparator: boolean;
+
+  get separator (): boolean {
+    return (typeof this.showSeparator == undefined) ? false : this.showSeparator
+  }
+
+  get linkable (): boolean { 
+    return (typeof this.link == undefined) ? false : this.link
+  }
+
+  get editable (): boolean { 
+    return (typeof this.edit == undefined) ? false : this.edit
+  }
+
+  editMode: boolean = this.editable;
   
   public get highlightID() : string {
-    console.log(this.postCategoryID);
     return `${this.postCategoryID}`;
   }
   
+  get categoryTo () {
+    return (category: Category) => {
+      console.log("this.linkable, this.editMode", this.linkable, this.editMode);
+      if (this.linkable && !this.editMode) {
+        return {'name': 'posts', 'query': {'category': category.id}}
+      } else {
+        return undefined;
+      }
+    }
+  }
 
   get categories (): Category[] {
     return this.$store.state.categories;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-post-category :postCategoryID="postCategoryID"></my-post-category>
+    <my-post-category :postCategoryID="postCategoryID" :link="true"></my-post-category>
     <q-list no-border>
       <q-list-header>标签</q-list-header>
     </q-list>
