@@ -16,17 +16,20 @@
     <q-item>
       <q-item-side>分类</q-item-side>
       <q-item-main class="row">
-        <q-select class="flex-item-fill" hide-underline v-model="post.category" :options="categoryOptions"></q-select>
+        <q-select class="flex-item-fill" hide-underline v-model="post.category.id" :options="categoryOptions"></q-select>
         <q-btn flat round dense size="sm" icon="add" color="primary" @click="newCategory"></q-btn>
       </q-item-main>
     </q-item>
-    <!-- <q-item>
+    <q-item>
       <q-item-side>标签</q-item-side>
-      <q-item-main>
-        <q-input hide-underline v-model="tags"></q-input>
+      <q-item-main class="row">
+        <q-chips-input class="flex-item-fill" hide-underline v-model="tags">
+          <q-autocomplete :static-data="tagOptions"></q-autocomplete>
+        </q-chips-input>
+        <!-- <q-btn flat round dense size="sm" icon="add" color="primary" @click="newCategory"></q-btn> -->
       </q-item-main>
     </q-item>
-    <q-item>
+    <!-- <q-item>
       <q-item-side>封面</q-item-side>
       <q-item-main>
         <q-input hide-underline v-model="post.cover"></q-input>
@@ -84,17 +87,26 @@ export default class PostNewComponent extends Vue {
     }
   }
 
-  get categoryOptions (): {label: string, value: Category}[] {
+  get categoryOptions (): {label: string, value: string}[] {
     console.log(this.$store.state.categories)
     return this.$store.state.categories.map((item: Category) => {
       return {
         label: item.name,
-        value: {
-          id: item.id,
-          name: item.name
-        }
+        value: item.id
       }
     });
+  }
+  
+  get tagOptions () {
+    return {
+      field: 'label',
+      list: this.$store.state.tags.map(item => {
+        return {
+          value: item.id,
+          label: item.name
+        }
+      })
+    }
   }
 
   async newCategory () {
@@ -149,7 +161,14 @@ export default class PostNewComponent extends Vue {
 
   async submitEditPost () {
     try {
-      let response = await Axios.put<Post>(`/api/post/${this.post.id}`, this.post);
+      let response = await Axios.put<Post>(`/api/post/${this.post.id}`, {
+        ...this.post,
+        tags: this.tags.map(item => {
+          return {
+            name: item
+          }
+        })
+      });
       if (response.data) {
         this.$router.push({
           name: "post-detail",
@@ -169,7 +188,14 @@ export default class PostNewComponent extends Vue {
 
   async submitNewPost () {
     try {
-      let response = await Axios.post<Post>("/api/post/", this.post);
+      let response = await Axios.post<Post>("/api/post/", {
+        ...this.post,
+        tags: this.tags.map(item => {
+          return {
+            name: item
+          }
+        })
+      });
       if (response.data) {
         this.$router.push({
           name: "post-detail",

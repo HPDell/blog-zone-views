@@ -25,6 +25,22 @@
                    :to="{'name': 'posts', 'query': {'category': category.id}}"></q-btn>
           </q-item-main>
         </q-item>
+        <q-item>
+          <q-item-side>标签</q-item-side>
+          <q-item-main>
+            <q-btn class="q-mr-xs q-px-sm" dense rounded 
+                   :outline="tagSelected !== ''"
+                   label="全部" 
+                   color="primary" size="sm" 
+                   :to="{'name': 'posts'}"></q-btn>
+            <q-btn v-for="tag in tagOptions" :key="`tag-${tag.id}`" 
+                   class="q-mr-xs q-px-sm" dense rounded 
+                   :outline="tag.id !== tagSelected"
+                   :label="tag.name" 
+                   color="primary" size="sm" 
+                   :to="{'name': 'posts', 'query': {'tag': tag.id}}"></q-btn>
+          </q-item-main>
+        </q-item>
       </q-list>
       <div class="row gt-xs">
         <div class="col-xl-4 col-sm-6 col-xs-12 q-pa-xs" v-for="post in showPostList" :key="`post-card-${post.id}`">
@@ -81,6 +97,7 @@ import * as moment from "moment";
 import { Post } from "../model/Post";
 import { Category } from '../model/Category';
 import PostCategoryComponent from './PostCategory.vue';
+import { Tag } from '../model/Tag';
 
 @Component
 export default class PostListComponent extends Vue {
@@ -97,6 +114,18 @@ export default class PostListComponent extends Vue {
       name: "全部"
     }
     return this.$store.state.categories
+  };
+
+  get tagSelected(): string {
+    return this.$route.query.tag ? (this.$route.query.tag as string) : "";
+  }
+  
+  get tagOptions () {
+    let allTag: Tag = {
+      id: "",
+      name: "全部"
+    }
+    return this.$store.state.tags
   };
 
   get showPostList () {

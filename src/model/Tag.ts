@@ -1,4 +1,5 @@
 export class Tag {
-    id: number;
+    id: string;
     name: string;
+    postNums?: number;
 }

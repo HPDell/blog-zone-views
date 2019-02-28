@@ -1,9 +1,7 @@
 <template>
   <div>
     <my-post-category :postCategoryID="postCategoryID" :link="true"></my-post-category>
-    <q-list no-border>
-      <q-list-header>标签</q-list-header>
-    </q-list>
+    <my-post-tag :postTagIDs="postTagIDs" :link="true"></my-post-tag>
     <q-list no-border>
       <q-list-header>目录</q-list-header>
       <q-item class="toc-container" v-if="toc">
@@ -64,18 +62,26 @@ import { Component, Prop } from 'vue-property-decorator';
 import { PostMenuItem } from '../../typings/vue';
 import PostCategoryComponent from './PostCategory.vue';
 import { Category } from '../model/Category';
+import PostTagComponent from './PostTag.vue';
+import { Tag } from '../model/Tag';
 
 @Component({
   components: {
-    "my-post-category": PostCategoryComponent
+    "my-post-category": PostCategoryComponent,
+    "my-post-tag": PostTagComponent
   }
 })
 export default class PostSideBarComponent extends Vue {
   @Prop(Object) readonly postTOC: PostMenuItem;
   @Prop(Object) readonly postCategory: Category = new Category();
+  @Prop(Array) readonly postTags: Tag[] = [];
 
   get postCategoryID () {
     return this.postCategory ? `${this.postCategory.id}` : "default";
+  }
+
+  get postTagIDs () {
+    return this.postTags ? this.postTags.map(item => item.id) : [];
   }
 
   public get toc() : PostMenuItem {
