@@ -27,7 +27,7 @@
         </q-item>
         <q-item>
           <q-item-side>标签</q-item-side>
-          <q-item-main>
+          <!-- <q-item-main>
             <q-btn class="q-mr-xs q-px-sm" dense rounded 
                    :outline="tagSelected !== ''"
                    label="全部" 
@@ -39,7 +39,7 @@
                    :label="tag.name" 
                    color="primary" size="sm" 
                    :to="{'name': 'posts', 'query': {'tag': tag.id}}"></q-btn>
-          </q-item-main>
+          </q-item-main> -->
         </q-item>
       </q-list>
       <div class="row gt-xs">
