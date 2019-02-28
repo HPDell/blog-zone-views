@@ -1,8 +1,6 @@
 <template>
   <div>
-    <q-list no-border>
-      <q-list-header>分类</q-list-header>
-    </q-list>
+    <my-post-category :postCategoryID="postCategoryID" :link="true"></my-post-category>
     <q-list no-border>
       <q-list-header>标签</q-list-header>
     </q-list>
@@ -64,10 +62,21 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator';
 import { PostMenuItem } from '../../typings/vue';
+import PostCategoryComponent from './PostCategory.vue';
+import { Category } from '../model/Category';
 
-@Component
+@Component({
+  components: {
+    "my-post-category": PostCategoryComponent
+  }
+})
 export default class PostSideBarComponent extends Vue {
-  @Prop(Object) postTOC: PostMenuItem;
+  @Prop(Object) readonly postTOC: PostMenuItem;
+  @Prop(Object) readonly postCategory: Category = new Category();
+
+  get postCategoryID () {
+    return this.postCategory ? `${this.postCategory.id}` : "default";
+  }
 
   public get toc() : PostMenuItem {
     return this.postTOC;

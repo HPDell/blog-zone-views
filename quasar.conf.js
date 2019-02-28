@@ -147,6 +147,7 @@ module.exports = function (ctx) {
         'QCardSeparator',
         'QCardActions',
         'QCheckbox',
+        'QChip',
         'QChipsInput',
         'QDatetimePicker',
         'QField',

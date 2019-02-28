@@ -6,11 +6,10 @@ export class Post {
     title: string;
     content: string;
     tags: Tag[];
-    category: Category;
+    category: Category = new Category();
     cover: string;
 
     constructor() {
         this.tags = [];
-        this.category = new Category();
     }
 }

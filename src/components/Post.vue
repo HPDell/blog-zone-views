@@ -11,10 +11,14 @@
           </div>
           <q-card-title class="flex-item-fill q-pl-none">
             {{ post.title }}
-            <div class="row" slot="subtitle">
-              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="person"></q-icon>HPDell</span>
-              <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span>
-              <span class="q-mr-lg"><q-icon class="q-mr-sm" name="category"></q-icon>随笔</span> -->
+            <div class="flex-row vertical-center" slot="subtitle">
+              <div><span><q-icon size="14pt" class="q-mr-sm" name="person"></q-icon></span></div>
+              <div><span class="q-mr-lg">HPDell</span></div>
+              <!-- <span class="q-mr-lg"><q-icon class="q-mr-sm" name="tag"></q-icon>观后感</span> -->
+              <div>
+                <span><q-icon size="14pt" class="q-mr-sm" name="category"></q-icon></span>
+                <span class="q-mr-lg">{{ post.category.name }}</span>
+              </div>
             </div>
             <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
               <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
@@ -35,11 +39,11 @@
             </q-item-main>
           </q-item>
         </q-list>
-        <my-post-sidebar class="lt-md" :postTOC="postTOC"></my-post-sidebar>
+        <my-post-sidebar class="lt-md" :postTOC="postTOC" :postCategory="post.category"></my-post-sidebar>
       </q-card>
     </div>
     <div class="col-lg-3 gt-md">
-      <my-post-sidebar class="stick-top" :postTOC="postTOC"></my-post-sidebar>
+      <my-post-sidebar class="stick-top" :postTOC="postTOC" :postCategory="post.category"></my-post-sidebar>
     </div>
   </div>
 </template>
@@ -130,7 +134,6 @@ export default class PostComponent extends Vue {
     let self = this;
     let render = this.$markedRenderer;
     render.heading = function (text, level, raw, slugger) {
-      console.log(text, level, raw);
       let postTOC = self.postTOC;
       let id = slugger.slug(text);
       let curLevel = 1;
