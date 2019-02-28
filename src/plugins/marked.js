@@ -20,8 +20,6 @@ render.image = function (href) {
  * @param {string} body
  */
 render.table = function (header, body) {
-  console.log("header", header);
-  console.log("body", body);
   return `
     <div class="table-container">
       <table>
@@ -52,19 +50,20 @@ render.code = function (code, language) {
   }
 }
 
-marked.setOptions({
-  renderer: render,
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-});
-
 export var customRender = render;
 
 export default ({ Vue }) => {
+  marked.setOptions({
+    renderer: render,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false
+  });
+
   Vue.prototype.$marked = marked;
+  Vue.prototype.$markedRenderer = render;
 }

@@ -35,11 +35,11 @@
             </q-item-main>
           </q-item>
         </q-list>
-        <my-post-sidebar class="lt-md"></my-post-sidebar>
+        <my-post-sidebar class="lt-md" :postTOC="postTOC"></my-post-sidebar>
       </q-card>
     </div>
     <div class="col-lg-3 gt-md">
-      <my-post-sidebar class="stick-top"></my-post-sidebar>
+      <my-post-sidebar class="stick-top" :postTOC="postTOC"></my-post-sidebar>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ import { Component } from "vue-property-decorator";
 import { Post } from '../model/Post';
 import Axios from 'axios';
 import PostSideBarComponent from './PostSideBar.vue';
+import { PostMenuItem } from '../../typings/vue';
 
 @Component({
   components: {
@@ -58,7 +59,11 @@ import PostSideBarComponent from './PostSideBar.vue';
 })
 export default class PostComponent extends Vue {
   post: Post = new Post();
-
+  postTOC: PostMenuItem = {
+    id: "root",
+    text: "",
+    children: []
+  };
   markedContent: string = "";
 
   renderContent () {
@@ -123,12 +128,35 @@ export default class PostComponent extends Vue {
 
   setMarked () {
     let self = this;
-    console.log(self.$prism);
+    let render = this.$markedRenderer;
+    render.heading = function (text, level, raw, slugger) {
+      console.log(text, level, raw);
+      let postTOC = self.postTOC;
+      let id = slugger.slug(text);
+      let curLevel = 1;
+      let parentHeader = postTOC;
+      while (curLevel < level) {
+        parentHeader = parentHeader.children[parentHeader.children.length - 1];
+        curLevel = curLevel + 1;
+      }
+      if (parentHeader) {
+        parentHeader.children.push({
+          id: id,
+          text: text,
+          children: []
+        });
+      };
+      self.postTOC = postTOC;
+      return `
+        <h${level} id="${id}">${text}</h${level}>
+      `
+    };
+    
   }
 
   mounted () {
-    this.getPost();
     this.setMarked();
+    this.getPost();
   }
 }
 </script>
