@@ -1,9 +1,12 @@
 <template>
   <div class="row flex-item-fill gutter-sm">
-    <div class="col-lg-9 col-xs-12 flex-col">
+    <div class="col-lg-9 col-xs-12 flex-col q-mt-sm">
       <q-card square flat>
         <q-card-media class="non-selectable" v-if="post.cover">
-          <img :src="post.cover" alt="">
+          <img :src="`/api/picture/${post.cover.id}`" alt="">
+        </q-card-media>
+        <q-card-media class="non-selectable" v-else>
+          <img src="/statics/header_cover.jpg" alt="">
         </q-card-media>
         <div class="flex-row">
           <div class="flex-col justify-center">

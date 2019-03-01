@@ -45,8 +45,11 @@
       <div class="row gt-xs">
         <div class="col-xl-4 col-sm-6 col-xs-12 q-pa-xs" v-for="post in showPostList" :key="`post-card-${post.id}`">
           <q-card class="non-selectable fit flex-col">
-            <q-card-media v-if="post.cover">
-              <img :src="post.cover" alt="">
+            <q-card-media class="post-cover-container" v-if="post.cover">
+              <img class="post-cover" :src="`/api/picture/${post.cover.id}`" alt="">
+            </q-card-media>
+            <q-card-media class="post-cover-container" v-else>
+              <img class="post-cover" src="/statics/header_cover.jpg" alt="">
             </q-card-media>
             <q-card-title>{{ post.title }}
               <div class="flex-row vertical-top text-sm q-mt-sm" slot="subtitle">
@@ -72,7 +75,8 @@
     </div>
     <q-list class="lt-sm" link no-border separator>
       <q-item multiline v-for="post in postList" :key="`post-list-${post.id}`" :to="{'name': 'post-detail', 'params': {'id': post.id}}">
-        <q-item-side v-if="post.cover && post.cover !== ''" :image="post.cover"></q-item-side>
+        <q-item-side v-if="post.cover && post.cover !== ''" :image="`/api/picture/${post.cover.id}`"></q-item-side>
+        <q-item-side v-else image="/statics/header_cover.jpg"></q-item-side>
         <q-item-main>
           <q-item-tile label>{{ post.title }}</q-item-tile>
           <q-item-tile sublabel>
@@ -178,5 +182,16 @@ export default class PostListComponent extends Vue {
 
 img {
   margin: 0px;
+}
+
+.post-cover-container {
+  height: 0px;
+  padding-bottom: calc(100% * 9 / 16);
+  position: relative;
+}
+
+.post-cover {
+  position: absolute;
+  width: 100%;
 }
 </style>

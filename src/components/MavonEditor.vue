@@ -3,7 +3,7 @@
     <mavon-editor id="mavon-editor" :value="value" class="flex-item-fill" ref="editor" :toolbars="toolbars" :subfield="false" 
                   :boxShadow="false" @change="onChange"
                   @paste="onPaste" @drop="onDrop" @dragover="allowDrop"
-                  :autofocus="isAutofocus"
+                  :autofocus="isAutofocus" @imgAdd="onImageAdd"
                   ></mavon-editor>
   </div>
 </template>
@@ -145,6 +145,16 @@ export default class MavonEditorComponent extends Vue {
 
   allowDrop (e: DragEvent) {
     e.preventDefault();
+  }
+
+  async onImageAdd (pos: number, file: File) {
+    let pic = await this.uploadPicture(file);
+    if (pic) {
+      let editor = this.$refs.editor as any;
+      if (editor) {
+        editor.$img2Url(pos, `/api/picture/${pic}`)
+      }
+    }
   }
 }
 </script>
