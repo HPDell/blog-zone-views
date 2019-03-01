@@ -5,9 +5,6 @@
         <q-card-media class="non-selectable" v-if="post.cover">
           <img :src="`/api/picture/${post.cover.id}`" alt="">
         </q-card-media>
-        <q-card-media class="non-selectable" v-else>
-          <img src="/statics/header_cover.jpg" alt="">
-        </q-card-media>
         <div class="flex-row">
           <div class="flex-col justify-center">
             <q-btn icon="arrow_back" flat color="primary" @click="backToPostList" style="height: 100%;"></q-btn>
