@@ -14,8 +14,6 @@ export default {
   },
   mounted() {
     this.setLazyLoad();
-    this.$store.dispatch("getCategories");
-    this.$store.dispatch("getTags");
   }
 };
 </script>
