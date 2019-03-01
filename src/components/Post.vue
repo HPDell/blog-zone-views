@@ -11,13 +11,19 @@
           </div>
           <q-card-title class="flex-item-fill q-pl-none">
             {{ post.title }}
-            <div class="flex-row vertical-center" slot="subtitle">
-              <span><q-icon size="14pt" class="q-mr-sm" name="person"></q-icon></span>
-              <span class="q-mr-lg">HPDell</span>
-              <span><q-icon class="q-mr-sm" name="tag"></q-icon></span>
-              <span class="q-mr-lg">{{ post.tags.map(item => item.name).join(",") }}</span>
-              <span><q-icon size="14pt" class="q-mr-sm" name="category"></q-icon></span>
-              <span class="q-mr-lg">{{ post.category.name }}</span>
+            <div class="flex-row vertical-center q-pt-sm" slot="subtitle">
+              <div>
+                <span><q-icon size="14pt" class="q-mr-sm" name="person"></q-icon></span>
+                <span class="q-mr-lg">HPDell</span>
+              </div>
+              <div>
+                <span><q-icon size="14pt" class="q-mr-sm" name="category"></q-icon></span>
+                <span class="q-mr-lg">{{ post.category.name }}</span>
+              </div>
+              <!-- <div class="flex-item-fill">
+                <span><q-icon class="q-mr-sm" name="tag"></q-icon></span>
+                <span class="q-mr-lg">{{ post.tags.map(item => item.name).join(", ") }}</span>
+              </div> -->
             </div>
             <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
               <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
@@ -41,8 +47,8 @@
         <my-post-sidebar class="lt-md" :postTOC="postTOC" :postCategory="post.category" :postTags="post.tags"></my-post-sidebar>
       </q-card>
     </div>
-    <div class="col-lg-3 gt-md">
-      <my-post-sidebar class="stick-top" :postTOC="postTOC" :postCategory="post.category" :postTags="post.tags"></my-post-sidebar>
+    <div class="col-lg-3 col gt-md flex-row">
+      <my-post-sidebar :postTOC="postTOC" :postCategory="post.category" :postTags="post.tags"></my-post-sidebar>
     </div>
   </div>
 </template>
@@ -164,4 +170,6 @@ export default class PostComponent extends Vue {
 </script>
 
 <style lang="stylus">
+.q-card-title
+  line-height 1.35rem
 </style>

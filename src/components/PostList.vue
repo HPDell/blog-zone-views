@@ -2,42 +2,42 @@
   <div id="container" class="flex-item-fill">
     <q-list no-border>
       <q-toolbar inverted color="primary">
-        <q-toolbar-title class="q-pl-none">{{$package.meta.owner}} 的 {{ postList.length }} 篇博文</q-toolbar-title>
+        <q-toolbar-title class="q-pl-none">{{$package.meta.owner}} 的博文</q-toolbar-title>
         <q-btn flat round icon="add" :to="{'name': 'post-new'}" v-if="$store.state.userModule.canEdit"></q-btn>
         <q-btn flat round icon="settings" :to="{'name': 'post-setting'}" v-if="$store.state.userModule.canEdit"></q-btn>
       </q-toolbar>
     </q-list>
     <div>
       <q-list no-border class="q-pa-none">
-        <q-item>
-          <q-item-side>分类</q-item-side>
-          <q-item-main>
-            <q-btn class="q-mr-xs q-px-sm" dense rounded 
+        <q-item multiline class="q-py-none">
+          <q-item-side style="line-height: 2.1rem;">分类</q-item-side>
+          <q-item-main style="line-height: 2.1rem;">
+            <q-btn class="q-mr-xs q-px-sm" dense rounded style="line-height: 1rem;"
                    :outline="categorySelected !== ''"
-                   label="全部" 
-                   color="primary" size="sm" 
+                   :label="`全部（${postList.length}）`" 
+                   color="primary" size="md" 
                    :to="{'name': 'posts'}"></q-btn>
             <q-btn v-for="category in categoryOptions" :key="`category-${category.id}`" 
-                   class="q-mr-xs q-px-sm" dense rounded 
+                   class="q-mr-xs q-px-sm" dense rounded style="line-height: 1rem;"
                    :outline="category.id !== categorySelected"
-                   :label="category.name" 
-                   color="primary" size="sm" 
+                   :label="`${category.name}（${category.postNums}）`" 
+                   color="primary" size="md" 
                    :to="{'name': 'posts', 'query': {'category': category.id}}"></q-btn>
           </q-item-main>
         </q-item>
-        <q-item>
-          <q-item-side>标签</q-item-side>
-          <q-item-main>
-            <q-btn class="q-mr-xs q-px-sm" dense rounded 
+        <q-item multiline class="q-py-none">
+          <q-item-side style="line-height: 2.1rem;">标签</q-item-side>
+          <q-item-main style="line-height: 2.1rem;">
+            <q-btn class="q-mr-xs q-px-sm" dense rounded style="line-height: 1rem;"
                    :outline="tagSelected !== ''"
-                   label="全部" 
-                   color="primary" size="sm" 
+                   :label="`全部（${postList.length}）`" 
+                   color="primary" size="md" 
                    :to="{'name': 'posts'}"></q-btn>
             <q-btn v-for="tag in tagOptions" :key="`tag-${tag.id}`" 
-                   class="q-mr-xs q-px-sm" dense rounded 
+                   class="q-mr-xs q-px-sm q-md-sm" dense rounded style="line-height: 1rem;"
                    :outline="tag.id !== tagSelected"
-                   :label="tag.name" 
-                   color="primary" size="sm" 
+                   :label="`${tag.name}（${tag.postNums}）`" 
+                   color="primary" size="md" 
                    :to="{'name': 'posts', 'query': {'tag': tag.id}}"></q-btn>
           </q-item-main>
         </q-item>
@@ -49,10 +49,13 @@
               <img :src="post.cover" alt="">
             </q-card-media>
             <q-card-title>{{ post.title }}
-              <div class="flex-row vertical-center text-sm" slot="subtitle">
+              <div class="flex-row vertical-top text-sm q-mt-sm" slot="subtitle">
                 <span><q-icon size="16px" class="icon-xs q-mr-xs" name="category"></q-icon></span>
                 <span class="q-mr-lg">{{ post.category.name }}</span>
-                <!-- <span class="q-mr-lg"><q-icon size="16px" class="icon-xs q-mr-xs" name="tag"></q-icon>{{ post.tags.map(i => i.name).join(",") }}</span> -->
+              </div>
+              <div class="flex-row vertical-top text-sm q-mt-sm" slot="subtitle">
+                <span><q-icon size="16px" class="icon-xs q-mr-xs" name="tag"></q-icon></span>
+                <span class="q-mr-lg">{{ post.tags.map(i => i.name).join(", ") }}</span>
               </div>
             </q-card-title>
             <q-card-main class="flex-item-fill"></q-card-main>
@@ -73,9 +76,9 @@
         <q-item-main>
           <q-item-tile label>{{ post.title }}</q-item-tile>
           <q-item-tile sublabel>
-            <div class="row text-sm">
-              <!-- <span class="q-mr-sm"><q-icon size="16px" class="icon-xs q-mr-xs" name="category"></q-icon>{{ post.category.name }}</span>
-              <span class="q-mr-sm"><q-icon size="16px" class="icon-xs q-mr-xs" name="tag"></q-icon>{{ post.tags.map(i => i.name).join(",") }}</span> -->
+            <div class="text-sm q-pt-xs">
+              <div class="q-mr-sm flex-row vertical-top"><q-icon size="16px" class="icon-xs q-mr-xs" name="category"></q-icon>{{ post.category.name }}</div>
+              <div class="q-mr-sm flex-row vertical-top"><q-icon size="16px" class="icon-xs q-mr-xs" name="tag"></q-icon>{{ post.tags.map(i => i.name).join(",") }}</div>
             </div>
           </q-item-tile>
           <q-item-tile sublabel>
@@ -161,6 +164,8 @@ export default class PostListComponent extends Vue {
 
   mounted () {
     this.getPostList();
+    this.$store.dispatch("getCategories");
+    this.$store.dispatch("getTags");
   }
 }
 </script>

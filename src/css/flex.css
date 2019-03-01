@@ -60,6 +60,10 @@
   align-items: center !important;
 }
 
+.vertical-top {
+  align-items: flex-start !important;
+}
+
 .item-vertical-center {
   align-self: center !important;
   -webkit-align-self: center !important;
