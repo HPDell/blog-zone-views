@@ -1,5 +1,5 @@
 <template>
-    <div class="welcome q-px-md q-pb-lg" v-html="welcome"></div>
+    <div class="welcome q-px-md q-pb-lg q-pt-md" v-html="welcome"></div>
 </template>
 
 <script>
