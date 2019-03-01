@@ -1,6 +1,6 @@
 {
   "name": "blog-zone-views",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "博客空间",
   "productName": "博客空间",
   "cordovaId": "org.cordova.quasar.app",

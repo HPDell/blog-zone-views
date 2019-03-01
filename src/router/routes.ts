@@ -27,6 +27,10 @@ const routes: RouteConfig[] = [
         name: "post-new",
         component: () => import('components/PostNew.vue')
       }, {
+        path: 'setting/',
+        name: "post-setting",
+        component: () => import('components/PostSetting.vue')
+      }, {
         path: 'edit/:id/',
         name: "post-edit",
         component: () => import('components/PostNew.vue')

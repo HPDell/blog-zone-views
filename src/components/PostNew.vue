@@ -13,24 +13,29 @@
         <q-input hide-underline v-model="post.title"></q-input>
       </q-item-main>
     </q-item>
-    <!-- <q-item>
+    <q-item>
       <q-item-side>分类</q-item-side>
-      <q-item-main>
-        <q-input hide-underline v-model="category"></q-input>
+      <q-item-main class="row">
+        <q-select class="flex-item-fill" hide-underline v-model="post.category.id" :options="categoryOptions"></q-select>
+        <q-btn flat round dense size="sm" icon="add" color="primary" @click="newCategory"></q-btn>
       </q-item-main>
     </q-item>
     <q-item>
       <q-item-side>标签</q-item-side>
-      <q-item-main>
-        <q-input hide-underline v-model="tags"></q-input>
+      <q-item-main class="row">
+        <q-chips-input class="flex-item-fill" hide-underline v-model="tags">
+          <q-autocomplete :static-data="tagOptions" min-characters="0" :filter="tagAutocompleteFilter"></q-autocomplete>
+        </q-chips-input>
       </q-item-main>
     </q-item>
     <q-item>
       <q-item-side>封面</q-item-side>
-      <q-item-main>
-        <q-input hide-underline v-model="post.cover"></q-input>
+      <q-item-main class="flex-row vertical-center">
+        <input id="cover-input" type="file" hide-underline v-show="false"/>
+        <span v-if="post.cover">{{ post.cover.id }}</span>
+        <q-btn flat dense round icon="image" @click="selectCover"></q-btn>
       </q-item-main>
-    </q-item> -->
+    </q-item>
     <q-item-separator></q-item-separator>
     <q-list-header>{{ previewMode ? "预览" : "正文" }}</q-list-header>
     <q-item class="flex-item-fill flex-col" v-if="!previewMode">
@@ -55,6 +60,8 @@ import MonacoEditorComponent from './MonacoEditor.vue';
 import Axios from 'axios';
 import { Route } from 'vue-router';
 import MavonEditorComponent from './MavonEditor.vue';
+import { Category } from '../model/Category';
+import { Picture } from '../model/Picture';
 
 
 Component.registerHooks(["beforeRouteEnter"]);
@@ -70,6 +77,7 @@ export default class PostNewComponent extends Vue {
   tags: string[] = [];
   previewMode: boolean = false;
   markedContent: string = "";
+  coverFile!: File;
 
   get title () {
     switch (this.$route.name) {
@@ -80,6 +88,40 @@ export default class PostNewComponent extends Vue {
       default:
         return "";
     }
+  }
+
+  get categoryOptions (): {label: string, value: string}[] {
+    console.log(this.$store.state.categories)
+    return this.$store.state.categories.map((item: Category) => {
+      return {
+        label: item.name,
+        value: item.id
+      }
+    });
+  }
+  
+  get tagOptions () {
+    return {
+      field: 'label',
+      list: this.$store.state.tags.map(item => {
+        return {
+          value: item.name,
+          label: item.name
+        }
+      })
+    }
+  }
+
+  async newCategory () {
+    let name = await this.$q.dialog({
+      title: "添加分类",
+      message: "请输入分类名称",
+      prompt: {
+        model: '',
+        type: "text"
+      }
+    });
+    this.$store.dispatch("postCategory", name);
   }
 
   renderContent () {
@@ -99,7 +141,6 @@ export default class PostNewComponent extends Vue {
   }
 
   onPreviewScroll () {
-    console.log("preview scroll")
     this.$lazyload();
   }
 
@@ -121,43 +162,100 @@ export default class PostNewComponent extends Vue {
     }
   }
 
+  async uploadPicture (pic: File) {
+    try {
+      let formData = new FormData();
+      formData.append("photos", pic);
+      let response = await Axios.post<Picture>(`/api/picture/`, formData);
+      if (response.data) {
+        return response.data.id as string;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async submitEditPost () {
     try {
-      let response = await Axios.put<Post>(`/api/post/${this.post.id}`, this.post);
-      if (response.data) {
-        this.$router.push({
-          name: "post-detail",
-          params: {
-            id: response.data.id
-          }
+      let cover = null;
+      if (this.coverFile) {
+        cover = await this.uploadPicture(this.coverFile);
+      }
+      try {
+        let response = await Axios.put<Post>(`/api/post/${this.post.id}`, {
+          ...this.post,
+          cover: cover ? {
+            id: cover
+          } : undefined,
+          tags: this.tags.map(item => {
+            return {
+              name: item
+            }
+          }),
+        });
+        if (response.data) {
+          this.$router.push({
+            name: "post-detail",
+            params: {
+              id: response.data.id
+            }
+          })
+        }
+      } catch (error) {
+        this.$q.notify({
+          message: "修改博文失败",
+          type: "negative",
+          position: "top"
         })
       }
     } catch (error) {
       this.$q.notify({
-        message: "修改博文失败",
+        message: "图片上传失败",
         type: "negative",
         position: "top"
-      })
+      });
     }
   }
 
   async submitNewPost () {
     try {
-      let response = await Axios.post<Post>("/api/post/", this.post);
-      if (response.data) {
-        this.$router.push({
-          name: "post-detail",
-          params: {
-            id: response.data.id
-          }
+      let cover = null;
+      if (this.coverFile) {
+        cover = await this.uploadPicture(this.coverFile);
+      }
+      try {
+        let response = await Axios.post<Post>("/api/post/", {
+          ...this.post,
+          cover: cover ? {
+            id: cover
+          } : undefined,
+          tags: this.tags.map(item => {
+            return {
+              name: item
+            }
+          })
+        });
+        if (response.data) {
+          this.$router.push({
+            name: "post-detail",
+            params: {
+              id: response.data.id
+            }
+          })
+        }
+      } catch (error) {
+        this.$q.notify({
+          message: "发表博文失败",
+          type: "negative",
+          position: "top"
         })
       }
     } catch (error) {
       this.$q.notify({
-        message: "发表博文失败",
+        message: "图片上传失败",
         type: "negative",
         position: "top"
-      })
+      });
     }
   }
 
@@ -206,6 +304,7 @@ export default class PostNewComponent extends Vue {
       let response = await Axios.get<Post>(`/api/post/${this.$route.params.id}/`);
       if (response.data) {
         this.post = response.data;
+        this.tags = response.data.tags.map(item => item.name);
       }
     } catch (error) {
       console.log("getSaying error:", error);
@@ -221,15 +320,38 @@ export default class PostNewComponent extends Vue {
         editor.setValue(this.post.content);
       }
     }
+    let coverInput = document.getElementById("cover-input");
+    if (coverInput) {
+      let self = this;
+      coverInput.onchange = function () {
+        let uploadElement = this as any;
+        let fileList = uploadElement.files as FileList;
+        if (fileList.length) {
+          self.coverFile = fileList[0];
+        }
+      }
+    }
+  }
+
+  selectCover () {
+    let coverInput = document.getElementById("cover-input");
+    if (coverInput) {
+      console.log("input click");
+      coverInput.click();
+    }
   }
 
   beforeRouteEnter (to: Route, from: Route, next: Function) {
     next((vm: Vue) => {
-      console.log("beforeRouteEnter", vm.$store.state.userModule.canEdit)
       if (!vm.$store.state.userModule.canEdit) {
         vm.$router.back();
       }
     })
+  }
+
+  tagAutocompleteFilter (terms: string, {field, list}: {field: string, list: Array<{[key: string]: string}>}) {
+    let self = this;
+    return list.filter(item => item[field].includes(terms)).filter(item => self.tags.indexOf(item[field]) < 0);
   }
 }
 </script>
