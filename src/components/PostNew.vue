@@ -295,6 +295,8 @@ export default class PostNewComponent extends Vue {
     this.previewMode = !this.previewMode;
     if (this.previewMode) {
       this.renderContent();
+    } else {
+      this.$stopABC();
     }
   }
 
