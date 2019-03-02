@@ -3,7 +3,7 @@
     <div class="row">
       <q-list-header class="col">分类</q-list-header>
       <div class="flex-row vertical-center">
-        <q-btn flat round dense :icon="editMode ? 'close' : 'edit'" color="primary" size="sm" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
+        <q-btn flat rounded dense :icon="editMode ? 'close' : 'edit'" color="primary" size="md" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
       </div>
     </div>
     <q-item class="category-item" v-for="category in categories" :key="`post-category-${category.id}`" :link="linkable && !editMode" :to="categoryTo(category)">
@@ -13,8 +13,8 @@
             <span :class="{'category-highlight': category.id === highlightID}">{{category.name}}{{ category.postNums ? `（${category.postNums}）` : "" }}</span>
           </div>
           <div>
-            <q-btn v-show="editMode" flat round dense icon="edit" color="primary" size="sm" @click="editCategory(category.id, category.name)"></q-btn>
-            <q-btn v-show="editMode" flat round dense icon="delete" color="negative" size="sm" @click="deleteCategory(category.id)"></q-btn>
+            <q-btn v-show="editMode" class="q-mr-xs" flat rounded dense icon="edit" color="primary" size="md" @click="editCategory(category.id, category.name)"></q-btn>
+            <q-btn v-show="editMode" class="q-mr-xs" flat rounded dense icon="delete" color="negative" size="md" @click="deleteCategory(category.id)"></q-btn>
           </div>
         </q-item-tile>
       </q-item-main>
@@ -79,8 +79,16 @@ export default class PostCategoryComponent extends Vue {
     this.$store.dispatch("editCategory", {id, name});
   }
 
-  deleteCategory (id: string) {
-    this.$store.dispatch("deleteCategory", id)
+  async deleteCategory (id: string) {
+    try {
+      await this.$q.dialog({
+        title: "确定删除分类？",
+        message: "此操作不可恢复",
+        cancel: true
+      });
+      await this.$store.dispatch("deleteCategory", id)
+    } catch (error) {
+    }
   }
 
   mounted () {

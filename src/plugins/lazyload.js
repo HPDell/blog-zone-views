@@ -5,7 +5,7 @@ function lazyload() {
     let bound = element.getBoundingClientRect();
     let clientHeight = window.innerHeight;
     if (bound.top <= (clientHeight + 100)) {
-      if (element.dataset.src) {
+      if (element.dataset.src && element.src === "") {
         element.src = element.dataset.src;
       }
     }
