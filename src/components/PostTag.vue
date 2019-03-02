@@ -3,7 +3,7 @@
     <div class="row">
       <q-list-header class="col">标签</q-list-header>
       <div class="flex-row vertical-center">
-        <q-btn flat round dense :icon="editMode ? 'close' : 'edit'" color="primary" size="sm" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
+        <q-btn flat rounded dense :icon="editMode ? 'close' : 'edit'" color="primary" size="md" @click="editMode = !editMode" v-if="!edit && $store.state.userModule.canEdit"></q-btn>
       </div>
     </div>
     <q-item class="tag-item" v-for="tag in tags" :key="`post-tag-${tag.id}`" :link="linkable && !editMode" :to="tagTo(tag)">
@@ -13,8 +13,8 @@
             <span :class="{'tag-highlight': isTagHighlight(tag)}">{{tag.name}}{{ tag.postNums ? `（${tag.postNums}）` : "" }}</span>
           </div>
           <div>
-            <q-btn v-show="editMode" flat round dense icon="edit" color="primary" size="sm" @click="editTag(tag.id, tag.name)"></q-btn>
-            <q-btn v-show="editMode" flat round dense icon="delete" color="negative" size="sm" @click="deleteTag(tag.id)"></q-btn>
+            <q-btn v-show="editMode" class="q-mr-xs" flat rounded dense icon="edit" color="primary" size="md" @click="editTag(tag.id, tag.name)"></q-btn>
+            <q-btn v-show="editMode" class="q-mr-xs" flat rounded dense icon="delete" color="negative" size="md" @click="deleteTag(tag.id)"></q-btn>
           </div>
         </q-item-tile>
       </q-item-main>
@@ -49,7 +49,7 @@ export default class PostTagComponent extends Vue {
   editMode: boolean = this.editable;
   
   public get highlightID() : string[] {
-    return [...this.postTagIDs];
+    return this.postTagIDs ? [...this.postTagIDs] : [];
   }
   
   get tagTo () {
@@ -85,8 +85,17 @@ export default class PostTagComponent extends Vue {
     this.$store.dispatch("editTag", {id, name});
   }
 
-  deleteTag (id: string) {
-    this.$store.dispatch("deleteTag", id)
+  async deleteTag (id: string) {
+    try {
+      await this.$q.dialog({
+        title: "确定删除标签？",
+        message: "此操作不可恢复",
+        cancel: true
+      });
+      await this.$store.dispatch("deleteTag", id)
+    } catch (error) {
+      
+    }
   }
 
   mounted () {
