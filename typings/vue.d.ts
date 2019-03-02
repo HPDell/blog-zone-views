@@ -35,6 +35,7 @@ declare module 'vue/types/vue' {
         $markedRenderer: marked.Renderer;
         $lazyload: () => void;
         $renderABC: () => void;
+        $stopABC: () => void;
         $simpleMDE: (config: any) => SimpleMDE;
         $package: any;
         $postMenu: PostMenuItem;

@@ -175,6 +175,10 @@ export default class PostComponent extends Vue {
     this.setMarked();
     this.getPost();
   }
+
+  beforeDestroy () {
+    this.$stopABC();
+  }
 }
 </script>
 
