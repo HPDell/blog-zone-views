@@ -93,8 +93,17 @@ export default class SayingComponent extends Vue {
 
   async deleteSaying () {
     try {
-      let response = await Axios.delete(`/api/saying/${this.id}/`);
-      this.$emit("saying-deleted");
+      await this.$q.dialog({
+        title: "确定删除微文？",
+        message: "此操作不可恢复",
+        cancel: true
+      });
+      try {
+        let response = await Axios.delete(`/api/saying/${this.id}/`);
+        this.$emit("saying-deleted");
+      } catch (error) {
+        
+      }
     } catch (error) {
       
     }

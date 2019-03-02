@@ -113,16 +113,25 @@ export default class PostComponent extends Vue {
 
   async deletePost () {
     try {
-      let response = await Axios.delete(`/api/post/${this.$route.params.id}/`);
-      this.$router.push({
-        name: "posts"
+      await this.$q.dialog({
+        title: "确定删除博文？",
+        message: "此操作不可恢复",
+        cancel: true
       });
+      try {
+        let response = await Axios.delete(`/api/post/${this.$route.params.id}/`);
+        this.$router.push({
+          name: "posts"
+        });
+      } catch (error) {
+        this.$q.notify({
+          message: "删除博文失败",
+          type: "negative",
+          position: "top"
+        })
+      }
     } catch (error) {
-      this.$q.notify({
-        message: "删除博文失败",
-        type: "negative",
-        position: "top"
-      })
+      
     }
   }
 
