@@ -22,7 +22,7 @@
                    :outline="category.id !== categorySelected"
                    :label="`${category.name}（${category.postNums}）`" 
                    color="primary" size="md" 
-                   :to="{'name': 'posts', 'query': {'category': category.id}}"></q-btn>
+                   :to="{'name': 'posts', 'query': {'category': category.name}}"></q-btn>
           </q-item-main>
         </q-item>
         <q-item multiline class="q-py-none">
@@ -38,7 +38,7 @@
                    :outline="tag.id !== tagSelected"
                    :label="`${tag.name}（${tag.postNums}）`" 
                    color="primary" size="md" 
-                   :to="{'name': 'posts', 'query': {'tag': tag.id}}"></q-btn>
+                   :to="{'name': 'posts', 'query': {'tag': tag.name}}"></q-btn>
           </q-item-main>
         </q-item>
       </q-list>
@@ -74,7 +74,7 @@
       </div>
     </div>
     <q-list class="lt-sm" link no-border separator>
-      <q-item multiline v-for="post in postList" :key="`post-list-${post.id}`" :to="{'name': 'post-detail', 'params': {'id': post.id}}">
+      <q-item multiline v-for="post in showPostList" :key="`post-list-${post.id}`" :to="{'name': 'post-detail', 'params': {'id': post.id}}">
         <q-item-side v-if="post.cover && post.cover !== ''" :image="`/api/picture/${post.cover.id}`"></q-item-side>
         <q-item-side v-else image="/statics/header_cover.jpg"></q-item-side>
         <q-item-main>
@@ -137,9 +137,13 @@ export default class PostListComponent extends Vue {
 
   get showPostList () {
     if (!this.categorySelected || this.categorySelected == "") {
-      return this.postList;
+      if (!this.tagSelected || this.tagSelected == "") {
+        return this.postList;
+      } else {
+        return this.postList.filter(item => item.tags.findIndex(tag => tag.name == this.tagSelected) > -1);
+      }
     } else {
-      return this.postList.filter(item => item.category.id === this.categorySelected);
+      return this.postList.filter(item => item.category.name === this.categorySelected);
     }
   }
 
