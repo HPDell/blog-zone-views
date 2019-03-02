@@ -56,7 +56,7 @@ export default class PostCategoryComponent extends Vue {
     return (category: Category) => {
       console.log("this.linkable, this.editMode", this.linkable, this.editMode);
       if (this.linkable && !this.editMode) {
-        return {'name': 'posts', 'query': {'category': category.id}}
+        return {'name': 'posts', 'query': {'category': category.name}}
       } else {
         return undefined;
       }
