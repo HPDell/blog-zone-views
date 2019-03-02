@@ -112,6 +112,10 @@ export default class SayingComponent extends Vue {
   async mounted () {
     await this.getSaying();
   }
+
+  beforeDestroy () {
+    this.$stopABC();
+  }
 }
 </script>
 

@@ -23,6 +23,11 @@ function renderAbc() {
   });
 }
 
+function stopABC() {
+  ABCjs.midi.stopPlaying()
+}
+
 export default ({ Vue }) => {
   Vue.prototype.$renderABC = renderAbc;
+  Vue.prototype.$stopABC = stopABC;
 }
