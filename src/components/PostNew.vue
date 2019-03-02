@@ -24,7 +24,7 @@
       <q-item-side>标签</q-item-side>
       <q-item-main class="row">
         <q-chips-input class="flex-item-fill" hide-underline v-model="tags">
-          <q-autocomplete :static-data="tagOptions" min-characters="0" :filter="tagAutocompleteFilter"></q-autocomplete>
+          <q-autocomplete :static-data="tagOptions" :min-characters="0" :filter="tagAutocompleteFilter"></q-autocomplete>
         </q-chips-input>
       </q-item-main>
     </q-item>
@@ -129,7 +129,6 @@ export default class PostNewComponent extends Vue {
       this.markedContent = this.$marked(this.post.content, {
         sanitize: true
       });
-      console.log(this.markedContent);
       setTimeout(() => {
         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         this.$lazyload();
