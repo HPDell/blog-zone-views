@@ -19,7 +19,7 @@
                    :to="{'name': 'posts'}"></q-btn>
             <q-btn v-for="category in categoryOptions" :key="`category-${category.id}`" 
                    class="q-mr-xs q-px-sm" dense rounded style="line-height: 1rem;"
-                   :outline="category.id !== categorySelected"
+                   :outline="category.name !== categorySelected"
                    :label="`${category.name}（${category.postNums}）`" 
                    color="primary" size="md" 
                    :to="{'name': 'posts', 'query': {'category': category.name}}"></q-btn>
@@ -35,7 +35,7 @@
                    :to="{'name': 'posts'}"></q-btn>
             <q-btn v-for="tag in tagOptions" :key="`tag-${tag.id}`" 
                    class="q-mr-xs q-px-sm q-md-sm" dense rounded style="line-height: 1rem;"
-                   :outline="tag.id !== tagSelected"
+                   :outline="tag.name !== tagSelected"
                    :label="`${tag.name}（${tag.postNums}）`" 
                    color="primary" size="md" 
                    :to="{'name': 'posts', 'query': {'tag': tag.name}}"></q-btn>

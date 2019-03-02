@@ -56,7 +56,7 @@ export default class PostTagComponent extends Vue {
     return (tag: Tag) => {
       console.log("this.linkable, this.editMode", this.linkable, this.editMode);
       if (this.linkable && !this.editMode) {
-        return {'name': 'posts', 'query': {'tag': tag.id}}
+        return {'name': 'posts', 'query': {'tag': tag.name}}
       } else {
         return undefined;
       }
