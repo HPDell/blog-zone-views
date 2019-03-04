@@ -1,5 +1,5 @@
 <template>
-  <q-list separator class="flex-item-fill flex-col" style="margin-bottom: -8px;">
+  <q-list separator class="flex-item-fill flex-col relative-position" style="margin-bottom: -8px;">
     <q-toolbar inverted>
       <q-toolbar-title class="q-pl-none">
         {{title}}博文
@@ -49,6 +49,9 @@
       <q-btn flat :icon="previewMode ? 'code' : 'web'" :label="previewMode ? '代码' : '预览'" @click="togglePreview"></q-btn>
       <q-btn flat icon="cancel" label="取消" @click="cancel"></q-btn>
     </q-toolbar>
+    <q-inner-loading class="editor-spinner" :visible="isUploading">
+      <q-spinner-mat :size="50" color="primary"></q-spinner-mat>
+    </q-inner-loading>
   </q-list>
 </template>
 
@@ -78,6 +81,7 @@ export default class PostNewComponent extends Vue {
   previewMode: boolean = false;
   markedContent: string = "";
   coverFile!: File;
+  isUploading = false;
 
   get title () {
     switch (this.$route.name) {
@@ -175,6 +179,7 @@ export default class PostNewComponent extends Vue {
   }
 
   async submitEditPost () {
+    this.isUploading = true;
     try {
       let cover = null;
       if (this.coverFile) {
@@ -193,6 +198,7 @@ export default class PostNewComponent extends Vue {
           }),
         });
         if (response.data) {
+          this.isUploading = false;
           this.$router.push({
             name: "post-detail",
             params: {
@@ -214,9 +220,11 @@ export default class PostNewComponent extends Vue {
         position: "top"
       });
     }
+    this.isUploading = false;
   }
 
   async submitNewPost () {
+    this.isUploading = true;
     try {
       let cover = null;
       if (this.coverFile) {
@@ -235,6 +243,7 @@ export default class PostNewComponent extends Vue {
           })
         });
         if (response.data) {
+          this.isUploading = false;
           this.$router.push({
             name: "post-detail",
             params: {
@@ -256,6 +265,7 @@ export default class PostNewComponent extends Vue {
         position: "top"
       });
     }
+    this.isUploading = false;
   }
 
   cancel () {
