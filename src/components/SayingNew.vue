@@ -1,5 +1,5 @@
 <template>
-  <q-item multiline>
+  <q-item multiline class="relative-position">
     <q-item-side>
       <q-item-tile avatar>
         <img src="/login/avatar/avatar.jpg" alt>
@@ -24,6 +24,9 @@
       <div class="row"><q-btn flat round dense icon="photo" @click="addPicture"></q-btn></div>
       <div class="row"><q-btn flat round dense icon="close" @click="cancelNewSaying"></q-btn></div>
     </q-item-side>
+    <q-inner-loading class="editor-spinner" :visible="isUploading">
+      <q-spinner-mat :size="50" color="primary"></q-spinner-mat>
+    </q-inner-loading>
   </q-item>
 </template>
 
@@ -45,8 +48,10 @@ export default class SayingNew extends Vue {
   pictures: Picture[] = [];
   preViewPictures: string[] = [];
   reader = new FileReader();
+  isUploading = false;
 
   async submitSaying () {
+    this.isUploading = true;
     try {
       let response = await Axios.post<Saying>("/api/saying/", this.saying);
       if (response.data) {
@@ -57,11 +62,13 @@ export default class SayingNew extends Vue {
         } catch (error) {
           console.log(`提交图片出错，成功${successNum}`);
         }
+        this.isUploading = false;
         this.$emit("post-new-saying");
       }
     } catch (error) {
+      this.isUploading = false;
       console.log("提交微文失败");
-    }
+    };
   }
 
   addPicture () {

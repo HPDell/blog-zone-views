@@ -1,10 +1,13 @@
 <template>
-  <div class="flex-item-fill flex-col" @dragover="allowDrop" @drop="onDrop">
+  <div class="flex-item-fill flex-col relative-position" @dragover="allowDrop" @drop="onDrop">
     <mavon-editor id="mavon-editor" :value="value" class="flex-item-fill" ref="editor" :toolbars="toolbars" :subfield="false" 
                   :boxShadow="false" @change="onChange"
                   @paste="onPaste" @drop="onDrop" @dragover="allowDrop"
-                  :autofocus="isAutofocus" @imgAdd="onImageAdd"
-                  ></mavon-editor>
+                  :autofocus="isAutofocus" @imgAdd="onImageAdd">
+    </mavon-editor>
+    <q-inner-loading class="editor-spinner" :visible="isLoading">
+      <q-spinner-mat :size="50" color="primary"></q-spinner-mat>
+    </q-inner-loading>
   </div>
 </template>
 
@@ -33,7 +36,8 @@ export default class MavonEditorComponent extends Vue {
       underline: true, // 下划线
       strikethrough: true, // 中划线
       quote: true, // 引用
-  }
+  };
+  isLoading = false;
   
   public get isAutofocus() : boolean {
     return this.autofocus ? true : false;
@@ -70,12 +74,16 @@ export default class MavonEditorComponent extends Vue {
   }
 
   async uploadPicture (pic: File) {
+    this.isLoading = true;
     try {
       let formData = new FormData();
       formData.append("photos", pic);
       let response = await Axios.post<Picture>(`/api/picture/`, formData);
       if (response.data) {
+        this.isLoading = false;
         return response.data.id as string;
+      } else {
+        this.isLoading = false;
       }
     } catch (error) {
       this.$q.notify({
@@ -83,6 +91,7 @@ export default class MavonEditorComponent extends Vue {
         type: "negative",
         position: "top"
       })
+      this.isLoading = false;
     }
   }
 
@@ -169,4 +178,7 @@ export default class MavonEditorComponent extends Vue {
 
 .CodeMirror, .CodeMirror-scroll
   min-height 200px
+
+.editor-spinner
+  z-index 1600
 </style>
