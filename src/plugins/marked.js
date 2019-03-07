@@ -1,4 +1,4 @@
-import marked from "marked";
+import marked from "./marked/marked.custom";
 import md5 from "md5";
 const Prism = require("./prism").default;
 
