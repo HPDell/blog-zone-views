@@ -33,17 +33,7 @@
         </div>
         <q-card-main v-html="markedContent" style="overflow: auto;"></q-card-main>
         <q-card-separator v-if="post.comments"></q-card-separator>
-        <q-list no-border multiline link class="non-selectable" v-if="post.comments">
-          <q-list-header>评论</q-list-header>
-          <q-item>
-            <q-item-side>
-              <q-item-tile>HPDell</q-item-tile>
-            </q-item-side>
-            <q-item-main>
-              在所有流失风景与人群中，你对我最好。
-            </q-item-main>
-          </q-item>
-        </q-list>
+        <my-post-comment v-if="post.comments" :comments="post.comments" :postID="post.id"></my-post-comment>
         <my-post-sidebar class="lt-md" :postTOC="postTOC" :postCategory="post.category" :postTags="post.tags"></my-post-sidebar>
       </q-card>
     </div>
@@ -60,10 +50,12 @@ import { Post } from '../model/Post';
 import Axios from 'axios';
 import PostSideBarComponent from './PostSideBar.vue';
 import { PostMenuItem } from '../../typings/vue';
+import PostCommentComponent from './PostComment.vue';
 
 @Component({
   components: {
-    'my-post-sidebar': PostSideBarComponent
+    'my-post-sidebar': PostSideBarComponent,
+    'my-post-comment': PostCommentComponent,
   }
 })
 export default class PostComponent extends Vue {
