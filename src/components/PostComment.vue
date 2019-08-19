@@ -89,7 +89,10 @@ export default class PostCommentComponent extends Vue {
           await this.getCommentChildren();
         }
       } catch (error) {
-        
+        this.$q.notify({
+          message: "获取评论失败",
+          type: "negative"
+        })
       }
   }
 
@@ -102,7 +105,10 @@ export default class PostCommentComponent extends Vue {
           Vue.set(this.comments[i], "children", response.data.children)
         }
       } catch (error) {
-        
+        this.$q.notify({
+          message: "获取评论回复失败",
+          type: "negative"
+        })
       }
     }
   }
@@ -131,7 +137,10 @@ export default class PostCommentComponent extends Vue {
         }
       }
     } catch (error) {
-      
+        this.$q.notify({
+          message: "评论失败",
+          type: "negative"
+        })
     }
     this.cancelComment()
   }

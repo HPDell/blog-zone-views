@@ -99,7 +99,11 @@ export default class PostComponent extends Vue {
         this.renderContent();
       }
     } catch (error) {
-      console.log("getSaying error:", error);
+      console.log("getPost error:", error);
+        this.$q.notify({
+          message: "获取文章失败",
+          type: "negative"
+        })
     }
   }
 
@@ -123,7 +127,10 @@ export default class PostComponent extends Vue {
         })
       }
     } catch (error) {
-      
+        this.$q.notify({
+          message: "已取消删除",
+          type: "positive"
+        })
     }
   }
 
