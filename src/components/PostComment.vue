@@ -42,7 +42,7 @@
         </q-item-main>
       </q-item>
     </template>
-    <template>
+    <template v-else>
       <q-item>
         <q-item-main>
           登陆后方可进行评论和回复
