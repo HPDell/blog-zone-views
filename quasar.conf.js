@@ -115,14 +115,14 @@ module.exports = function (ctx) {
       open: true, // opens browser window automatically,
       proxy: {
         '/api': {
-          target: "https://zone.huyg.site/",
+          target: "http://localhost:3000/",
           changeOrigin: true,
           pathRewrite: {
             '^/api': '/api'
           }
         },
         '/login': {
-          target: "https://zone.huyg.site/",
+          target: "http://localhost:3000/",
           changeOrigin: true,
           pathRewrite: {
             '^/login': '/login'

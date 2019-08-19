@@ -102,10 +102,16 @@ export default class SayingComponent extends Vue {
         let response = await Axios.delete(`/api/saying/${this.id}/`);
         this.$emit("saying-deleted");
       } catch (error) {
-        
+        this.$q.notify({
+          message: "删除微文失败",
+          type: "negative"
+        })
       }
     } catch (error) {
-      
+        this.$q.notify({
+          message: "已取消删除",
+          type: "positive"
+        })
     }
   }
 
