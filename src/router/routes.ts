@@ -40,6 +40,26 @@ const routes: RouteConfig[] = [
         component: () => import('components/Post.vue')
       }]
     }]
+  },
+  {
+    path: "/login-page",
+    name: "login",
+    component: () => import('pages/Login.vue')
+  },
+  {
+    path: "/register-page",
+    name: "register",
+    component: () => import('pages/Register.vue')
+  },
+  {
+    path: "/refresh",
+    name: "refresh",
+    component: () => import('pages/Refresh.vue')
+  },
+  {
+    path: "*",
+    name: "404",
+    component: () => import('pages/Error404.vue')
   }
 ]
 

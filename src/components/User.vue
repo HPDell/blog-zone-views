@@ -16,38 +16,12 @@
     <q-item-side right>
       <q-btn-group flat>
         <q-btn flat label="注销" color="white" @click="logout" v-if="$store.state.userModule.token"></q-btn>
-        <q-btn flat label="登录" color="white" @click="openLoginDialog" v-else></q-btn>
+        <template v-else>
+          <q-btn flat label="登录" color="white" @click="openLoginPage"></q-btn>
+          <q-btn flat label="注册" color="white" @click="openRegisterPage"></q-btn>
+        </template>
       </q-btn-group>
     </q-item-side>
-    <q-modal v-model="loginModelOpened" position="top">
-      <q-card>
-        <q-card-title>登录</q-card-title>
-        <q-list link>
-          <q-item tag="label">
-            <q-item-side>用户名</q-item-side>
-            <q-item-main>
-              <q-input type="text" v-model="username"></q-input>
-            </q-item-main>
-          </q-item>
-          <q-item tag="label">
-            <q-item-side>密码　</q-item-side>
-            <q-item-main>
-              <q-input type="password" v-model="password"></q-input>
-            </q-item-main>
-          </q-item>
-          <q-item tag="label">
-            <q-item-side>记住我</q-item-side>
-            <q-item-main>
-              <q-checkbox v-model="remember"></q-checkbox>
-            </q-item-main>
-          </q-item>
-        </q-list>
-        <q-card-actions>
-          <q-btn flat label="登录" @click="login"></q-btn>
-          <q-btn flat label="取消" @click="closeLoginDialog"></q-btn>
-        </q-card-actions>
-      </q-card>
-    </q-modal>
   </q-item>
 </template>
 
@@ -61,18 +35,19 @@ import { UserInfo } from "../model/UserInfo";
 export default class UserComponent extends Vue {
   loginModelOpened: boolean = false;
 
-  username: string = "";
-  password: string = "";
-  remember: boolean = false;
-
   owner = this.$package.meta.owner;
   description = this.$package.meta.description;
 
-  openLoginDialog () {
-    this.loginModelOpened = true;
+  openLoginPage () {
+    this.$router.push({
+      name: "login"
+    })
   }
-  closeLoginDialog () {
-    this.loginModelOpened = false;
+
+  openRegisterPage () {
+    this.$router.push({
+      name: "register"
+    })
   }
 
   avatar: string = "/login/avatar/avatar.jpg";
@@ -85,35 +60,6 @@ export default class UserComponent extends Vue {
   //     return "statics/quasar-logo.png";
   //   }
   // }
-
-  async login () {
-    try {
-      let response = await Axios.post<UserInfo>("/login/", {
-        username: this.username,
-        password: this.password
-      });
-      if (response.data) {
-        this.$q.notify({
-          message: `登录成功`,
-          type: "positive",
-          position: "top"
-        });
-        this.$store.commit("updateUser", response.data);
-        if (this.remember) {
-          localStorage.setItem("remember", `${this.remember}`);
-          localStorage.setItem("token", response.data.token);
-        }
-        this.closeLoginDialog();
-      }
-    } catch (error) {
-      this.$q.notify({
-        message: `登录失败`,
-        type: "negative",
-        position: "top"
-      });
-      this.closeLoginDialog();
-    }
-  }
 
   async autoLogin () {
     if (localStorage.getItem("remember") === "true") {
@@ -139,6 +85,9 @@ export default class UserComponent extends Vue {
     localStorage.setItem("remember", "false");
     localStorage.setItem("token", "");
     this.$store.commit("logout");
+    this.$router.push({
+      name: "refresh"
+    })
   }
 
   async mounted () {

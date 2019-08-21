@@ -24,7 +24,7 @@
           </q-list>
         </q-item-main>
       </q-item>
-      <q-item :key="`newcomment-${comment.id}`" v-if="$store.state.userModule.canEdit && replyRoot == comment.id">
+      <q-item :key="`newcomment-${comment.id}`" v-if="$store.state.userModule.canComment && replyRoot == comment.id">
         <q-item-side></q-item-side>
         <q-item-main class="flex-row">
           <q-input class="flex-item-fill" stack-label="添加回复" v-model="replyContent"></q-input>
@@ -33,7 +33,7 @@
         </q-item-main>
       </q-item>
     </template>
-    <template v-if="$store.state.userModule.canEdit">
+    <template v-if="$store.state.userModule.canComment">
       <q-item label v-if="replyRoot == 'post'">
         <q-item-main class="flex-row">
           <q-input class="flex-item-fill" stack-label="添加评论" v-model="replyContent"></q-input>

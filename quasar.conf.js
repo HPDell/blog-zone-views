@@ -127,7 +127,7 @@ module.exports = function (ctx) {
           pathRewrite: {
             '^/login': '/login'
           }
-        },
+        }
       }
     },
     // framework: 'all' --- includes everything; for dev only!
@@ -183,6 +183,7 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QTabs',
+        'QUploader'
       ],
       directives: [
         'Ripple'
