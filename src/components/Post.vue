@@ -25,7 +25,7 @@
                 <span class="q-mr-lg">{{ post.tags.map(item => item.name).join(", ") }}</span>
               </div> -->
             </div>
-            <div class="row" slot="right" v-if="$store.state.userModule.canEdit">
+            <div class="row" slot="right" v-if="$store.state.userModule.canEdit && editable">
               <q-btn icon="edit" flat round dense class="float-right" color="primary" @click="editPost"></q-btn>
               <q-btn icon="delete" flat round dense class="float-right" color="negative" @click="deletePost"></q-btn>
             </div>
@@ -66,6 +66,12 @@ export default class PostComponent extends Vue {
     children: []
   };
   markedContent: string = "";
+
+  
+  public get editable() : boolean {
+    return this.post.editable;
+  }
+  
 
   renderContent () {
     if (this.post.content) {

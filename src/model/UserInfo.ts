@@ -4,4 +4,6 @@ export class UserInfo {
     description: string;
     token: string;
     avatar: string;
+    canEdit: boolean;
+    canComment: boolean;
 }

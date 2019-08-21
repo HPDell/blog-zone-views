@@ -10,6 +10,7 @@ export class Post {
     category: Category = new Category();
     cover: string;
     comments: Comment[];
+    editable: boolean;
 
     constructor() {
         this.tags = [];

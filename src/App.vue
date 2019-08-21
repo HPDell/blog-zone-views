@@ -19,4 +19,7 @@ export default {
 </script>
 
 <style>
+html, body, #q-app {
+  height: 100%;
+}
 </style>
