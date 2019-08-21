@@ -55,11 +55,6 @@ const routes: RouteConfig[] = [
     path: "/refresh",
     name: "refresh",
     component: () => import('pages/Refresh.vue')
-  },
-  {
-    path: "*",
-    name: "404",
-    component: () => import('pages/Error404.vue')
   }
 ]
 

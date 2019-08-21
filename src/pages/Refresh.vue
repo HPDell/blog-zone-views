@@ -17,7 +17,7 @@ import Axios from "axios";
 import { UserInfo } from "../model/UserInfo";
 
 @Component
-export default class LoginPage extends Vue {
+export default class RefreshPage extends Vue {
   username: string = "";
   password: string = "";
   remember: boolean = false;
