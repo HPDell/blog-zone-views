@@ -136,13 +136,13 @@ export default class PostCommentComponent extends Vue {
           rootComment.children = rootComment.children.concat(response.data);
         }
       }
+      this.cancelComment()
     } catch (error) {
         this.$q.notify({
           message: "评论失败",
           type: "negative"
         })
     }
-    this.cancelComment()
   }
 
   cancelComment () {
